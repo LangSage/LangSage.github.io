@@ -1,11 +1,150 @@
-<!doctype html>
-<html lang="ru">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title></title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Language Education</title>
+  <style>
+    /* Common styles for all screen sizes */
+    body {
+      font-family: Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    header {
+      background-color: #ff6600;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      margin: 20px;
+    }
+
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #ff6600;
+      text-decoration: none;
+      padding: 5px;
+    }
+
+    .box {
+      background-color: #fff;
+      border: 2px solid #ff6600;
+      padding: 20px;
+    }
+
+    .box h2 {
+      color: #ff6600;
+    }
+.lock {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      background-image: url("https://www.svgrepo.com/show/99424/lock.svg"); /* Replace "lock.png" with the path to your lock image */
+      background-size: cover;
+         margin-right: 5px;
+}
+  footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+footer p {
+  margin: 0;
+}
+
+    /* Styles for small screens */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 24px;
+      }
+
+      nav ul li {
+        display: block;
+        margin-bottom: 10px;
+      }
+    }
+
+    /* Styles for medium screens */
+    @media (min-width: 601px) and (max-width: 1024px) {
+      header h1 {
+        font-size: 32px;
+      }
+    }
+
+    /* Styles for large screens */
+    @media (min-width: 1025px) {
+      header h1 {
+        font-size: 48px;
+      }
+    }
+  </style>
 </head>
 <body>
-123  
+  <header>
+    <h1>Language Education</h1>
+  </header>
+
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="#" onclick="showPopup(event)"><span class="lock"></span>Books</a></li>
+        <li><a href="#" onclick="showPopup(event)"><span class="lock"></span>Stories</a></li>
+        <li><a href="#" onclick="showPopup(event)"><span class="lock"></span>Videos</a></li>
+      </ul>
+    </nav>
+    <div class="box">
+      <h2>Our Future</h2>
+
+       <p>In the year 2️⃣0️⃣5️⃣0️⃣, technology will have advanced to unimaginable heights. ✈️ 🚘 will be a common sight in the 🎿, effortlessly gliding through the air. 👥 will rely on teleportation devices to instantly transport themselves from 1️⃣ place to another, eliminating the need for long ➕ tiring commutes.</p>
+
+<p>🤖 will have become an integral § of 👥⬅️ daily 🧬. They will 🐕‍🦺 👥⬅️ with household chores, 🎭 complex surgeries with precision, ➕ even provide companionship to those in need. Artificial intelligence will have evolved to the 👈 where 🤖 will possess human-like emotions ➕ empathy.</p>
+
+<p>⚕️ breakthroughs will revolutionize 🧑‍⚕️. 👨‍🔬 will have discovered cures for diseases that were 🔂 considered incurable. Lifespan will have significantly increased, allowing 👥 to live well beyond a 💯 years. Genetic 🧑‍🔬 will enable individuals to customize their physical attributes ➕ eliminate hereditary health risks.</p>
+
+<p>Education will have undergone a drastic transformation. Virtual reality will be integrated into classrooms, providing immersive learning experiences. 👨‍🎓 will have ♿️ to 🧑 digital tutors that adapt to their individual learning styles. Distance learning will become the norm, with 👨‍🎓 attending lectures ➕ participating in discussions from the comfort of their own 🏠.</p>
+
+<p>Renewable energy sources will dominate the 🗺's power supply. Solar panels ➕ 🌬 turbines will be omnipresent, harnessing the natural ∈ to generate 🪥 ➕ sustainable 🔌. Fossil ⛽️ will be a thing of the past, as environmentally friendly alternatives take precedence.</p>
+
+<p>🛰 exploration will have reached 🆕 frontiers. Humans will have established colonies on Mars, paving the way for interplanetary 🚕➡️. 👨‍🚀 will embark on missions to explore distant galaxies, unraveling the mysteries of the universe.</p>
+
+<p>In conclusion, the future 🧑‍🤝‍🧑 immense possibilities ➕ advancements. From futuristic technologies to ⚕️ breakthroughs, 👥⬅️ 🧬 are ∈ to be transformed in ways 👥⬅️ 🥫 only dream of. The simple future tense allows 👥⬅️ to envision ➕ anticipate these exciting 🧑‍💻 that 🤥 ahead.</p>
+
+  </div>
+      <br>
+      <br><br>
+
+  <footer>
+    <p>All rights reserved &copy; 2023 Language Education | CEO: Andy Foster</p>
+  </footer>
+
+  <script>
+    function showPopup(event) {
+      event.preventDefault(); // Prevents the default link behavior
+      var name = prompt("Please enter your name:");
+      if (name) {
+        alert("Sorry, " + name + ", but you are not in the list" + ".");
+      }
+    }
+  </script>
 </body>
 </html>

@@ -1,154 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Language Education</title>
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
-  <style>
-    /* Common styles for all screen sizes */
-   body {
-      font-family: 'Comic Neue', cursive;
-      margin: 0;
-      padding: 0;
-      font-size: 16px;
-    }
-
-    header {
-      background-color: #ff6600;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .container {
-      margin: 20px;
-    }
-
-    nav ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    nav ul li {
-      display: inline-block;
-      margin-right: 10px;
-    }
-
-    nav ul li a {
-      color: #ff6600;
-      text-decoration: none;
-      padding: 5px;
-    }
-
-    .box {
-      background-color: #fff;
-      border: 2px solid #ff6600;
-      padding: 20px;
-    }
-
-    .box h2 {
-      color: #ff6600;
-    }
-
-    .lock {
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      background-image: url("https://www.svgrepo.com/show/99424/lock.svg"); /* Replace "lock.png" with the path to your lock image */
-      background-size: cover;
-      margin-right: 5px;
-    }
-
-    footer {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-    }
-
-    footer p {
-      margin: 0;
-    }
-
-    /* Styles for small screens */
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 24px;
-      }
-
-      nav ul li {
-        display: block;
-        margin-bottom: 10px;
-      }
-    }
-
-    /* Styles for medium screens */
-    @media (min-width: 601px) and (max-width: 1024px) {
-      header h1 {
-        font-size: 32px;
-      }
-    }
-
-    /* Styles for large screens */
-    @media (min-width: 1025px) {
-      header h1 {
-        font-size: 48px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <header>
-    <h1>Language Education</h1>
-  </header>
-
-  <div class="container">
-    <nav>
-      <ul>
-        <li><a href="#" onclick="showPopup(event)"><span class="lock"></span>Books</a></li>
-        <li><a href="#" onclick="showPopup(event)"><span class="lock"></span>Stories</a></li>
-        <li><a href="#" onclick="showPopup(event)"><span class="lock"></span>Videos</a></li>
-      </ul>
-    </nav>
-    <div class="box">
-      <h2>Our Future</h2>
-<div>  
-<p>Hallo! Mein Name ist Lisa. Ich bin 25 Jahre alt und ich komme aus Deutschland. Ich liebe💗 es, Bücher📚 zu lesen und im Park spazieren zu gehen.🚶‍♂️</p>
-<p></p>
-<p>In meiner Freizeit⌚ treffe ich gerne meine Freunde🤝 und wir gehen🚶‍♀️ zusammen ins Kino🎥 oder essen🍔🍕 in einem Restaurant. Ich mag auch Tiere🐶🐱, besonders Hunde🐶. Ich habe einen kleinen Hund namens Max.</p>
-<p></p>
-<p>Ich arbeite als Lehrerin👩‍🏫 an einer Grundschule und ich liebe es, mit Kindern👶 zu arbeiten. Es macht mir Spaß😊, ihnen neue Dinge beizubringen und ihre Entwicklung zu sehen.</p>
-<p></p>
-<p>In meiner Familie sind wir fünf5️⃣ Personen: meine Eltern, mein Bruder, meine Schwester und ich. Wir verbringen gerne Zeit⏲ miteinander und machen Ausflüge in die Natur.🏞🌲🗻</p>
-<p></p>
-<p>Ich spreche auch Englisch und ein bisschen Französisch. Ich mag💗 es, neue Sprachen zu lernen📖, weil es mein Gehirn🧠 herausfordert und mir neue Möglichkeiten eröffnet.📭</p>
-<p></p>
-
-
-
-      <br>
-      <br><br>
-
-      <footer>
-        <p>All rights reserved &copy; 2023 LangSage Andy Foster</p>
-      </footer>
-
-      <script>
-        function showPopup(event) {
-          event.preventDefault(); // Prevents the default link behavior
-          var name = prompt("Please enter your name:");
-          if (name) {
-            alert("Sorry, " + name + ", but you are not in the list" + ".");
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-in Script</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
-      </script>
-</body>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .message {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden; /* Add this to clear the floats */
+            display: flex; /* Add this to use flexbox */
+            align-items: center; /* Add this to vertically center items */
+        }
+        .message img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .message p {
+            margin: 0;
+        }
+        .speaker-icon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            margin-left: auto; /* Add this to push the icon to the right */
+        }
+    </style>
+</head>
+<body>
 
+<audio id="audioPlayer" src="1 Good morning.mp3"></audio>
+
+<div class="container">
+    <div class="message">
+        <img src="staff_picture.jpg" alt="Staff Picture">
+        <p>Staff: Good morning, welcome to [Hotel Name]. How may I assist you today?</p>
+        <img src="speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio()">
+    </div><div class="message">
+        <img src="staff_picture.jpg" alt="Staff Picture">
+        <p>Staff: Good morning, welcome to [Hotel Name]. How may I assist you today?</p>
+        <img src="speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio()">
+    </div><div class="message">
+        <img src="staff_picture.jpg" alt="Staff Picture">
+        <p>Staff: Good morning, welcome to [Hotel Name]. How may I assist you today?</p>
+        <img src="speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio()">
+    </div>
+
+    <!-- More message divs here -->
+
+</div>
+
+<script>
+    function playAudio() {
+        var audio = document.getElementById("audioPlayer");
+        audio.play();
+    }
+</script>
+
+</body>
 </html>

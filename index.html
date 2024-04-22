@@ -41,23 +41,187 @@
             cursor: pointer;
             margin-left: auto; /* Add this to push the icon to the right */
         }
+        .top-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .top-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+        }
+        .top-buttons button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
 
+<div class="top-buttons">
+    <button onclick="window.location.href='index.html'">Check-in</button>
+    <button onclick="window.location.href='checkout.html'">Check-out</button>
+    <button onclick="window.location.href='booking.html'">Booking</button>
+</div>
+
 <div class="container">
+
     <div class="message">
-        <img src="staff_picture.png" alt="Staff Picture">
-        <p>Staff: Good morning, welcome to [Hotel Name]. How may I assist you today?</p>
-        <img src="speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('1 Good morning.mp3')">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Good morning, welcome to [Hotel Name]. How may I assist you today?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/1 Good morning.mp3')">
     </div>
     <div class="message">
-        <img src="guest_picture.png" alt="Staff Picture">
-        <p>Staff: Good morning, welcome to [Hotel Name]. How may I assist you today?</p>
-        <img src="speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('3 Certainly, Patrick.mp3')">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>Check in please.</p>
+<!--        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/1 Good morning.mp3')">-->
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Of course, may I have your name for the reservation, please?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/2.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>Patrick.</p>
+<!--        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/1 Good morning.mp3')">-->
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Certainly, Patrick, welcome to our hotel! We are glad to see you here. Do you have a reservation?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/3.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>Yes.</p>
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Could you please give me your passport?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/4.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>Sure.</p>
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Thank you. Let's check your reservation information. You reserved a Comfort room from the first to the fifth of May for one guest with breakfast included. Is that correct?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/5.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>Yes!.</p>
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>May I  copy your passport?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/6.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>Yes, if you need it, sure</p>
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>So, how was your trip to our hotel?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/7.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>It was good, but I feel a little tired.</p>
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>I understand, I’ll try to check you in as quickly as possible!</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/8.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>Thanks.</p>
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Here is your passport. Could you please read our hotel policy and sign here?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/9.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>Ready.</p>
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Thank you very much!</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/10.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Patrick, how would you like to guarantee your payment?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/11.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>With a credit card.</p>
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Could you please give me your credit card?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/12.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>Yes.</p>
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Thank you. You can take your card back.</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/13.mp3')">
     </div>
 
+<!--    *(Information about the room)*-->
+<!--*(Information about the hotel)*-->
+<div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Breakfast is included in your accommodation. It is served from 7 to 11 in the morning on the first floor. Also, you can visit our restaurant. The reception desk is open 24/7. If you have any questions, you can contact us anytime.</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/15.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Here is your key. Your room is on the second floor to the left of the lift.</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/16.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Patrick, do you need help with your luggage?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/17.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>Yes please.</p>
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>May I help you with anything else?</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/18.mp3')">
+    </div>
+    <div class="message">
+        <img src="img/guest_picture.png" alt="Staff Picture">
+        <p>Thank you, I am good.</p>
+    </div>
+    <div class="message">
+        <img src="img/staff_picture.png" alt="Staff Picture">
+        <p>Thank you for choosing [Hotel Name]. Have a nice day!</p>
+        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/19.mp3')">
+    </div>
+
+
+
     <!-- More message divs here -->
+
 
 </div>
 
@@ -70,6 +234,3 @@
 
 </body>
 </html>
-
-
-

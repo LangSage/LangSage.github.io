@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-in Script</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .message {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden; /* Add this to clear the floats */
+            display: flex; /* Add this to use flexbox */
+            align-items: center; /* Add this to vertically center items */
+        }
+        .message img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .message p {
+            margin: 0;
+        }
+        .speaker-icon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            margin-left: auto; /* Add this to push the icon to the right */
+        }
+        .top-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .top-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+        }
+        .top-buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-buttons">
+    <button onclick="window.location.href='index.html'">Check-in</button>
+    <button onclick="window.location.href='checkout.html'">Check-out</button>
+    <button onclick="window.location.href='booking.html'">Booking</button>
+</div>
+
+<div class="container">
+ <div class="message">
+<!--        <img src="img/staff_picture.png" alt="Staff Picture">-->
+       <p>Not available yet! Sorry </p>
+<!--        <img src="img/speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('audio/1 Good morning.mp3')">-->
+    </div>
+    <!-- More message divs here -->
+
+</div>
+
+<script>
+    function playAudio(audioFile) {
+        var audio = new Audio(audioFile);
+        audio.play();
+    }
+</script>
+
+</body>
+</html>

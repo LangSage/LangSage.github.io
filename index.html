@@ -45,37 +45,31 @@
 </head>
 <body>
 
-<audio id="audioPlayer" src="1 Good morning.mp3"></audio>
-
 <div class="container">
     <div class="message">
         <img src="staff_picture.png" alt="Staff Picture">
         <p>Staff: Good morning, welcome to [Hotel Name]. How may I assist you today?</p>
-        <img src="speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio()">
+        <img src="speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('1 Good morning.mp3')">
     </div>
     <div class="message">
         <img src="guest_picture.png" alt="Staff Picture">
         <p>Staff: Good morning, welcome to [Hotel Name]. How may I assist you today?</p>
-        <img src="speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio()">
+        <img src="speaker_icon.png" alt="Listen" class="speaker-icon" onclick="playAudio('3 Certainly, Patrick.mp3')">
     </div>
-
-
-
-
-
-
-
 
     <!-- More message divs here -->
 
 </div>
 
 <script>
-    function playAudio() {
-        var audio = document.getElementById("audioPlayer");
+    function playAudio(audioFile) {
+        var audio = new Audio(audioFile);
         audio.play();
     }
 </script>
 
 </body>
 </html>
+
+
+

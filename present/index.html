@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Веб-технологии для преподавателя СПО: практика и возможности</title>
+<style>
+:root{
+  --bg:#0b1220; --card:#111d33; --text:#f4f7fb; --muted:#c5d3e7; --accent:#78d6ff; --accent2:#ffd166; --green:#7df0aa; --red:#ff8b8b;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;overflow:hidden}
+body{background:radial-gradient(circle at 20% 10%,#18335c 0,#0b1220 35%,#050812 100%)}
+.slide{display:none;width:100vw;height:100vh;padding:5.2vh 6vw;position:relative}
+.slide.active{display:flex;flex-direction:column;justify-content:center}
+h1{font-size:4.85vw;line-height:1.04;margin:0 0 2.2vh;font-weight:900;max-width:1240px}
+h2{font-size:3.45vw;line-height:1.08;margin:0 0 2.8vh;font-weight:900;max-width:1260px}
+h3{font-size:1.65vw;margin:0 0 .7vh;color:var(--accent2)}
+p,li{font-size:1.52vw;line-height:1.36;color:var(--muted)}
+ul{margin:0;padding-left:2vw}
+.big{font-size:2.02vw;color:var(--text);max-width:1220px;line-height:1.28}
+.small{font-size:1.12vw;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4vw}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2vw}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1vw}
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:1.25vw;padding:1.4vw;box-shadow:0 15px 45px rgba(0,0,0,.25)}
+.card p{margin:.5vh 0 0}
+.icon{font-size:2.6vw;margin-bottom:.7vh}
+.key{display:inline-block;background:#eef6ff;color:#091322;border-radius:.55vw;padding:.18vw .62vw;margin:.08vw;font-weight:900;font-size:1.28vw;box-shadow:inset 0 -3px 0 rgba(0,0,0,.14)}
+.demo{font-size:2.15vw;background:rgba(120,214,255,.12);border-left:.45vw solid var(--accent);padding:1.25vw;border-radius:.9vw;color:var(--text);margin-top:2vh;max-width:1200px}
+.quote{font-size:2.45vw;line-height:1.16;color:#fff;max-width:1180px;border-left:.5vw solid var(--accent2);padding-left:1.8vw}
+.footer{position:absolute;left:6vw;bottom:2.5vh;color:#8da0bb;font-size:1vw}
+.num{position:absolute;right:3.5vw;bottom:2.5vh;color:#8da0bb;font-size:1vw}
+.table{width:100%;border-collapse:separate;border-spacing:0 .65vw}
+.table td{font-size:1.32vw;padding:.88vw;background:rgba(255,255,255,.07);vertical-align:top}
+.table td:first-child{border-radius:.8vw 0 0 .8vw;color:#fff;font-weight:800;width:24%}
+.table td:last-child{border-radius:0 .8vw .8vw 0;color:var(--muted)}
+.progress{position:absolute;left:0;bottom:0;height:.5vh;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%}
+.two{display:grid;grid-template-columns:1.05fr .95fr;gap:2.6vw;align-items:center}
+.center{text-align:center;align-items:center}
+.pill{font-size:1.25vw;display:inline-block;margin:.28vw;padding:.46vw .82vw;background:rgba(255,255,255,.08);border-radius:100px;border:1px solid rgba(255,255,255,.12)}
+.warn{background:rgba(255,139,139,.14);color:var(--red)}
+.wide-image{width:100%;height:67vh;object-fit:contain;border-radius:1.3vw;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 50px rgba(0,0,0,.28)}
+.placeholder{width:100%;height:67vh;border-radius:1.3vw;border:2px dashed rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;flex-direction:column;background:rgba(255,255,255,.04)}
+.placeholder .ph1{font-size:4vw;font-weight:800;color:var(--text);margin-bottom:1vh}
+.placeholder .ph2{font-size:1.6vw;color:var(--muted)}
+.note{margin-top:1.2vh;font-size:1.2vw;color:#9fb0c6;text-align:center}
+@media print{body{overflow:auto}.slide{display:flex;page-break-after:always}.progress{display:none}}
+</style>
+</head>
+<body>
+
+<section class="slide active center">
+  <h1>Веб-технологии для преподавателя СПО: практика и возможности</h1>
+  <p class="big">От простых повседневных приёмов — к цифровым инструментам, которые экономят время, снижают нагрузку и помогают лучше организовать обучение.</p>
+  <div class="demo">Главная мысль: цифровые инструменты полезны тогда, когда они уменьшают рутину и дают преподавателю больше времени на основную работу.</div>
+</section>
+
+<section class="slide">
+  <h2>Что это даёт преподавателю</h2>
+  <div class="grid3">
+    <div class="card"><div class="icon">⏱️</div><h3>Сокращает время</h3><p>Меньше ручных действий: искать ссылки, копировать одни и те же комментарии, заново собирать тесты и материалы.</p></div>
+    <div class="card"><div class="icon">🧩</div><h3>Снижает стресс</h3><p>Когда есть понятные приёмы и готовые инструменты, работа идёт спокойнее и предсказуемее.</p></div>
+    <div class="card"><div class="icon">🎯</div><h3>Приносит больше пользы</h3><p>Освобождается время на объяснение, обратную связь, организацию группы и сопровождение студентов.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Буфер обмена: маленький приём, который экономит часы</h2>
+  <div class="two">
+    <div>
+      <p class="big"><span class="key">Win</span> + <span class="key">V</span> открывает историю скопированного текста.</p>
+      <ul>
+        <li>часто используемые комментарии к работам;</li>
+        <li>ссылки на задания, документы и сайты;</li>
+        <li>типовые инструкции для студентов;</li>
+        <li>шаблоны сообщений в чатах и по почте.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Примеры того, что удобно хранить</h3>
+      <p>«Работа принята, но нужно исправить оформление»</p>
+      <p>«Добавьте вывод и проверьте таблицу»</p>
+      <p>«Ссылка на задание»</p>
+      <p>«Срок сдачи продлён до пятницы»</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Клавиши, которые действительно ускоряют работу</h2>
+  <table class="table">
+    <tr><td><span class="key">Ctrl</span> + <span class="key">L</span></td><td>Сразу перейти в строку адреса: быстро вставить, скопировать или отправить ссылку.</td></tr>
+    <tr><td><span class="key">Ctrl</span> + <span class="key">T</span></td><td>Открыть новую вкладку.</td></tr>
+    <tr><td><span class="key">Ctrl</span> + <span class="key">W</span></td><td>Закрыть текущую вкладку.</td></tr>
+    <tr><td><span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">T</span></td><td>Вернуть случайно закрытую вкладку.</td></tr>
+    <tr><td><span class="key">Ctrl</span> + <span class="key">F</span></td><td>Найти слово на странице, в документе или PDF.</td></tr>
+    <tr><td><span class="key">Alt</span> + <span class="key">Tab</span></td><td>Быстро переключаться между окнами: например, между браузером, документом, журналом и презентацией.</td></tr>
+  </table>
+</section>
+
+<section class="slide center">
+  <h2>Пример экрана</h2>
+  <img class="wide-image" src="imgs/example1.jpg" alt="example1" />
+  <div class="note">Пример 1: быстрый переход к строке адреса и работа со вкладками.</div>
+</section>
+
+<section class="slide">
+  <h2>Скриншот — это быстрый рабочий материал</h2>
+  <div class="grid3">
+    <div class="card"><div class="icon">✂️</div><h3><span class="key">Win</span> + <span class="key">Shift</span> + <span class="key">S</span></h3><p>Позволяет быстро вырезать нужную часть экрана.</p></div>
+    <div class="card"><div class="icon">📌</div><h3>Пошаговое объяснение</h3><p>Можно показать студентам или коллегам, куда нажать и что открыть.</p></div>
+    <div class="card"><div class="icon">🖼️</div><h3>Основа для задания</h3><p>Скрин сайта, формы, графика, ошибки в документе или таблицы уже становится учебным материалом.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Google Формы: тесты и опросы без бумажной рутины</h2>
+  <div class="grid3">
+    <div class="card"><div class="icon">✅</div><h3>Быстрая проверка</h3><p>Для многих типов вопросов можно сразу получить баллы и результаты.</p></div>
+    <div class="card"><div class="icon">📊</div><h3>Сбор ответов</h3><p>Ответы автоматически попадают в таблицу, и их легко анализировать.</p></div>
+    <div class="card"><div class="icon">🔁</div><h3>Повторное использование</h3><p>Один шаблон формы можно быстро адаптировать под новую тему, группу или модуль.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Google Форма из таблицы</h2>
+  <div class="two">
+    <div>
+      <p class="big">Если вопросы уже собраны в Google Sheets, форму можно создать автоматически.</p>
+      <ul>
+        <li>вопросы хранятся в строках;</li>
+        <li>варианты ответов — в столбцах;</li>
+        <li>правильный ответ отмечается отдельно;</li>
+        <li>скрипт собирает готовую форму.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Практический результат</h3>
+      <p>Не нужно вручную добавлять десятки одинаковых вопросов.</p>
+      <p>Преподаватель работает в таблице, а форма создаётся автоматически.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Google Sheets как рабочий центр преподавателя</h2>
+  <div class="grid4">
+    <div class="card"><div class="icon">📚</div><h3>Банк вопросов</h3><p>Задания по темам, модулям и контрольным точкам.</p></div>
+    <div class="card"><div class="icon">🎲</div><h3>Разные варианты</h3><p>Можно быстро выбирать и комбинировать задания.</p></div>
+    <div class="card"><div class="icon">📈</div><h3>Анализ ошибок</h3><p>Сразу видно, какие темы вызывают трудности у группы.</p></div>
+    <div class="card"><div class="icon">👥</div><h3>Учёт работы</h3><p>Посещаемость, сроки сдачи, результаты, комментарии.</p></div>
+  </div>
+</section>
+
+<section class="slide center">
+  <h2>Пример экрана</h2>
+  <img class="wide-image" src="imgs/example2.jpg" alt="example2" />
+</section>
+
+<section class="slide">
+  <h2>ИИ — это помощник для черновика, а не замена преподавателя</h2>
+  <p class="big">Преподаватель задаёт тему и цель, а ИИ помогает быстро получить заготовку: текст, вопросы, таблицу, план, карточки, варианты заданий.</p>
+  <div class="grid3">
+    <div class="card"><h3>Создать</h3><p>текст, план занятия, вопросы, карточки, задания</p></div>
+    <div class="card"><h3>Упростить</h3><p>сложный материал до более понятного уровня</p></div>
+    <div class="card"><h3>Переделать</h3><p>один материал в несколько форматов работы</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Что можно просить у ИИ: примеры для разных дисциплин</h2>
+  <div class="grid">
+    <div class="card"><h3>История / обществознание</h3><p>«Сделай краткий текст по теме и составь 8 вопросов на понимание»</p></div>
+    <div class="card"><h3>Математика</h3><p>«Составь 15 задач по процентам в трёх уровнях сложности»</p></div>
+    <div class="card"><h3>Биология / химия</h3><p>«Сделай таблицу сравнения двух процессов и добавь 5 проверочных вопросов»</p></div>
+    <div class="card"><h3>Литература / русский язык</h3><p>«Составь план анализа текста и критерии проверки ответа»</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>ИИ может анализировать документы и создавать таблицы</h2>
+  <div class="two">
+    <div>
+      <ul>
+        <li>выделить главное из большого документа;</li>
+        <li>сделать краткое содержание;</li>
+        <li>собрать факты в таблицу;</li>
+        <li>сравнить несколько документов или вариантов;</li>
+        <li>составить список замечаний, сроков, задач или критериев.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Где это особенно полезно</h3>
+      <p>рабочие программы, положения, методические материалы, отчёты, критерии оценивания, большие тексты студентов.</p>
+      <p>Важно: итог преподаватель обязательно проверяет сам.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Один материал можно быстро превратить в несколько видов работы</h2>
+  <div class="grid3">
+    <div class="card"><p>Вопросы по содержанию</p></div>
+    <div class="card"><p>Тест с вариантами ответа</p></div>
+    <div class="card"><p>Краткий конспект или план</p></div>
+    <div class="card"><p>Таблица сравнения</p></div>
+    <div class="card"><p>Задание на установление последовательности</p></div>
+    <div class="card"><p>Практическое задание или кейс</p></div>
+  </div>
+  <div class="demo">Один исходный материал превращается в полноценный набор активностей.</div>
+</section>
+
+<section class="slide">
+  <h2>Разные версии для разных студентов</h2>
+  <table class="table">
+    <tr><td>Тем, кому сложно</td><td>Более короткий материал, понятные формулировки, больше опор и подсказок.</td></tr>
+    <tr><td>Основной группе</td><td>Стандартный вариант с обычным объёмом и привычным форматом.</td></tr>
+    <tr><td>Сильным студентам</td><td>Дополнительные задания, открытые вопросы, анализ и аргументация.</td></tr>
+    <tr><td>Отсутствующим</td><td>Самостоятельная версия с чёткой инструкцией, сроком и формой сдачи.</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <h2>Онлайн-задания: когда материал живёт на экране</h2>
+  <div class="grid3">
+    <div class="card"><div class="icon">➡️</div><h3>По одному шагу</h3><p>Студент видит задание поэтапно и лучше удерживает внимание.</p></div>
+    <div class="card"><div class="icon">🔀</div><h3>Перемешивание</h3><p>Вопросы и варианты ответа можно показывать в разном порядке.</p></div>
+    <div class="card"><div class="icon">📱</div><h3>Доступ с телефона</h3><p>Материал должен удобно открываться и проходиться с мобильного устройства.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Не борьба со студентами, а честная практика</h2>
+  <div class="grid">
+    <div class="card"><h3>Что можно использовать</h3><p>разные варианты заданий, поэтапный показ, случайный порядок, ограничения по времени, сохранение прогресса</p></div>
+    <div class="card"><h3>Зачем это нужно</h3><p>чтобы студент выполнял задание самостоятельно, а не просто копировал готовый ответ</p></div>
+  </div>
+  <p class="big">Главный принцип: технологии должны поддерживать учебную дисциплину, а не усложнять жизнь добросовестным студентам.</p>
+</section>
+
+<section class="slide">
+  <h2>ИИ может ошибаться. Проверка обязательна</h2>
+  <div class="grid3">
+    <div class="card warn"><h3>Содержание</h3><p>может быть неполным, неточным или слишком общим</p></div>
+    <div class="card warn"><h3>Факты</h3><p>иногда ИИ путает данные, даты, определения и источники</p></div>
+    <div class="card warn"><h3>Формулировки</h3><p>готовый текст может требовать сокращения, уточнения и адаптации</p></div>
+  </div>
+  <div class="quote">ИИ даёт скорость. Преподаватель даёт качество, точность и смысл.</div>
+</section>
+
+<section class="slide">
+  <h2>Рабочий процесс современного преподавателя</h2>
+  <div class="grid4">
+    <div class="card"><div class="icon">1️⃣</div><h3>Постановка задачи</h3><p>что именно нужно получить</p></div>
+    <div class="card"><div class="icon">2️⃣</div><h3>Черновик</h3><p>ИИ, таблица, форма или шаблон</p></div>
+    <div class="card"><div class="icon">3️⃣</div><h3>Проверка</h3><p>точность, уровень, логика, оформление</p></div>
+    <div class="card"><div class="icon">4️⃣</div><h3>Использование</h3><p>занятие, тест, рассылка, отчёт, онлайн-задание</p></div>
+  </div>
+</section>
+
+<section class="slide center">
+  <h2>Главный вывод</h2>
+  <p class="quote">Лучший результат даёт не отдельная программа, а выстроенная система: простые цифровые приёмы, понятные сервисы и осознанное использование ИИ в ежедневной работе преподавателя.</p>
+  <div class="demo">Начинать лучше с самого практичного: буфер обмена, горячие клавиши, скриншоты, формы и таблицы. После этого уже легче подключать ИИ и более сложные инструменты.</div>
+</section>
+
+<div class="footer">Веб-технологии для преподавателя СПО</div>
+<div class="num"></div>
+<div class="progress"></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let i=0;
+const num=document.querySelector('.num');
+const progress=document.querySelector('.progress');
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+  num.textContent=(i+1)+' / '+slides.length;
+  progress.style.width=((i+1)/slides.length*100)+'%';
+}
+function full(){ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); }
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}
+  if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(i-1)}
+  if(e.key.toLowerCase()==='f') full();
+  if(e.key==='Home') show(0); if(e.key==='End') show(slides.length-1);
+});
+document.addEventListener('click',e=>{ if(e.target.closest('a')) return; show(i+1); });
+show(0);
+</script>
+</body>
+</html>

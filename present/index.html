@@ -58,6 +58,10 @@ ul{margin:0;padding-left:2vw}
 .reference-panel p{font-size:1.25vw;margin:.4vh 0;color:var(--muted)}
 .reference-panel a{color:var(--accent);font-size:1.2vw;font-weight:800;text-decoration:none;overflow-wrap:anywhere}
 .qr-code{width:15vw;height:15vw;max-width:180px;max-height:180px;justify-self:end;border-radius:.8vw;background:#fff;padding:.6vw}
+.qr-slide{gap:2.2vh}
+.qr-large{width:min(48vh,38vw,430px);height:min(48vh,38vw,430px);border-radius:1.1vw;background:#fff;padding:1vw;box-shadow:0 18px 50px var(--image-shadow)}
+.qr-link{font-size:1.7vw;color:var(--accent);font-weight:900;text-decoration:none;overflow-wrap:anywhere}
+.qr-caption{font-size:1.5vw;color:var(--muted);margin:0}
 .theme-toggle{position:fixed;top:16px;right:16px;z-index:30;width:46px;height:46px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--border);background:var(--panel-bg);color:var(--text);font-size:22px;font-weight:900;box-shadow:0 10px 24px var(--shadow);cursor:pointer}
 .theme-toggle:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @media print{body{overflow:auto}.slide{display:flex;page-break-after:always}.progress,.theme-toggle{display:none}}
@@ -268,6 +272,13 @@ ul{margin:0;padding-left:2vw}
     </div>
     <img class="qr-code" src="imgs/spravochnik-qr.png" alt="QR-код страницы справочника" />
   </div>
+</section>
+
+<section class="slide center qr-slide">
+  <h2>Справочник</h2>
+  <p class="qr-caption">Откройте QR-код, чтобы забрать горячие клавиши, ссылки и форму обратной связи.</p>
+  <img class="qr-large" src="imgs/spravochnik-qr.png" alt="QR-код страницы справочника" />
+  <a class="qr-link" href="spravochnik.html">langsage.github.io/present/spravochnik.html</a>
 </section>
 
 <div class="footer">Веб-технологии для преподавателя СПО</div>

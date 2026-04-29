@@ -45,6 +45,10 @@ ul{margin:0;padding-left:2vw}
 .placeholder .ph1{font-size:4vw;font-weight:800;color:var(--text);margin-bottom:1vh}
 .placeholder .ph2{font-size:1.6vw;color:var(--muted)}
 .note{margin-top:1.2vh;font-size:1.2vw;color:#9fb0c6;text-align:center}
+.reference-panel{width:min(980px,100%);display:grid;grid-template-columns:1fr 15vw;gap:1.7vw;align-items:center;margin-top:2vh;padding:1.2vw;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:1.1vw;text-align:left}
+.reference-panel p{font-size:1.25vw;margin:.4vh 0;color:var(--muted)}
+.reference-panel a{color:var(--accent);font-size:1.2vw;font-weight:800;text-decoration:none;overflow-wrap:anywhere}
+.qr-code{width:15vw;height:15vw;max-width:180px;max-height:180px;justify-self:end;border-radius:.8vw;background:#fff;padding:.6vw}
 @media print{body{overflow:auto}.slide{display:flex;page-break-after:always}.progress{display:none}}
 </style>
 </head>
@@ -244,7 +248,14 @@ ul{margin:0;padding-left:2vw}
 <section class="slide center">
   <h2>Главный вывод</h2>
   <p class="quote">Лучший результат даёт не отдельная программа, а выстроенная система: простые цифровые приёмы, понятные сервисы и осознанное использование ИИ в ежедневной работе преподавателя.</p>
-  <div class="demo">Начинать лучше с самого практичного: буфер обмена, горячие клавиши, скриншоты, формы и таблицы. После этого уже легче подключать ИИ и более сложные инструменты.</div>
+  <div class="reference-panel">
+    <div>
+      <h3>Справочник</h3>
+      <p>Горячие клавиши, практические приёмы и ссылки на DeepSeek.</p>
+      <a href="spravochnik.html">langsage.github.io/present/spravochnik.html</a>
+    </div>
+    <img class="qr-code" src="imgs/spravochnik-qr.png" alt="QR-код страницы справочника" />
+  </div>
 </section>
 
 <div class="footer">Веб-технологии для преподавателя СПО</div>

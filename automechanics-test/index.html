@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automechanics Vocabulary Test</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101418;
+      --panel: #171d22;
+      --panel-2: #20272d;
+      --text: #f3f5f2;
+      --muted: #aab3ad;
+      --line: #354049;
+      --accent: #f4c44f;
+      --good: #6bd489;
+      --bad: #ff7676;
+      --blue: #79b8ff;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .top {
+      background: #0c0f12;
+      border-bottom: 1px solid var(--line);
+      padding: 20px;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 46px);
+      letter-spacing: 0;
+    }
+
+    .sub {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0 0;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .stat b { display: block; font-size: 22px; color: var(--accent); }
+    .stat span { color: var(--muted); font-size: 13px; }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 18px;
+      padding: 22px 0 34px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #13181d;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 19px;
+      letter-spacing: 0;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:hover { border-color: var(--accent); }
+    button.primary { background: var(--accent); color: #181103; border-color: var(--accent); font-weight: 700; }
+
+    .quiz { padding: 8px 16px 16px; }
+
+    .question {
+      border-bottom: 1px solid var(--line);
+      padding: 16px 0;
+    }
+
+    .question:last-child { border-bottom: 0; }
+    .q-title { font-size: 17px; line-height: 1.4; margin-bottom: 10px; }
+    .q-title b { color: var(--accent); }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    label.option {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      background: #12171c;
+      border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+      line-height: 1.35;
+    }
+
+    label.option:hover { border-color: var(--blue); }
+    input[type="radio"] { margin-top: 2px; }
+
+    .result {
+      display: none;
+      margin: 0 16px 16px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: #11161a;
+      border-radius: 8px;
+      line-height: 1.5;
+    }
+
+    .result.show { display: block; }
+    .score { font-size: 28px; color: var(--accent); font-weight: 700; }
+    .good { color: var(--good); }
+    .bad { color: var(--bad); }
+
+    .side { display: grid; gap: 18px; align-content: start; }
+    .bank { padding: 12px; max-height: 560px; overflow: auto; }
+    .word {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 8px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .word:last-child { border-bottom: 0; }
+    .word strong { display: block; color: var(--text); }
+    .word span { display: block; color: var(--muted); font-size: 13px; line-height: 1.35; }
+
+    .scenario { padding: 14px 16px 18px; line-height: 1.55; color: var(--muted); }
+    .scenario b { color: var(--text); }
+
+    @media (max-width: 880px) {
+      main { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .options { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <h1>Automechanics Vocabulary Test</h1>
+      <p class="sub">A quick test for the words from Room41 Automechanics lessons 1-4. Choose the correct Russian meaning or the correct workshop word.</p>
+      <div class="stats">
+        <div class="stat"><b id="questionCount">20</b><span>questions</span></div>
+        <div class="stat"><b id="wordCount">30</b><span>study words</span></div>
+        <div class="stat"><b>4</b><span>lesson links used</span></div>
+        <div class="stat"><b id="bestScore">0%</b><span>best score here</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main>
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Student Test</h2>
+          <div class="controls">
+            <button type="button" id="shuffleBtn">New version</button>
+            <button type="button" class="primary" id="checkBtn">Check answers</button>
+          </div>
+        </div>
+        <div class="quiz" id="quiz"></div>
+        <div class="result" id="result"></div>
+      </section>
+
+      <aside class="side">
+        <section class="panel">
+          <div class="panel-head"><h2>Workshop Situation</h2></div>
+          <div class="scenario">
+            <b>Customer:</b> I need fast service today. The wheel is wet and the tire has a cut.<br><br>
+            <b>Mechanic:</b> I must inspect it first. It can be dangerous. I need to check the tire, rim, pressure, and safety risk.
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><h2>Vocabulary Bank</h2></div>
+          <div class="bank" id="bank"></div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    const vocab = [
+      ['brake pads', 'тормозные колодки', '🛑'],
+      ['battery', 'батарея / аккумулятор', '🔋'],
+      ['terminals', 'клеммы', '⚡'],
+      ['tire', 'шина', '🛞'],
+      ['rim', 'диск колеса', '⭕'],
+      ['wheel', 'колесо', '🛞'],
+      ['damaged', 'поврежденный', '💥'],
+      ['cut', 'порез / порезанный', '✂'],
+      ['wet', 'мокрый', '💧'],
+      ['dirty', 'грязный', '🧽'],
+      ['clean', 'чистый', '✨'],
+      ['wide', 'широкий', '↔'],
+      ['heavy', 'тяжелый', '⚖'],
+      ['safety risk', 'риск безопасности', '⚠'],
+      ['dangerous', 'опасный', '⚠'],
+      ['check', 'проверить', '🔍'],
+      ['inspect', 'осматривать', '🔎'],
+      ['measure', 'измерять', '📏'],
+      ['tighten', 'затягивать', '🔧'],
+      ['install', 'устанавливать', '🛠'],
+      ['repair', 'ремонтировать / ремонт', '🔧'],
+      ['mechanic', 'механик', '👨‍🔧'],
+      ['customer', 'клиент', '🧑‍💼'],
+      ['service', 'обслуживание / сервис', '🛠'],
+      ['alignment', 'развал-схождение', '📏'],
+      ['suspension', 'подвеска', '🚗'],
+      ['engine', 'двигатель', '⚙'],
+      ['belt', 'ремень', '🔗'],
+      ['leak', 'утечка', '💧'],
+      ['scanner', 'сканер', '📲'],
+      ['vibration', 'вибрация', '〰'],
+      ['repair order', 'заказ-наряд', '🧾'],
+      ['bill', 'счет', '💵'],
+      ['condition', 'состояние / условие', '📝'],
+      ['pressure', 'давление', '⏲'],
+      ['safe', 'безопасный', '🛡'],
+      ['unsafe', 'небезопасный', '⚠'],
+      ['mistake', 'ошибка', '❌'],
+      ['quickly', 'быстро', '⚡'],
+      ['decide', 'решать', '🤔']
+    ];
+
+    const baseQuestions = [
+      ['What does brake pads mean?', 'тормозные колодки'],
+      ['What does battery mean?', 'батарея / аккумулятор'],
+      ['What does terminals mean?', 'клеммы'],
+      ['What does tire mean?', 'шина'],
+      ['What does rim mean?', 'диск колеса'],
+      ['What does damaged mean?', 'поврежденный'],
+      ['What does wet mean?', 'мокрый'],
+      ['What does safety risk mean?', 'риск безопасности'],
+      ['What does alignment mean?', 'развал-схождение'],
+      ['What does suspension mean?', 'подвеска'],
+      ['What does engine mean?', 'двигатель'],
+      ['What does leak mean?', 'утечка'],
+      ['What does vibration mean?', 'вибрация'],
+      ['What does repair order mean?', 'заказ-наряд'],
+      ['Choose the English word: клиент', 'customer'],
+      ['Choose the English word: механик', 'mechanic'],
+      ['Choose the English word: проверять', 'check'],
+      ['Choose the English word: осматривать', 'inspect'],
+      ['Choose the English word: затягивать', 'tighten'],
+      ['Choose the English word: давление', 'pressure']
+    ];
+
+    const allAnswers = [...new Set(vocab.flatMap(v => [v[0], v[1]]))];
+    let currentQuestions = [];
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function makeOptions(answer) {
+      const sameLanguage = /[а-яё]/i.test(answer);
+      const pool = allAnswers.filter(item => item !== answer && (/[а-яё]/i.test(item) === sameLanguage));
+      return shuffle([answer, ...shuffle(pool).slice(0, 3)]);
+    }
+
+    function renderQuiz() {
+      currentQuestions = shuffle(baseQuestions).map((q, index) => ({ id: index, text: q[0], answer: q[1], options: makeOptions(q[1]) }));
+      document.getElementById('questionCount').textContent = currentQuestions.length;
+      document.getElementById('wordCount').textContent = vocab.length;
+      const quiz = document.getElementById('quiz');
+      quiz.innerHTML = currentQuestions.map((q, i) => `
+        <div class="question">
+          <div class="q-title"><b>${i + 1}.</b> ${q.text}</div>
+          <div class="options">
+            ${q.options.map(option => `
+              <label class="option">
+                <input type="radio" name="q${i}" value="${escapeHtml(option)}">
+                <span>${option}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('result').className = 'result';
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+    }
+
+    function checkAnswers() {
+      let correct = 0;
+      const review = currentQuestions.map((q, i) => {
+        const picked = document.querySelector(`input[name="q${i}"]:checked`);
+        const value = picked ? picked.value : '';
+        const ok = value === q.answer;
+        if (ok) correct++;
+        return `<div class="${ok ? 'good' : 'bad'}">${i + 1}. ${ok ? 'Correct' : 'Check'}: ${q.answer}</div>`;
+      });
+      const pct = Math.round((correct / currentQuestions.length) * 100);
+      const best = Math.max(Number(localStorage.getItem('autoMechBest') || 0), pct);
+      localStorage.setItem('autoMechBest', String(best));
+      document.getElementById('bestScore').textContent = best + '%';
+      const result = document.getElementById('result');
+      result.className = 'result show';
+      result.innerHTML = `<div class="score">${correct}/${currentQuestions.length} (${pct}%)</div><div>${pct >= 80 ? 'Workshop ready.' : 'Review the words, then try a new version.'}</div><hr>${review.join('')}`;
+      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function renderBank() {
+      document.getElementById('bank').innerHTML = vocab.map(v => `
+        <div class="word"><div>${v[2]}</div><div><strong>${v[0]}</strong><span>${v[1]}</span></div></div>
+      `).join('');
+    }
+
+    document.getElementById('shuffleBtn').addEventListener('click', renderQuiz);
+    document.getElementById('checkBtn').addEventListener('click', checkAnswers);
+    document.getElementById('bestScore').textContent = (localStorage.getItem('autoMechBest') || 0) + '%';
+    renderBank();
+    renderQuiz();
+  </script>
+</body>
+</html>

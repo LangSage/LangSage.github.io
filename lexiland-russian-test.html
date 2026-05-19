@@ -1,42 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LexiLand Russian Plan</title>
+<title>LexiLand Russian — план тем</title>
 <style>
-body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:#f6f7fb;color:#182033;line-height:1.55} .wrap{max-width:1100px;margin:auto;padding:18px}.hero{background:#1f456e;color:white;border-radius:26px;padding:34px;margin:12px 0 22px}h1{font-size:clamp(34px,7vw,68px);line-height:1;margin:0 0 12px;letter-spacing:-.05em}.hero p{font-size:20px;max-width:760px;color:#e8eef8}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.card,details{background:white;border:1px solid #dde3f0;border-radius:20px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.06)}summary{font-size:22px;font-weight:850;cursor:pointer}.tag{display:inline-block;background:#eaf2ff;border:1px solid #c8dcfb;border-radius:999px;padding:5px 9px;font-size:13px;font-weight:800;margin:4px}.mvp{background:#e9f8f1;border-color:#bfe9d4;color:#116443}.later{background:#fff8e7;border-color:#ffe0a6;color:#7a4a00}.words{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.word{background:#f8fbff;border:1px solid #dce6f3;border-radius:999px;padding:6px 9px;font-weight:750}.chunk{background:#f8fbff;border:1px solid #dce6f3;border-radius:12px;padding:8px;margin:6px 0;font-weight:750}.section{margin:22px 0}h2{font-size:34px;letter-spacing:-.04em}.small{color:#5d6680}.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}li{margin:5px 0}.btn{display:inline-block;background:#fff;color:#182033;border-radius:999px;padding:11px 15px;font-weight:850;text-decoration:none;margin-right:8px;margin-top:10px}
+:root{
+  --bg:#07080b;
+  --bg-soft:#0d1118;
+  --panel:#111722;
+  --panel-2:#151d2b;
+  --line:#293447;
+  --text:#f3f6fb;
+  --muted:#aeb8ca;
+  --muted-2:#7f8aa0;
+  --accent:#ff8a1f;
+  --accent-2:#ffd166;
+  --green:#42d392;
+  --yellow:#ffc857;
+  --blue:#6aa8ff;
+  --shadow:0 18px 50px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255,138,31,.22), transparent 30%),
+    radial-gradient(circle at top right, rgba(106,168,255,.12), transparent 28%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.55;
+}
+.wrap{max-width:1120px;margin:auto;padding:18px}
+.hero{
+  background:linear-gradient(135deg,#171f2f 0%,#10141d 58%,#221406 100%);
+  color:white;
+  border:1px solid rgba(255,138,31,.35);
+  border-radius:28px;
+  padding:36px;
+  margin:12px 0 22px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  position:relative;
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  right:-90px;
+  top:-90px;
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  background:rgba(255,138,31,.22);
+  filter:blur(3px);
+}
+h1{font-size:clamp(38px,7vw,74px);line-height:.96;margin:0 0 12px;letter-spacing:-.055em;position:relative;z-index:1}
+.hero p{font-size:20px;max-width:800px;color:#dce5f3;position:relative;z-index:1}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.card,details{
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.28);
+}
+details{margin-bottom:12px}
+details[open]{border-color:rgba(255,138,31,.5)}
+summary{font-size:22px;font-weight:850;cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"＋";float:right;color:var(--accent);font-weight:900}
+details[open] summary:after{content:"−"}
+.tag{
+  display:inline-block;
+  background:#1a2537;
+  border:1px solid #34445f;
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:13px;
+  font-weight:850;
+  margin:4px;
+  color:#dbe6f7;
+}
+.mvp{background:rgba(66,211,146,.14);border-color:rgba(66,211,146,.45);color:#8ff0bd}
+.later{background:rgba(255,200,87,.13);border-color:rgba(255,200,87,.48);color:#ffe09a}
+.words{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.word{
+  background:#0c121d;
+  border:1px solid #2b3a52;
+  border-radius:999px;
+  padding:6px 10px;
+  font-weight:780;
+  color:#eef4ff;
+}
+.chunk{
+  background:#0b1019;
+  border:1px solid #2b3a52;
+  border-left:4px solid var(--accent);
+  border-radius:12px;
+  padding:9px 10px;
+  margin:7px 0;
+  font-weight:780;
+  color:#fff7ef;
+}
+.section{margin:24px 0}
+h2{font-size:34px;letter-spacing:-.04em;margin:0 0 10px}.small{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+li{margin:6px 0;color:#d6deeb}
+ul,ol{padding-left:22px}
+.btn{
+  display:inline-block;
+  background:var(--accent);
+  color:#15100a;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;
+  padding:11px 16px;
+  font-weight:900;
+  text-decoration:none;
+  margin-right:8px;
+  margin-top:10px;
+  position:relative;
+  z-index:1;
+  box-shadow:0 10px 24px rgba(255,138,31,.18);
+}
+.btn.secondary{background:#111722;color:#f3f6fb;border-color:#34445f}
+.callout{
+  background:linear-gradient(135deg,rgba(255,138,31,.16),rgba(106,168,255,.08));
+  border:1px solid rgba(255,138,31,.35);
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+b{color:#fff}.accent{color:var(--accent-2)}
+@media (max-width:640px){.wrap{padding:12px}.hero{padding:24px;border-radius:22px}.hero p{font-size:17px}summary{font-size:19px}h2{font-size:28px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header class="hero"><h1>LexiLand Russian</h1><p>Clickable topic plan for a free mobile-first survival vocabulary game. No grammar course. Words are learned through sound, picture, action and real situations.</p><a class="btn" href="#topics">Open topics</a><a class="btn" href="#mvp">MVP levels</a></header>
+<header class="hero">
+  <h1>LexiLand Russian</h1>
+  <p>Кликабельный план тем для бесплатной мобильной игры по русской «лексике выживания». Это не курс грамматики. Слова запоминаются через звук, картинку, действие и реальные ситуации.</p>
+  <a class="btn" href="#topics">Открыть темы</a>
+  <a class="btn secondary" href="#mvp">MVP-уровни</a>
+</header>
+
 <section class="cards">
-<div class="card"><h2>Target</h2><p class="small">Adults who live in a Russian-speaking city and need useful words for daily life.</p></div>
-<div class="card"><h2>Method</h2><p class="small">Audio + picture + action + real situation. Grammar stays hidden inside ready chunks.</p></div>
-<div class="card"><h2>Goal</h2><p class="small">First 100–150 useful words/chunks, enough to start understanding language around them.</p></div>
+  <div class="card"><h2>Для кого</h2><p class="small">Для взрослых, которые живут в русскоязычном городе и нуждаются в полезных словах для обычной жизни.</p></div>
+  <div class="card"><h2>Метод</h2><p class="small">Аудио + картинка + действие + реальная ситуация. Грамматика спрятана внутри готовых фраз и мини-шаблонов.</p></div>
+  <div class="card"><h2>Цель</h2><p class="small">Первые 100–150 полезных слов и фраз, чтобы человек начал понимать язык вокруг себя.</p></div>
 </section>
-<section id="topics" class="section"><h2>Topics</h2><p class="small">Click each topic to open the breakdown.</p>
-<details open><summary>🧭 1. First survival words <span class="tag mvp">MVP</span></summary><p>Purpose: unlock basic meaning before any topic course.</p><div class="words"><span class="word">yes/no</span><span class="word">here/there</span><span class="word">what/where</span><span class="word">can/cannot</span><span class="word">need</span><span class="word">help</span><span class="word">stop/go</span><span class="word">water/food</span></div><div class="chunk">I do not understand.</div><div class="chunk">Help, please.</div><div class="chunk">Repeat, please.</div><ul><li>Introduce with sound, icon and one action.</li><li>Game: hear and tap the object.</li><li>Game: stop/go danger path.</li><li>Game: yes/no choice scene.</li></ul></details>
-<details><summary>➡️ 2. Movement and directions <span class="tag mvp">MVP</span></summary><p>Purpose: make Russian control the character.</p><div class="words"><span class="word">go</span><span class="word">stop</span><span class="word">here</span><span class="word">there</span><span class="word">right</span><span class="word">left</span><span class="word">straight</span><span class="word">back</span><span class="word">fast</span><span class="word">slow</span></div><ul><li>Introduce one command at a time.</li><li>Game: maze controlled by audio commands.</li><li>Game: wrong-turn trap.</li><li>Game: guide another character.</li></ul></details>
-<details><summary>🆘 3. Help and repair phrases <span class="tag mvp">MVP</span></summary><p>Purpose: give the learner power when speech is too fast or unclear.</p><div class="chunk">Help, please.</div><div class="chunk">I do not understand.</div><div class="chunk">Slowly, please.</div><div class="chunk">Show me, please.</div><ul><li>Teach as whole phrases.</li><li>Game: NPC speaks fast; player chooses slow/repeat.</li><li>Game: lost object; player asks to show.</li></ul></details>
-<details><summary>🛒 4. Shop and food <span class="tag mvp">MVP</span></summary><p>Purpose: buy basic food and water.</p><div class="words"><span class="word">bread</span><span class="word">water</span><span class="word">milk</span><span class="word">rice</span><span class="word">meat</span><span class="word">tea</span><span class="word">bag</span></div><div class="chunk">Give me..., please.</div><div class="chunk">How much is it?</div><div class="chunk">Do you need a bag?</div><ul><li>Introduce 6 basic items first.</li><li>Game: basket mission.</li><li>Game: cashier yes/no scene.</li><li>Game: find three items on shelves.</li></ul></details>
-<details><summary>💵 5. Money and prices <span class="tag mvp">MVP</span></summary><p>Purpose: understand prices without a full number course.</p><div class="words"><span class="word">1–10</span><span class="word">20</span><span class="word">50</span><span class="word">100</span><span class="word">200</span><span class="word">500</span><span class="word">1000</span><span class="word">expensive</span><span class="word">cheap</span></div><ul><li>Start with common shop prices.</li><li>Game: hear a price and tap the number.</li><li>Game: pay correct amount.</li><li>Game: match receipt item and price.</li></ul></details>
-<details><summary>🎨 6. Colors and size <span class="tag">Core</span></summary><p>Purpose: choose and describe objects.</p><div class="words"><span class="word">black</span><span class="word">white</span><span class="word">red</span><span class="word">blue</span><span class="word">green</span><span class="word">yellow</span><span class="word">big</span><span class="word">small</span></div><ul><li>Add after shop basics.</li><li>Game: pick the correct object.</li><li>Game: find lost phone/bag by color.</li></ul></details>
-<details><summary>🏙️ 7. City places <span class="tag mvp">MVP</span></summary><p>Purpose: navigate a real city map.</p><div class="words"><span class="word">street</span><span class="word">home</span><span class="word">shop</span><span class="word">pharmacy</span><span class="word">hospital</span><span class="word">bus stop</span><span class="word">entrance</span><span class="word">exit</span><span class="word">toilet</span></div><ul><li>Use one simple city map.</li><li>Game: reach pharmacy, shop, bus stop.</li><li>Game: sign hunt.</li><li>Game: follow street directions.</li></ul></details>
-<details><summary>🚌 8. Transport <span class="tag mvp">MVP</span></summary><p>Purpose: move around by bus, taxi or metro.</p><div class="words"><span class="word">bus</span><span class="word">taxi</span><span class="word">metro</span><span class="word">ticket</span><span class="word">card</span><span class="word">stop</span><span class="word">driver</span><span class="word">enter</span><span class="word">exit</span></div><div class="chunk">I need to go there.</div><div class="chunk">I get out here.</div><ul><li>Game: choose transport.</li><li>Game: get off at the right stop.</li><li>Game: buy/use ticket.</li></ul></details>
-<details><summary>📦 9. Work commands <span class="tag mvp">MVP</span></summary><p>Purpose: understand common action commands.</p><div class="words"><span class="word">work</span><span class="word">break</span><span class="word">start</span><span class="word">finish</span><span class="word">take</span><span class="word">bring</span><span class="word">put</span><span class="word">remove</span><span class="word">open</span><span class="word">close</span></div><ul><li>Teach through object movement.</li><li>Game: bring a box.</li><li>Game: put object in correct place.</li><li>Game: ask to show if command is unknown.</li></ul></details>
-<details><summary>⚠️ 10. Safety words <span class="tag mvp">MVP</span></summary><p>Purpose: understand warning words.</p><div class="words"><span class="word">careful</span><span class="word">dangerous</span><span class="word">hot</span><span class="word">cold</span><span class="word">sharp</span><span class="word">heavy</span><span class="word">slippery</span><span class="word">mask</span><span class="word">gloves</span></div><ul><li>Introduce warnings early.</li><li>Game: quick reaction to warning.</li><li>Game: choose gloves/mask/stop.</li><li>Game: find unsafe action.</li></ul></details>
-<details><summary>🩺 11. Body and pain <span class="tag mvp">MVP</span></summary><p>Purpose: show what hurts.</p><div class="words"><span class="word">head</span><span class="word">throat</span><span class="word">tooth</span><span class="word">stomach</span><span class="word">back</span><span class="word">arm</span><span class="word">leg</span><span class="word">finger</span><span class="word">pain</span></div><div class="chunk">My head hurts.</div><div class="chunk">I feel bad.</div><div class="chunk">I need a doctor.</div><ul><li>Teach the phrase as a template.</li><li>Game: tap pain location.</li><li>Game: doctor asks where it hurts.</li></ul></details>
-<details><summary>💊 12. Pharmacy and clinic <span class="tag">Core</span></summary><p>Purpose: ask for medical help and understand basic health words.</p><div class="words"><span class="word">pharmacy</span><span class="word">doctor</span><span class="word">clinic</span><span class="word">temperature</span><span class="word">cough</span><span class="word">allergy</span><span class="word">medicine</span><span class="word">passport</span></div><ul><li>Build after body and pain.</li><li>Game: choose pharmacy or doctor.</li><li>Game: symptom match.</li><li>Game: reception desk.</li></ul></details>
-<details><summary>🪪 13. Documents and phone <span class="tag">Core</span></summary><p>Purpose: give basic personal information in practical scenes.</p><div class="words"><span class="word">name</span><span class="word">surname</span><span class="word">passport</span><span class="word">document</span><span class="word">phone</span><span class="word">number</span><span class="word">address</span><span class="word">city</span><span class="word">street</span></div><ul><li>Use fictional examples only.</li><li>Game: fill a card by tapping.</li><li>Game: show passport/phone.</li></ul></details>
-<details><summary>🤝 14. Politeness <span class="tag">Core</span></summary><p>Purpose: make small daily interactions easier.</p><div class="words"><span class="word">hello</span><span class="word">bye</span><span class="word">thanks</span><span class="word">please</span><span class="word">sorry</span><span class="word">okay</span></div><ul><li>Use tiny scenes.</li><li>Game: receive item and say thanks.</li><li>Game: bump into person and say sorry.</li></ul></details>
-<details><summary>🏠 15. Housing problems <span class="tag later">Later</span></summary><p>Purpose: explain simple home problems.</p><div class="words"><span class="word">door</span><span class="word">key</span><span class="word">window</span><span class="word">light</span><span class="word">water</span><span class="word">broken</span><span class="word">not working</span></div><ul><li>Add after first survival routes.</li><li>Game: find what is broken.</li><li>Game: ask for help.</li></ul></details>
-<details><summary>⏰ 16. Time and routine <span class="tag later">Later</span></summary><p>Purpose: understand simple schedule words.</p><div class="words"><span class="word">now</span><span class="word">later</span><span class="word">today</span><span class="word">tomorrow</span><span class="word">morning</span><span class="word">evening</span><span class="word">break</span><span class="word">shift</span></div><ul><li>Use work and transport scenes.</li><li>Game: today/tomorrow choice.</li><li>Game: wait/start/stop.</li></ul></details>
-<details><summary>🧥 17. Weather and clothes <span class="tag later">Later</span></summary><p>Purpose: useful daily words, but not first priority.</p><div class="words"><span class="word">cold</span><span class="word">hot</span><span class="word">rain</span><span class="word">snow</span><span class="word">jacket</span><span class="word">hat</span><span class="word">shoes</span><span class="word">socks</span></div><ul><li>Game: dress character for weather.</li><li>Game: buy needed clothing.</li></ul></details>
+
+<section id="topics" class="section"><h2>Темы</h2><p class="small">Нажми на тему, чтобы открыть структуру.</p>
+<details open><summary>🧭 1. Первые слова для выживания <span class="tag mvp">MVP</span></summary><p>Задача: быстро дать базовый смысл до любого полноценного тематического курса.</p><div class="words"><span class="word">да / нет</span><span class="word">здесь / там</span><span class="word">что / где</span><span class="word">можно / нельзя</span><span class="word">нужно</span><span class="word">помощь</span><span class="word">стоп / иди</span><span class="word">вода / еда</span></div><div class="chunk">Я не понимаю.</div><div class="chunk">Помогите, пожалуйста.</div><div class="chunk">Повторите, пожалуйста.</div><ul><li>Давать через звук, иконку и одно действие.</li><li>Игра: услышал слово — нажал на объект.</li><li>Игра: путь с командами «стоп / иди» и опасными зонами.</li><li>Игра: сцена выбора «да / нет».</li></ul></details>
+
+<details><summary>➡️ 2. Движение и направления <span class="tag mvp">MVP</span></summary><p>Задача: сделать русский языком, который управляет персонажем.</p><div class="words"><span class="word">иди</span><span class="word">стой</span><span class="word">здесь</span><span class="word">там</span><span class="word">направо</span><span class="word">налево</span><span class="word">прямо</span><span class="word">назад</span><span class="word">быстро</span><span class="word">медленно</span></div><ul><li>Вводить по одной команде.</li><li>Игра: лабиринт с управлением по аудио-командам.</li><li>Игра: ловушка при неправильном повороте.</li><li>Игра: провести другого персонажа.</li></ul></details>
+
+<details><summary>🆘 3. Помощь и фразы-спасатели <span class="tag mvp">MVP</span></summary><p>Задача: дать ученику инструмент, когда речь слишком быстрая или непонятная.</p><div class="chunk">Помогите, пожалуйста.</div><div class="chunk">Я не понимаю.</div><div class="chunk">Медленно, пожалуйста.</div><div class="chunk">Покажите, пожалуйста.</div><ul><li>Учить как целые готовые фразы.</li><li>Игра: NPC говорит быстро, игрок выбирает «медленно / повторите».</li><li>Игра: потерянный предмет, игрок просит показать.</li></ul></details>
+
+<details><summary>🛒 4. Магазин и еда <span class="tag mvp">MVP</span></summary><p>Задача: купить базовую еду и воду.</p><div class="words"><span class="word">хлеб</span><span class="word">вода</span><span class="word">молоко</span><span class="word">рис</span><span class="word">мясо</span><span class="word">чай</span><span class="word">пакет</span></div><div class="chunk">Дайте..., пожалуйста.</div><div class="chunk">Сколько стоит?</div><div class="chunk">Пакет нужен?</div><ul><li>Сначала вводить 6 базовых товаров.</li><li>Игра: собрать корзину.</li><li>Игра: сцена у кассы с выбором «да / нет».</li><li>Игра: найти три товара на полках.</li></ul></details>
+
+<details><summary>💵 5. Деньги и цены <span class="tag mvp">MVP</span></summary><p>Задача: понимать цены без полного курса числительных.</p><div class="words"><span class="word">1–10</span><span class="word">20</span><span class="word">50</span><span class="word">100</span><span class="word">200</span><span class="word">500</span><span class="word">1000</span><span class="word">дорого</span><span class="word">дёшево</span></div><ul><li>Начинать с частых магазинных цен.</li><li>Игра: услышал цену — нажал на число.</li><li>Игра: оплатить правильную сумму.</li><li>Игра: сопоставить товар в чеке и цену.</li></ul></details>
+
+<details><summary>🎨 6. Цвета и размер <span class="tag">База</span></summary><p>Задача: выбирать и описывать предметы.</p><div class="words"><span class="word">чёрный</span><span class="word">белый</span><span class="word">красный</span><span class="word">синий</span><span class="word">зелёный</span><span class="word">жёлтый</span><span class="word">большой</span><span class="word">маленький</span></div><ul><li>Добавлять после базового магазина.</li><li>Игра: выбрать правильный предмет.</li><li>Игра: найти потерянный телефон или сумку по цвету.</li></ul></details>
+
+<details><summary>🏙️ 7. Места в городе <span class="tag mvp">MVP</span></summary><p>Задача: ориентироваться на простой карте города.</p><div class="words"><span class="word">улица</span><span class="word">дом</span><span class="word">магазин</span><span class="word">аптека</span><span class="word">больница</span><span class="word">остановка</span><span class="word">вход</span><span class="word">выход</span><span class="word">туалет</span></div><ul><li>Использовать одну простую карту города.</li><li>Игра: дойти до аптеки, магазина, остановки.</li><li>Игра: охота за вывесками.</li><li>Игра: идти по уличным направлениям.</li></ul></details>
+
+<details><summary>🚌 8. Транспорт <span class="tag mvp">MVP</span></summary><p>Задача: передвигаться на автобусе, такси или метро.</p><div class="words"><span class="word">автобус</span><span class="word">такси</span><span class="word">метро</span><span class="word">билет</span><span class="word">карта</span><span class="word">остановка</span><span class="word">водитель</span><span class="word">войти</span><span class="word">выйти</span></div><div class="chunk">Мне нужно туда.</div><div class="chunk">Я выхожу здесь.</div><ul><li>Игра: выбрать транспорт.</li><li>Игра: выйти на правильной остановке.</li><li>Игра: купить или использовать билет.</li></ul></details>
+
+<details><summary>📦 9. Команды на работе <span class="tag mvp">MVP</span></summary><p>Задача: понимать частые команды действия.</p><div class="words"><span class="word">работа</span><span class="word">перерыв</span><span class="word">начать</span><span class="word">закончить</span><span class="word">возьми</span><span class="word">принеси</span><span class="word">положи</span><span class="word">убери</span><span class="word">открой</span><span class="word">закрой</span></div><ul><li>Учить через перемещение предметов.</li><li>Игра: принести коробку.</li><li>Игра: положить предмет в правильное место.</li><li>Игра: попросить показать, если команда непонятна.</li></ul></details>
+
+<details><summary>⚠️ 10. Слова безопасности <span class="tag mvp">MVP</span></summary><p>Задача: понимать предупреждения.</p><div class="words"><span class="word">осторожно</span><span class="word">опасно</span><span class="word">горячо</span><span class="word">холодно</span><span class="word">острый</span><span class="word">тяжёлый</span><span class="word">скользко</span><span class="word">маска</span><span class="word">перчатки</span></div><ul><li>Вводить предупреждения рано.</li><li>Игра: быстрая реакция на предупреждение.</li><li>Игра: выбрать перчатки / маску / остановиться.</li><li>Игра: найти опасное действие.</li></ul></details>
+
+<details><summary>🩺 11. Тело и боль <span class="tag mvp">MVP</span></summary><p>Задача: показать, что болит.</p><div class="words"><span class="word">голова</span><span class="word">горло</span><span class="word">зуб</span><span class="word">живот</span><span class="word">спина</span><span class="word">рука</span><span class="word">нога</span><span class="word">палец</span><span class="word">боль</span></div><div class="chunk">У меня болит голова.</div><div class="chunk">Мне плохо.</div><div class="chunk">Мне нужен врач.</div><ul><li>Учить фразу как шаблон.</li><li>Игра: нажать на место боли.</li><li>Игра: врач спрашивает, где болит.</li></ul></details>
+
+<details><summary>💊 12. Аптека и поликлиника <span class="tag">База</span></summary><p>Задача: попросить медицинскую помощь и понять базовые слова здоровья.</p><div class="words"><span class="word">аптека</span><span class="word">врач</span><span class="word">поликлиника</span><span class="word">температура</span><span class="word">кашель</span><span class="word">аллергия</span><span class="word">лекарство</span><span class="word">паспорт</span></div><ul><li>Строить после темы «тело и боль».</li><li>Игра: выбрать аптеку или врача.</li><li>Игра: сопоставить симптом.</li><li>Игра: стойка регистрации.</li></ul></details>
+
+<details><summary>🪪 13. Документы и телефон <span class="tag">База</span></summary><p>Задача: дать базовую личную информацию в практических сценах.</p><div class="words"><span class="word">имя</span><span class="word">фамилия</span><span class="word">паспорт</span><span class="word">документ</span><span class="word">телефон</span><span class="word">номер</span><span class="word">адрес</span><span class="word">город</span><span class="word">улица</span></div><ul><li>Использовать только вымышленные примеры.</li><li>Игра: заполнить карточку нажатием.</li><li>Игра: показать паспорт или телефон.</li></ul></details>
+
+<details><summary>🤝 14. Вежливость <span class="tag">База</span></summary><p>Задача: упростить маленькие ежедневные взаимодействия.</p><div class="words"><span class="word">здравствуйте</span><span class="word">до свидания</span><span class="word">спасибо</span><span class="word">пожалуйста</span><span class="word">извините</span><span class="word">хорошо</span></div><ul><li>Использовать очень короткие сцены.</li><li>Игра: получил предмет — сказал «спасибо».</li><li>Игра: задел человека — сказал «извините».</li></ul></details>
+
+<details><summary>🏠 15. Проблемы с жильём <span class="tag later">Позже</span></summary><p>Задача: объяснить простые бытовые проблемы дома.</p><div class="words"><span class="word">дверь</span><span class="word">ключ</span><span class="word">окно</span><span class="word">свет</span><span class="word">вода</span><span class="word">сломано</span><span class="word">не работает</span></div><ul><li>Добавлять после первых маршрутов выживания.</li><li>Игра: найти, что сломано.</li><li>Игра: попросить помощь.</li></ul></details>
+
+<details><summary>⏰ 16. Время и режим <span class="tag later">Позже</span></summary><p>Задача: понимать простые слова расписания.</p><div class="words"><span class="word">сейчас</span><span class="word">потом</span><span class="word">сегодня</span><span class="word">завтра</span><span class="word">утро</span><span class="word">вечер</span><span class="word">перерыв</span><span class="word">смена</span></div><ul><li>Использовать рабочие и транспортные сцены.</li><li>Игра: выбор «сегодня / завтра».</li><li>Игра: ждать / начать / остановиться.</li></ul></details>
+
+<details><summary>🧥 17. Погода и одежда <span class="tag later">Позже</span></summary><p>Задача: полезные ежедневные слова, но не первый приоритет.</p><div class="words"><span class="word">холодно</span><span class="word">жарко</span><span class="word">дождь</span><span class="word">снег</span><span class="word">куртка</span><span class="word">шапка</span><span class="word">обувь</span><span class="word">носки</span></div><ul><li>Игра: одеть персонажа по погоде.</li><li>Игра: купить нужную одежду.</li></ul></details>
 </section>
-<section id="mvp" class="section card"><h2>First 10 MVP levels</h2><ol><li>Yes / no / here / there</li><li>Stop / go / can / cannot / danger</li><li>Water / food / home / work / shop</li><li>Right / left / straight / back / here / there</li><li>Help / I do not understand / repeat / slowly</li><li>Basic shop food</li><li>Basic money and prices</li><li>Transport: bus, stop, taxi, ticket</li><li>Work and safety words</li><li>Body parts and pain</li></ol></section>
-<section class="callout"><h2>North star</h2><p><b>LexiLand Russian should be a bridge from zero to first understanding.</b> A learner should play for five minutes and leave with one useful phrase they can use today.</p></section>
+
+<section id="mvp" class="section card"><h2>Первые 10 MVP-уровней</h2><ol><li>Да / нет / здесь / там</li><li>Стоп / иди / можно / нельзя / опасно</li><li>Вода / еда / дом / работа / магазин</li><li>Направо / налево / прямо / назад / здесь / там</li><li>Помогите / я не понимаю / повторите / медленно</li><li>Базовая еда в магазине</li><li>Базовые деньги и цены</li><li>Транспорт: автобус, остановка, такси, билет</li><li>Работа и слова безопасности</li><li>Части тела и боль</li></ol></section>
+
+<section class="callout"><h2>Главная идея</h2><p><b>LexiLand Russian должен быть мостом от нуля к первому пониманию.</b> Человек играет пять минут и уходит хотя бы с одной полезной фразой, которую можно применить уже сегодня.</p></section>
 </div>
 </body>
 </html>

@@ -3,192 +3,632 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LexiLand Russian — план тем</title>
+<title>LexiLand Russian — мощный справочник Level 0</title>
 <style>
 :root{
   --bg:#07080b;
-  --bg-soft:#0d1118;
   --panel:#111722;
   --panel-2:#151d2b;
+  --panel-3:#0b1019;
   --line:#293447;
+  --line-2:#3a4760;
   --text:#f3f6fb;
   --muted:#aeb8ca;
-  --muted-2:#7f8aa0;
+  --muted-2:#8793a7;
   --accent:#ff8a1f;
+  --accent-soft:rgba(255,138,31,.15);
   --accent-2:#ffd166;
   --green:#42d392;
-  --yellow:#ffc857;
   --blue:#6aa8ff;
+  --pink:#ff6aa2;
+  --red:#ff6961;
   --shadow:0 18px 50px rgba(0,0,0,.38);
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(255,138,31,.22), transparent 30%),
-    radial-gradient(circle at top right, rgba(106,168,255,.12), transparent 28%),
-    var(--bg);
+    radial-gradient(circle at top left, rgba(255,138,31,.22), transparent 32%),
+    radial-gradient(circle at top right, rgba(106,168,255,.12), transparent 30%),
+    linear-gradient(180deg,#07080b,#080b12 45%,#050609);
   color:var(--text);
-  line-height:1.55;
+  line-height:1.58;
 }
-.wrap{max-width:1120px;margin:auto;padding:18px}
+.wrap{max-width:1180px;margin:auto;padding:18px}
 .hero{
-  background:linear-gradient(135deg,#171f2f 0%,#10141d 58%,#221406 100%);
-  color:white;
+  background:linear-gradient(135deg,#171f2f 0%,#10141d 58%,#251505 100%);
   border:1px solid rgba(255,138,31,.35);
-  border-radius:28px;
+  border-radius:30px;
   padding:36px;
   margin:12px 0 22px;
   box-shadow:var(--shadow);
-  overflow:hidden;
   position:relative;
+  overflow:hidden;
 }
 .hero:after{
   content:"";
   position:absolute;
   right:-90px;
   top:-90px;
-  width:240px;
-  height:240px;
+  width:260px;
+  height:260px;
   border-radius:50%;
-  background:rgba(255,138,31,.22);
-  filter:blur(3px);
+  background:rgba(255,138,31,.2);
+  filter:blur(2px);
 }
-h1{font-size:clamp(38px,7vw,74px);line-height:.96;margin:0 0 12px;letter-spacing:-.055em;position:relative;z-index:1}
-.hero p{font-size:20px;max-width:800px;color:#dce5f3;position:relative;z-index:1}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
-.card,details{
+h1{font-size:clamp(36px,7vw,78px);line-height:.96;margin:0 0 12px;letter-spacing:-.06em;position:relative;z-index:1}
+.hero p{font-size:20px;max-width:840px;color:#dce5f3;position:relative;z-index:1;margin:0 0 12px}.hero .sub{color:#ffddba;font-weight:800}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;position:relative;z-index:1}
+button,.btn{
+  border:1px solid rgba(255,255,255,.13);
+  background:var(--accent);
+  color:#16100a;
+  border-radius:12px;
+  padding:11px 14px;
+  font-weight:950;
+  cursor:pointer;
+  box-shadow:0 10px 24px rgba(255,138,31,.16);
+}
+button.secondary,.btn.secondary{background:#111722;color:#f3f6fb;border-color:#34445f;text-decoration:none}
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0 26px}.card{
   background:linear-gradient(180deg,var(--panel),var(--panel-2));
   border:1px solid var(--line);
   border-radius:22px;
   padding:18px;
-  box-shadow:0 12px 30px rgba(0,0,0,.28);
-}
-details{margin-bottom:12px}
-details[open]{border-color:rgba(255,138,31,.5)}
-summary{font-size:22px;font-weight:850;cursor:pointer;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary:after{content:"＋";float:right;color:var(--accent);font-weight:900}
-details[open] summary:after{content:"−"}
-.tag{
-  display:inline-block;
-  background:#1a2537;
-  border:1px solid #34445f;
-  border-radius:999px;
-  padding:5px 9px;
-  font-size:13px;
-  font-weight:850;
-  margin:4px;
-  color:#dbe6f7;
-}
-.mvp{background:rgba(66,211,146,.14);border-color:rgba(66,211,146,.45);color:#8ff0bd}
-.later{background:rgba(255,200,87,.13);border-color:rgba(255,200,87,.48);color:#ffe09a}
-.words{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
-.word{
-  background:#0c121d;
-  border:1px solid #2b3a52;
-  border-radius:999px;
-  padding:6px 10px;
-  font-weight:780;
-  color:#eef4ff;
-}
-.chunk{
-  background:#0b1019;
-  border:1px solid #2b3a52;
-  border-left:4px solid var(--accent);
-  border-radius:12px;
-  padding:9px 10px;
-  margin:7px 0;
-  font-weight:780;
-  color:#fff7ef;
-}
-.section{margin:24px 0}
-h2{font-size:34px;letter-spacing:-.04em;margin:0 0 10px}.small{color:var(--muted)}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-li{margin:6px 0;color:#d6deeb}
-ul,ol{padding-left:22px}
-.btn{
-  display:inline-block;
-  background:var(--accent);
-  color:#15100a;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:999px;
-  padding:11px 16px;
-  font-weight:900;
-  text-decoration:none;
-  margin-right:8px;
-  margin-top:10px;
-  position:relative;
-  z-index:1;
-  box-shadow:0 10px 24px rgba(255,138,31,.18);
-}
-.btn.secondary{background:#111722;color:#f3f6fb;border-color:#34445f}
-.callout{
-  background:linear-gradient(135deg,rgba(255,138,31,.16),rgba(106,168,255,.08));
-  border:1px solid rgba(255,138,31,.35);
-  border-radius:24px;
-  padding:22px;
   box-shadow:0 12px 30px rgba(0,0,0,.25);
+}.card h3{margin:0 0 8px;font-size:20px}.small{color:var(--muted);margin:0}
+.module,.lesson,.noteBlock,.miniDetails{
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line);
+  border-radius:24px;
+  margin:14px 0;
+  padding:0;
+  box-shadow:0 12px 34px rgba(0,0,0,.28);
+  overflow:hidden;
 }
-b{color:#fff}.accent{color:var(--accent-2)}
-@media (max-width:640px){.wrap{padding:12px}.hero{padding:24px;border-radius:22px}.hero p{font-size:17px}summary{font-size:19px}h2{font-size:28px}}
+.module[open]{border-color:rgba(255,138,31,.5)}
+.lesson{margin:12px 0;background:linear-gradient(180deg,#121a27,#0f1520);border-radius:18px}
+.lesson[open]{border-color:rgba(106,168,255,.48)}
+.noteBlock,.miniDetails{background:#0b1019;border-radius:16px;margin:10px 0;box-shadow:none}.noteBlock[open]{border-color:rgba(255,138,31,.44)}
+summary{cursor:pointer;list-style:none;position:relative}
+summary::-webkit-details-marker{display:none}
+.module>summary{font-size:28px;font-weight:950;padding:21px 56px 21px 22px;letter-spacing:-.03em}.lesson>summary{font-size:21px;font-weight:900;padding:16px 50px 16px 18px}.noteBlock>summary,.miniDetails>summary{font-size:17px;font-weight:900;padding:12px 44px 12px 14px;color:#fff1df}
+summary:after{content:"＋";position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--accent);font-weight:950}
+details[open]>summary:after{content:"−"}
+.inside{padding:0 18px 18px}.module>.inside{padding:0 22px 22px}.noteBlock>.inside,.miniDetails>.inside{padding:0 14px 14px}
+h2{font-size:34px;letter-spacing:-.04em;margin:26px 0 10px}h3{font-size:22px;margin:14px 0 8px}h4{font-size:18px;margin:12px 0 6px;color:#fff4e8}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.tag{display:inline-flex;align-items:center;gap:4px;background:#1a2537;border:1px solid #34445f;border-radius:999px;padding:5px 9px;font-size:13px;font-weight:900;color:#dbe6f7}.mvp{background:rgba(66,211,146,.14);border-color:rgba(66,211,146,.45);color:#8ff0bd}.base{background:rgba(255,200,87,.13);border-color:rgba(255,200,87,.48);color:#ffe09a}.dev{background:rgba(106,168,255,.13);border-color:rgba(106,168,255,.45);color:#cfe1ff}.danger{background:rgba(255,105,97,.13);border-color:rgba(255,105,97,.45);color:#ffc4bf}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.box{background:#0b1019;border:1px solid #2b3a52;border-radius:16px;padding:14px}.box.accent{border-left:4px solid var(--accent)}.box.blue{border-left:4px solid var(--blue)}.box.green{border-left:4px solid var(--green)}.box.pink{border-left:4px solid var(--pink)}
+ul,ol{padding-left:22px;margin-top:8px}li{margin:6px 0;color:#d6deeb}
+.words{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:7px;margin:12px 0}.word{background:#0c121d;border:1px solid #2b3a52;border-radius:999px;padding:7px 10px;font-weight:850;color:#eef4ff}.phrase{background:#0b1019;border:1px solid #2b3a52;border-left:4px solid var(--accent);border-radius:12px;padding:9px 10px;margin:7px 0;font-weight:850;color:#fff7ef}.slideList{counter-reset:s}.slideList li{list-style:none;position:relative;background:#0b1019;border:1px solid #28364c;border-radius:14px;padding:10px 12px 10px 46px}.slideList li:before{counter-increment:s;content:counter(s);position:absolute;left:12px;top:10px;background:var(--accent);color:#1a1008;border-radius:8px;width:24px;height:24px;text-align:center;font-weight:950;line-height:24px}.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:10px 0}.kpi div{background:#0b1019;border:1px solid #2b3a52;border-radius:14px;padding:10px}.kpi b{display:block;color:#fff}.muted{color:var(--muted)}.hr{height:1px;background:#28364c;margin:16px 0}.toc a{display:block;color:#ffe0bd;text-decoration:none;font-weight:800;margin:6px 0}.toc a:hover{color:#fff}.schema{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#060910;border:1px solid #26344b;border-radius:14px;padding:12px;white-space:pre-wrap;color:#eaf2ff;overflow:auto}.footer{margin:28px 0 8px;color:#8f9aae;text-align:center}.pill{display:inline-block;padding:2px 7px;border-radius:999px;background:#152133;border:1px solid #2c3d58;color:#dfe9f8;font-size:12px;font-weight:900;margin-left:5px}
+@media(max-width:640px){.wrap{padding:12px}.hero{padding:24px;border-radius:22px}.hero p{font-size:17px}.module>summary{font-size:22px}.lesson>summary{font-size:18px}h2{font-size:27px}.inside,.module>.inside{padding-left:12px;padding-right:12px}.words{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header class="hero">
-  <h1>LexiLand Russian</h1>
-  <p>Кликабельный план тем для бесплатной мобильной игры по русской «лексике выживания». Это не курс грамматики. Слова запоминаются через звук, картинку, действие и реальные ситуации.</p>
-  <a class="btn" href="#topics">Открыть темы</a>
-  <a class="btn secondary" href="#mvp">MVP-уровни</a>
+  <h1>LexiLand Russian<br>Level 0</h1>
+  <p class="sub">Мощный разворачиваемый справочник для первых 8 тем: юниты → уроки → примечания → слайды → механики → словарь.</p>
+  <p>Цель Level 0 — не «объяснить русский», а дать человеку первые рабочие реакции: понять слово, нажать на правильный объект, выбрать фразу, не потеряться, купить базовую вещь и доехать.</p>
+  <div class="toolbar">
+    <button onclick="setAll(true)">Развернуть всё</button>
+    <button class="secondary" onclick="setAll(false)">Свернуть всё</button>
+    <a class="btn secondary" href="#structure">Структура</a>
+    <a class="btn secondary" href="#codex">Для Codex</a>
+  </div>
 </header>
 
-<section class="cards">
-  <div class="card"><h2>Для кого</h2><p class="small">Для взрослых, которые живут в русскоязычном городе и нуждаются в полезных словах для обычной жизни.</p></div>
-  <div class="card"><h2>Метод</h2><p class="small">Аудио + картинка + действие + реальная ситуация. Грамматика спрятана внутри готовых фраз и мини-шаблонов.</p></div>
-  <div class="card"><h2>Цель</h2><p class="small">Первые 100–150 полезных слов и фраз, чтобы человек начал понимать язык вокруг себя.</p></div>
+<section class="quick">
+  <div class="card"><h3>🧭 3 юнита</h3><p class="small">Старт → Покупки → Город. Не 8 разрозненных тем, а путь выживания.</p></div>
+  <div class="card"><h3>📚 8 уроков</h3><p class="small">Каждый урок: 7–10 экранов, 8–14 слов, 3–5 фраз, мини-текст, проверка.</p></div>
+  <div class="card"><h3>✅ 3 повторения</h3><p class="small">После каждого юнита — мини-сценарий, где слова смешиваются в реальную ситуацию.</p></div>
+  <div class="card"><h3>🎮 Формат</h3><p class="small">Клик, звук, картинка, микро-выбор, простая карта, короткая победа.</p></div>
 </section>
 
-<section id="topics" class="section"><h2>Темы</h2><p class="small">Нажми на тему, чтобы открыть структуру.</p>
-<details open><summary>🧭 1. Первые слова для выживания <span class="tag mvp">MVP</span></summary><p>Задача: быстро дать базовый смысл до любого полноценного тематического курса.</p><div class="words"><span class="word">да / нет</span><span class="word">здесь / там</span><span class="word">что / где</span><span class="word">можно / нельзя</span><span class="word">нужно</span><span class="word">помощь</span><span class="word">стоп / иди</span><span class="word">вода / еда</span></div><div class="chunk">Я не понимаю.</div><div class="chunk">Помогите, пожалуйста.</div><div class="chunk">Повторите, пожалуйста.</div><ul><li>Давать через звук, иконку и одно действие.</li><li>Игра: услышал слово — нажал на объект.</li><li>Игра: путь с командами «стоп / иди» и опасными зонами.</li><li>Игра: сцена выбора «да / нет».</li></ul></details>
-
-<details><summary>➡️ 2. Движение и направления <span class="tag mvp">MVP</span></summary><p>Задача: сделать русский языком, который управляет персонажем.</p><div class="words"><span class="word">иди</span><span class="word">стой</span><span class="word">здесь</span><span class="word">там</span><span class="word">направо</span><span class="word">налево</span><span class="word">прямо</span><span class="word">назад</span><span class="word">быстро</span><span class="word">медленно</span></div><ul><li>Вводить по одной команде.</li><li>Игра: лабиринт с управлением по аудио-командам.</li><li>Игра: ловушка при неправильном повороте.</li><li>Игра: провести другого персонажа.</li></ul></details>
-
-<details><summary>🆘 3. Помощь и фразы-спасатели <span class="tag mvp">MVP</span></summary><p>Задача: дать ученику инструмент, когда речь слишком быстрая или непонятная.</p><div class="chunk">Помогите, пожалуйста.</div><div class="chunk">Я не понимаю.</div><div class="chunk">Медленно, пожалуйста.</div><div class="chunk">Покажите, пожалуйста.</div><ul><li>Учить как целые готовые фразы.</li><li>Игра: NPC говорит быстро, игрок выбирает «медленно / повторите».</li><li>Игра: потерянный предмет, игрок просит показать.</li></ul></details>
-
-<details><summary>🛒 4. Магазин и еда <span class="tag mvp">MVP</span></summary><p>Задача: купить базовую еду и воду.</p><div class="words"><span class="word">хлеб</span><span class="word">вода</span><span class="word">молоко</span><span class="word">рис</span><span class="word">мясо</span><span class="word">чай</span><span class="word">пакет</span></div><div class="chunk">Дайте..., пожалуйста.</div><div class="chunk">Сколько стоит?</div><div class="chunk">Пакет нужен?</div><ul><li>Сначала вводить 6 базовых товаров.</li><li>Игра: собрать корзину.</li><li>Игра: сцена у кассы с выбором «да / нет».</li><li>Игра: найти три товара на полках.</li></ul></details>
-
-<details><summary>💵 5. Деньги и цены <span class="tag mvp">MVP</span></summary><p>Задача: понимать цены без полного курса числительных.</p><div class="words"><span class="word">1–10</span><span class="word">20</span><span class="word">50</span><span class="word">100</span><span class="word">200</span><span class="word">500</span><span class="word">1000</span><span class="word">дорого</span><span class="word">дёшево</span></div><ul><li>Начинать с частых магазинных цен.</li><li>Игра: услышал цену — нажал на число.</li><li>Игра: оплатить правильную сумму.</li><li>Игра: сопоставить товар в чеке и цену.</li></ul></details>
-
-<details><summary>🎨 6. Цвета и размер <span class="tag">База</span></summary><p>Задача: выбирать и описывать предметы.</p><div class="words"><span class="word">чёрный</span><span class="word">белый</span><span class="word">красный</span><span class="word">синий</span><span class="word">зелёный</span><span class="word">жёлтый</span><span class="word">большой</span><span class="word">маленький</span></div><ul><li>Добавлять после базового магазина.</li><li>Игра: выбрать правильный предмет.</li><li>Игра: найти потерянный телефон или сумку по цвету.</li></ul></details>
-
-<details><summary>🏙️ 7. Места в городе <span class="tag mvp">MVP</span></summary><p>Задача: ориентироваться на простой карте города.</p><div class="words"><span class="word">улица</span><span class="word">дом</span><span class="word">магазин</span><span class="word">аптека</span><span class="word">больница</span><span class="word">остановка</span><span class="word">вход</span><span class="word">выход</span><span class="word">туалет</span></div><ul><li>Использовать одну простую карту города.</li><li>Игра: дойти до аптеки, магазина, остановки.</li><li>Игра: охота за вывесками.</li><li>Игра: идти по уличным направлениям.</li></ul></details>
-
-<details><summary>🚌 8. Транспорт <span class="tag mvp">MVP</span></summary><p>Задача: передвигаться на автобусе, такси или метро.</p><div class="words"><span class="word">автобус</span><span class="word">такси</span><span class="word">метро</span><span class="word">билет</span><span class="word">карта</span><span class="word">остановка</span><span class="word">водитель</span><span class="word">войти</span><span class="word">выйти</span></div><div class="chunk">Мне нужно туда.</div><div class="chunk">Я выхожу здесь.</div><ul><li>Игра: выбрать транспорт.</li><li>Игра: выйти на правильной остановке.</li><li>Игра: купить или использовать билет.</li></ul></details>
-
-<details><summary>📦 9. Команды на работе <span class="tag mvp">MVP</span></summary><p>Задача: понимать частые команды действия.</p><div class="words"><span class="word">работа</span><span class="word">перерыв</span><span class="word">начать</span><span class="word">закончить</span><span class="word">возьми</span><span class="word">принеси</span><span class="word">положи</span><span class="word">убери</span><span class="word">открой</span><span class="word">закрой</span></div><ul><li>Учить через перемещение предметов.</li><li>Игра: принести коробку.</li><li>Игра: положить предмет в правильное место.</li><li>Игра: попросить показать, если команда непонятна.</li></ul></details>
-
-<details><summary>⚠️ 10. Слова безопасности <span class="tag mvp">MVP</span></summary><p>Задача: понимать предупреждения.</p><div class="words"><span class="word">осторожно</span><span class="word">опасно</span><span class="word">горячо</span><span class="word">холодно</span><span class="word">острый</span><span class="word">тяжёлый</span><span class="word">скользко</span><span class="word">маска</span><span class="word">перчатки</span></div><ul><li>Вводить предупреждения рано.</li><li>Игра: быстрая реакция на предупреждение.</li><li>Игра: выбрать перчатки / маску / остановиться.</li><li>Игра: найти опасное действие.</li></ul></details>
-
-<details><summary>🩺 11. Тело и боль <span class="tag mvp">MVP</span></summary><p>Задача: показать, что болит.</p><div class="words"><span class="word">голова</span><span class="word">горло</span><span class="word">зуб</span><span class="word">живот</span><span class="word">спина</span><span class="word">рука</span><span class="word">нога</span><span class="word">палец</span><span class="word">боль</span></div><div class="chunk">У меня болит голова.</div><div class="chunk">Мне плохо.</div><div class="chunk">Мне нужен врач.</div><ul><li>Учить фразу как шаблон.</li><li>Игра: нажать на место боли.</li><li>Игра: врач спрашивает, где болит.</li></ul></details>
-
-<details><summary>💊 12. Аптека и поликлиника <span class="tag">База</span></summary><p>Задача: попросить медицинскую помощь и понять базовые слова здоровья.</p><div class="words"><span class="word">аптека</span><span class="word">врач</span><span class="word">поликлиника</span><span class="word">температура</span><span class="word">кашель</span><span class="word">аллергия</span><span class="word">лекарство</span><span class="word">паспорт</span></div><ul><li>Строить после темы «тело и боль».</li><li>Игра: выбрать аптеку или врача.</li><li>Игра: сопоставить симптом.</li><li>Игра: стойка регистрации.</li></ul></details>
-
-<details><summary>🪪 13. Документы и телефон <span class="tag">База</span></summary><p>Задача: дать базовую личную информацию в практических сценах.</p><div class="words"><span class="word">имя</span><span class="word">фамилия</span><span class="word">паспорт</span><span class="word">документ</span><span class="word">телефон</span><span class="word">номер</span><span class="word">адрес</span><span class="word">город</span><span class="word">улица</span></div><ul><li>Использовать только вымышленные примеры.</li><li>Игра: заполнить карточку нажатием.</li><li>Игра: показать паспорт или телефон.</li></ul></details>
-
-<details><summary>🤝 14. Вежливость <span class="tag">База</span></summary><p>Задача: упростить маленькие ежедневные взаимодействия.</p><div class="words"><span class="word">здравствуйте</span><span class="word">до свидания</span><span class="word">спасибо</span><span class="word">пожалуйста</span><span class="word">извините</span><span class="word">хорошо</span></div><ul><li>Использовать очень короткие сцены.</li><li>Игра: получил предмет — сказал «спасибо».</li><li>Игра: задел человека — сказал «извините».</li></ul></details>
-
-<details><summary>🏠 15. Проблемы с жильём <span class="tag later">Позже</span></summary><p>Задача: объяснить простые бытовые проблемы дома.</p><div class="words"><span class="word">дверь</span><span class="word">ключ</span><span class="word">окно</span><span class="word">свет</span><span class="word">вода</span><span class="word">сломано</span><span class="word">не работает</span></div><ul><li>Добавлять после первых маршрутов выживания.</li><li>Игра: найти, что сломано.</li><li>Игра: попросить помощь.</li></ul></details>
-
-<details><summary>⏰ 16. Время и режим <span class="tag later">Позже</span></summary><p>Задача: понимать простые слова расписания.</p><div class="words"><span class="word">сейчас</span><span class="word">потом</span><span class="word">сегодня</span><span class="word">завтра</span><span class="word">утро</span><span class="word">вечер</span><span class="word">перерыв</span><span class="word">смена</span></div><ul><li>Использовать рабочие и транспортные сцены.</li><li>Игра: выбор «сегодня / завтра».</li><li>Игра: ждать / начать / остановиться.</li></ul></details>
-
-<details><summary>🧥 17. Погода и одежда <span class="tag later">Позже</span></summary><p>Задача: полезные ежедневные слова, но не первый приоритет.</p><div class="words"><span class="word">холодно</span><span class="word">жарко</span><span class="word">дождь</span><span class="word">снег</span><span class="word">куртка</span><span class="word">шапка</span><span class="word">обувь</span><span class="word">носки</span></div><ul><li>Игра: одеть персонажа по погоде.</li><li>Игра: купить нужную одежду.</li></ul></details>
-</section>
-
-<section id="mvp" class="section card"><h2>Первые 10 MVP-уровней</h2><ol><li>Да / нет / здесь / там</li><li>Стоп / иди / можно / нельзя / опасно</li><li>Вода / еда / дом / работа / магазин</li><li>Направо / налево / прямо / назад / здесь / там</li><li>Помогите / я не понимаю / повторите / медленно</li><li>Базовая еда в магазине</li><li>Базовые деньги и цены</li><li>Транспорт: автобус, остановка, такси, билет</li><li>Работа и слова безопасности</li><li>Части тела и боль</li></ol></section>
-
-<section class="callout"><h2>Главная идея</h2><p><b>LexiLand Russian должен быть мостом от нуля к первому пониманию.</b> Человек играет пять минут и уходит хотя бы с одной полезной фразой, которую можно применить уже сегодня.</p></section>
+<section id="structure">
+<h2>Быстрая карта курса</h2>
+<div class="card toc">
+  <a href="#u1">🧭 Юнит 1. Старт и выживание — уроки 1–3</a>
+  <a href="#u2">🛒 Юнит 2. Покупки и выбор — уроки 4–6</a>
+  <a href="#u3">🏙️ Юнит 3. Город и транспорт — уроки 7–8</a>
+  <a href="#codex">⚙️ Технические примечания для разработки</a>
 </div>
+</section>
+
+<details class="module" id="u1" open>
+<summary>🧭 Юнит 1. Старт и выживание <span class="pill">3 урока + review</span></summary>
+<div class="inside">
+  <div class="tags"><span class="tag mvp">MVP</span><span class="tag dev">первый вход</span><span class="tag">реакции</span><span class="tag">без грамматики</span></div>
+  <div class="grid2">
+    <div class="box accent"><b>Главная задача юнита</b><br>Дать ученику первые слова, которые помогают не молчать и не паниковать: понять «да/нет», остановиться, попросить помощь, понять направление.</div>
+    <div class="box blue"><b>Игровая метафора</b><br>Персонаж впервые попал в город. Он учится реагировать на таблички, голосовые команды и простые просьбы NPC.</div>
+  </div>
+
+  <details class="lesson" open>
+  <summary>🧭 Урок 1. Первые слова для выживания <span class="tag mvp">MVP</span></summary>
+  <div class="inside">
+    <div class="grid2">
+      <div class="box accent"><b>Роль урока</b><br>Это вход в систему. Ученик должен почувствовать: «я уже могу что-то понять по-русски».</div>
+      <div class="box green"><b>Результат</b><br>После урока ученик различает базовые слова-команды и может выбрать правильную реакцию.</div>
+    </div>
+    <details class="noteBlock" open><summary>Цель и логика урока</summary><div class="inside">
+      <ul>
+        <li>Не начинать с алфавита и падежей. Сначала — смысл, звук, картинка, действие.</li>
+        <li>Слова должны быть максимально частотные и сразу полезные.</li>
+        <li>Ученик не обязан писать. Он узнаёт, слышит, кликает, повторяет.</li>
+        <li>Первые успехи должны быть очень быстрыми: 30–60 секунд до первой победы.</li>
+      </ul>
+    </div></details>
+    <details class="noteBlock" open><summary>Слова урока</summary><div class="inside"><div class="words">
+      <div class="word">✅ да</div><div class="word">❌ нет</div><div class="word">📍 здесь</div><div class="word">👉 там</div><div class="word">❓ что</div><div class="word">🗺️ где</div><div class="word">🟢 можно</div><div class="word">🔴 нельзя</div><div class="word">🧩 нужно</div><div class="word">🆘 помощь</div><div class="word">✋ стоп</div><div class="word">🚶 иди</div><div class="word">💧 вода</div><div class="word">🍞 еда</div>
+    </div></div></details>
+    <details class="noteBlock"><summary>Фразы урока</summary><div class="inside">
+      <div class="phrase">Я не понимаю.</div>
+      <div class="phrase">Помогите, пожалуйста.</div>
+      <div class="phrase">Повторите, пожалуйста.</div>
+      <div class="phrase">Мне нужна вода.</div>
+      <div class="phrase">Где здесь выход?</div>
+    </div></details>
+    <details class="noteBlock"><summary>Структура экранов / слайдов</summary><div class="inside"><ol class="slideList">
+      <li><b>Intro.</b> Персонаж стоит в городе. Текст: «Первые слова помогают выжить».</li>
+      <li><b>Да / нет.</b> Две большие кнопки, аудио, простая сцена выбора.</li>
+      <li><b>Здесь / там.</b> Предмет рядом и предмет далеко. Клик по правильному месту.</li>
+      <li><b>Можно / нельзя.</b> Зелёная и красная зона. Выбор действия.</li>
+      <li><b>Нужно.</b> У персонажа появляется потребность: вода, еда, помощь.</li>
+      <li><b>Стоп / иди.</b> Мини-реакция: персонаж идёт или останавливается.</li>
+      <li><b>Помощь.</b> NPC показывает знак помощи, ученик выбирает фразу.</li>
+      <li><b>Мини-текст.</b> Очень короткий текст из знакомых слов.</li>
+      <li><b>Проверка.</b> 5 быстрых заданий: услышал → нажал.</li>
+      <li><b>Победа.</b> «Ты понимаешь первые русские слова».</li>
+    </ol></div></details>
+    <details class="noteBlock"><summary>Мини-текст + вопросы</summary><div class="inside">
+      <div class="box">Я здесь. Вода там. Еда там. Можно идти. Нельзя туда. Стоп! Мне нужна помощь.</div>
+      <ul>
+        <li>Где вода?</li><li>Можно идти?</li><li>Что нужно человеку?</li><li>Куда нельзя?</li>
+      </ul>
+    </div></details>
+    <details class="noteBlock"><summary>Игровые задания</summary><div class="inside">
+      <ul>
+        <li><b>Tap meaning:</b> услышал «вода» → нажал на воду.</li>
+        <li><b>Safe zone:</b> «можно» открывает путь, «нельзя» блокирует.</li>
+        <li><b>Stop reaction:</b> остановиться до красной линии.</li>
+        <li><b>Phrase rescue:</b> выбрать «Я не понимаю» вместо случайного ответа.</li>
+      </ul>
+    </div></details>
+    <details class="noteBlock"><summary>Примечания</summary><div class="inside">
+      <ul>
+        <li>Не перегружать количеством слов. Лучше 12 слов, но с 5–7 повторениями.</li>
+        <li>Для каждого слова обязательно: русский текст, emoji, аудио, короткий перевод.</li>
+        <li>Слова «можно / нельзя» должны быть визуально очень разными: зелёный/красный смысл.</li>
+        <li>Не давать объяснение «это наречие / модальное слово». Только действие.</li>
+      </ul>
+    </div></details>
+  </div>
+  </details>
+
+  <details class="lesson">
+  <summary>➡️ Урок 2. Движение и направления <span class="tag mvp">MVP</span></summary>
+  <div class="inside">
+    <div class="grid2">
+      <div class="box accent"><b>Роль урока</b><br>Сделать русский языком управления: услышал команду — двигаешь персонажа.</div>
+      <div class="box green"><b>Результат</b><br>Ученик понимает базовые направления и команды движения.</div>
+    </div>
+    <details class="noteBlock" open><summary>Слова урока</summary><div class="inside"><div class="words">
+      <div class="word">🚶 иди</div><div class="word">✋ стой</div><div class="word">📍 здесь</div><div class="word">👉 там</div><div class="word">➡️ направо</div><div class="word">⬅️ налево</div><div class="word">⬆️ прямо</div><div class="word">⬇️ назад</div><div class="word">🏃 быстро</div><div class="word">🐢 медленно</div><div class="word">↩️ поверни</div><div class="word">🚪 выход</div>
+    </div></div></details>
+    <details class="noteBlock"><summary>Фразы урока</summary><div class="inside">
+      <div class="phrase">Идите прямо.</div>
+      <div class="phrase">Поверните направо.</div>
+      <div class="phrase">Поверните налево.</div>
+      <div class="phrase">Стойте здесь.</div>
+      <div class="phrase">Выход там.</div>
+    </div></details>
+    <details class="noteBlock"><summary>Структура экранов / слайдов</summary><div class="inside"><ol class="slideList">
+      <li><b>Intro.</b> Персонажу нужно найти выход.</li>
+      <li><b>Прямо / назад.</b> Две стрелки, аудио, движение.</li>
+      <li><b>Направо / налево.</b> Разворот на перекрёстке.</li>
+      <li><b>Здесь / там.</b> Точка рядом и точка вдалеке.</li>
+      <li><b>Быстро / медленно.</b> Персонаж меняет скорость.</li>
+      <li><b>Стой.</b> Реакция перед опасной зоной.</li>
+      <li><b>Комбинация.</b> «Иди прямо, потом направо».</li>
+      <li><b>Мини-карта.</b> Провести персонажа к выходу.</li>
+      <li><b>Проверка.</b> 6 аудио-команд подряд.</li>
+    </ol></div></details>
+    <details class="noteBlock"><summary>Игровые механики</summary><div class="inside">
+      <ul>
+        <li><b>Audio maze:</b> игрок слышит команду и выбирает стрелку.</li>
+        <li><b>Wrong turn:</b> неправильный поворот ведёт к смешной, но безопасной ошибке.</li>
+        <li><b>Follow the guide:</b> NPC говорит путь, игрок повторяет маршрут.</li>
+        <li><b>Speed gate:</b> «быстро» — успеть до закрытия, «медленно» — пройти осторожно.</li>
+      </ul>
+    </div></details>
+    <details class="noteBlock"><summary>Мини-текст + вопросы</summary><div class="inside">
+      <div class="box">Иди прямо. Выход там. Потом поверни налево. Стой здесь. Нельзя назад.</div>
+      <ul><li>Где выход?</li><li>Куда повернуть?</li><li>Можно назад?</li></ul>
+    </div></details>
+    <details class="noteBlock"><summary>Примечания</summary><div class="inside">
+      <ul>
+        <li>Стрелки должны быть крупные и вынесены отдельно от текста.</li>
+        <li>Не давать «север / юг / восток / запад» — это не Level 0.</li>
+        <li>Лучшее повторение: не карточки, а маршрут.</li>
+        <li>В аудио нужны чёткие паузы: «прямо», «направо», «стоп».</li>
+      </ul>
+    </div></details>
+  </div>
+  </details>
+
+  <details class="lesson">
+  <summary>🆘 Урок 3. Помощь и фразы-спасатели <span class="tag mvp">MVP</span></summary>
+  <div class="inside">
+    <div class="grid2">
+      <div class="box accent"><b>Роль урока</b><br>Дать фразы, когда русский слишком быстрый, ситуация непонятная или нужен человек рядом.</div>
+      <div class="box green"><b>Результат</b><br>Ученик может выбрать готовую фразу для просьбы о помощи, повторении или показе.</div>
+    </div>
+    <details class="noteBlock" open><summary>Слова и фразы урока</summary><div class="inside">
+      <div class="words"><div class="word">🆘 помощь</div><div class="word">🙏 пожалуйста</div><div class="word">👂 повторите</div><div class="word">🐢 медленно</div><div class="word">👀 покажите</div><div class="word">❓ где</div><div class="word">🚻 туалет</div><div class="word">🚪 выход</div><div class="word">📱 телефон</div><div class="word">🧍 человек</div></div>
+      <div class="phrase">Помогите, пожалуйста.</div>
+      <div class="phrase">Я не понимаю.</div>
+      <div class="phrase">Повторите, пожалуйста.</div>
+      <div class="phrase">Медленно, пожалуйста.</div>
+      <div class="phrase">Покажите, пожалуйста.</div>
+      <div class="phrase">Где туалет?</div>
+    </div></details>
+    <details class="noteBlock"><summary>Структура экранов / слайдов</summary><div class="inside"><ol class="slideList">
+      <li><b>Intro.</b> «Когда трудно — используй фразу-спасатель».</li>
+      <li><b>Помогите.</b> Персонаж потерялся.</li>
+      <li><b>Я не понимаю.</b> NPC говорит быстро, ученик выбирает фразу.</li>
+      <li><b>Повторите.</b> После фразы аудио повторяется медленнее.</li>
+      <li><b>Медленно.</b> Сравнение быстрой и медленной речи.</li>
+      <li><b>Покажите.</b> NPC показывает место на карте.</li>
+      <li><b>Где туалет?</b> Очень практичная сцена.</li>
+      <li><b>Мини-диалог.</b> Ученик выбирает реплики по порядку.</li>
+      <li><b>Проверка.</b> Ситуация → правильная фраза.</li>
+    </ol></div></details>
+    <details class="noteBlock"><summary>Мини-диалог</summary><div class="inside">
+      <div class="box">— Здравствуйте. <br>— Помогите, пожалуйста. <br>— Что нужно? <br>— Я не понимаю. Медленно, пожалуйста. <br>— Хорошо. Выход там.</div>
+    </div></details>
+    <details class="noteBlock"><summary>Review юнита 1</summary><div class="inside">
+      <ul>
+        <li><b>Сценарий:</b> персонаж в новом здании, нужно найти выход и попросить помощь.</li>
+        <li><b>Смешать слова:</b> да/нет, здесь/там, стоп/иди, прямо/налево/направо, помогите.</li>
+        <li><b>Финал:</b> ученик должен пройти 5 шагов без подсказки.</li>
+        <li><b>Награда:</b> бейдж «Я могу попросить помощь».</li>
+      </ul>
+    </div></details>
+    <details class="noteBlock"><summary>Примечания</summary><div class="inside">
+      <ul>
+        <li>Фразы лучше учить целиком, без разбора слов.</li>
+        <li>Фраза «пожалуйста» должна звучать часто, но не как отдельная грамматическая тема.</li>
+        <li>Нужно добавить кнопку «повторить звук» на каждом экране.</li>
+        <li>Ошибки должны мягко возвращать к ситуации: «Попробуй другую фразу».</li>
+      </ul>
+    </div></details>
+  </div>
+  </details>
+</div>
+</details>
+
+<details class="module" id="u2">
+<summary>🛒 Юнит 2. Покупки и выбор <span class="pill">3 урока + review</span></summary>
+<div class="inside">
+  <div class="tags"><span class="tag mvp">MVP</span><span class="tag">еда</span><span class="tag">цены</span><span class="tag base">цвет/размер</span></div>
+  <div class="grid2">
+    <div class="box accent"><b>Главная задача юнита</b><br>Научить человека зайти в магазин, узнать цену, выбрать простой товар и не застрять на кассе.</div>
+    <div class="box blue"><b>Игровая метафора</b><br>У персонажа есть список покупок, немного денег и простые просьбы к продавцу.</div>
+  </div>
+
+  <details class="lesson" open>
+  <summary>🛒 Урок 4. Магазин и еда <span class="tag mvp">MVP</span></summary>
+  <div class="inside">
+    <div class="grid2"><div class="box accent"><b>Роль урока</b><br>Первый бытовой сценарий: взять еду и воду.</div><div class="box green"><b>Результат</b><br>Ученик узнаёт базовые товары и понимает простую фразу покупки.</div></div>
+    <details class="noteBlock" open><summary>Слова урока</summary><div class="inside"><div class="words">
+      <div class="word">🍞 хлеб</div><div class="word">💧 вода</div><div class="word">🥛 молоко</div><div class="word">🍚 рис</div><div class="word">🥩 мясо</div><div class="word">🐟 рыба</div><div class="word">🧀 сыр</div><div class="word">☕ чай</div><div class="word">🛍️ пакет</div><div class="word">🛒 магазин</div><div class="word">💳 касса</div><div class="word">🧾 чек</div>
+    </div></div></details>
+    <details class="noteBlock"><summary>Фразы урока</summary><div class="inside">
+      <div class="phrase">Дайте воду, пожалуйста.</div>
+      <div class="phrase">Мне нужен хлеб.</div>
+      <div class="phrase">Пакет нужен?</div>
+      <div class="phrase">Да, пожалуйста.</div>
+      <div class="phrase">Нет, спасибо.</div>
+      <div class="phrase">Сколько стоит?</div>
+    </div></details>
+    <details class="noteBlock"><summary>Структура экранов / слайдов</summary><div class="inside"><ol class="slideList">
+      <li><b>Intro.</b> Персонажу нужна еда.</li>
+      <li><b>Полка 1.</b> Хлеб, вода, молоко.</li>
+      <li><b>Полка 2.</b> Рис, мясо, рыба, сыр.</li>
+      <li><b>Дайте...</b> Продавец ждёт выбор товара.</li>
+      <li><b>Мне нужен...</b> Персонаж выбирает нужный товар.</li>
+      <li><b>Пакет нужен?</b> Да/нет на кассе.</li>
+      <li><b>Чек.</b> Найти товар в чеке.</li>
+      <li><b>Мини-текст.</b> Покупка еды.</li>
+      <li><b>Проверка.</b> Список покупок → собрать корзину.</li>
+    </ol></div></details>
+    <details class="noteBlock"><summary>Мини-текст + вопросы</summary><div class="inside">
+      <div class="box">Я в магазине. Мне нужен хлеб и вода. Хлеб здесь. Вода там. Я беру хлеб, воду и чай. Пакет нужен? Да, пожалуйста.</div>
+      <ul><li>Где человек?</li><li>Что ему нужно?</li><li>Пакет нужен?</li></ul>
+    </div></details>
+    <details class="noteBlock"><summary>Примечания</summary><div class="inside"><ul>
+      <li>Не добавлять сразу много еды: овощи, фрукты, специи — позже.</li>
+      <li>Товары должны быть визуально очень различимыми.</li>
+      <li>Сцена кассы должна повторять урок 1: да/нет/пожалуйста.</li>
+      <li>Слово «дайте» учить как кнопочную фразу, без грамматики.</li>
+    </ul></div></details>
+  </div>
+  </details>
+
+  <details class="lesson">
+  <summary>💵 Урок 5. Деньги и цены <span class="tag mvp">MVP</span></summary>
+  <div class="inside">
+    <div class="grid2"><div class="box accent"><b>Роль урока</b><br>Научить понимать цену и выбирать оплату, не изучая все числительные полностью.</div><div class="box green"><b>Результат</b><br>Ученик узнаёт частые цены, слова «дорого/дёшево», «карта/наличные».</div></div>
+    <details class="noteBlock" open><summary>Слова урока</summary><div class="inside"><div class="words">
+      <div class="word">1️⃣ один</div><div class="word">2️⃣ два</div><div class="word">3️⃣ три</div><div class="word">5️⃣ пять</div><div class="word">🔟 десять</div><div class="word">20 двадцать</div><div class="word">50 пятьдесят</div><div class="word">100 сто</div><div class="word">200 двести</div><div class="word">500 пятьсот</div><div class="word">1000 тысяча</div><div class="word">💰 цена</div><div class="word">😬 дорого</div><div class="word">🙂 дёшево</div><div class="word">💳 карта</div><div class="word">💵 наличные</div>
+    </div></div></details>
+    <details class="noteBlock"><summary>Фразы урока</summary><div class="inside">
+      <div class="phrase">Сколько стоит?</div>
+      <div class="phrase">Это дорого.</div>
+      <div class="phrase">Это дёшево.</div>
+      <div class="phrase">Оплата картой?</div>
+      <div class="phrase">Оплата наличными?</div>
+      <div class="phrase">Сдача нужна?</div>
+    </div></details>
+    <details class="noteBlock"><summary>Структура экранов / слайдов</summary><div class="inside"><ol class="slideList">
+      <li><b>Intro.</b> На товарах появились ценники.</li>
+      <li><b>Числа 1–10.</b> Только распознавание, без письма.</li>
+      <li><b>Частые деньги.</b> 50, 100, 200, 500, 1000.</li>
+      <li><b>Сколько стоит?</b> Нажать на правильный ценник.</li>
+      <li><b>Дорого / дёшево.</b> Два товара, сравнение.</li>
+      <li><b>Карта / наличные.</b> Выбор способа оплаты.</li>
+      <li><b>Касса.</b> Продавец называет сумму.</li>
+      <li><b>Мини-текст.</b> Покупка воды и хлеба.</li>
+      <li><b>Проверка.</b> Услышал цену → выбрал число.</li>
+    </ol></div></details>
+    <details class="noteBlock"><summary>Мини-текст + вопросы</summary><div class="inside">
+      <div class="box">Вода стоит 50 рублей. Хлеб стоит 100 рублей. Чай стоит 200 рублей. Это дорого? Нет. Оплата картой? Да.</div>
+      <ul><li>Сколько стоит вода?</li><li>Что стоит 100 рублей?</li><li>Оплата картой?</li></ul>
+    </div></details>
+    <details class="noteBlock"><summary>Примечания</summary><div class="inside"><ul>
+      <li>Числа сначала учить как «иконки-смыслы», а не как длинную тему.</li>
+      <li>Можно использовать только цены, которые реально встречаются: 50/100/200/500.</li>
+      <li>Слово «рублей» можно показывать, но не объяснять окончания.</li>
+      <li>В тестах не требовать ввод текста, только выбор.</li>
+    </ul></div></details>
+  </div>
+  </details>
+
+  <details class="lesson">
+  <summary>🎨 Урок 6. Цвета и размер <span class="tag base">База</span></summary>
+  <div class="inside">
+    <div class="grid2"><div class="box accent"><b>Роль урока</b><br>Помочь выбирать предметы: не просто «товар», а «этот, большой, чёрный».</div><div class="box green"><b>Результат</b><br>Ученик может различать основные цвета, размеры и слова выбора.</div></div>
+    <details class="noteBlock" open><summary>Слова урока</summary><div class="inside"><div class="words">
+      <div class="word">⚫ чёрный</div><div class="word">⚪ белый</div><div class="word">🔴 красный</div><div class="word">🔵 синий</div><div class="word">🟢 зелёный</div><div class="word">🟡 жёлтый</div><div class="word">📦 большой</div><div class="word">🔹 маленький</div><div class="word">☝️ этот</div><div class="word">👉 другой</div><div class="word">👕 размер</div><div class="word">🧺 вещь</div>
+    </div></div></details>
+    <details class="noteBlock"><summary>Фразы урока</summary><div class="inside">
+      <div class="phrase">Мне нужен этот.</div>
+      <div class="phrase">Мне нужен другой.</div>
+      <div class="phrase">Большой, пожалуйста.</div>
+      <div class="phrase">Маленький, пожалуйста.</div>
+      <div class="phrase">Чёрный, пожалуйста.</div>
+      <div class="phrase">Какой размер?</div>
+    </div></details>
+    <details class="noteBlock"><summary>Структура экранов / слайдов</summary><div class="inside"><ol class="slideList">
+      <li><b>Intro.</b> На полке много похожих вещей.</li>
+      <li><b>Цвета 1.</b> Чёрный, белый, красный.</li>
+      <li><b>Цвета 2.</b> Синий, зелёный, жёлтый.</li>
+      <li><b>Большой / маленький.</b> Два предмета разного размера.</li>
+      <li><b>Этот / другой.</b> Указание на предмет.</li>
+      <li><b>Комбо.</b> «Большой красный», «маленький чёрный».</li>
+      <li><b>Сцена выбора.</b> Продавец показывает варианты.</li>
+      <li><b>Мини-текст.</b> Потерянная вещь.</li>
+      <li><b>Проверка.</b> Найти предмет по описанию.</li>
+    </ol></div></details>
+    <details class="noteBlock"><summary>Мини-текст + вопросы</summary><div class="inside">
+      <div class="box">Мне нужен чёрный пакет. Этот пакет маленький. Мне нужен большой. Вот большой чёрный пакет. Спасибо.</div>
+      <ul><li>Какой цвет нужен?</li><li>Какой размер нужен?</li><li>Первый пакет большой?</li></ul>
+    </div></details>
+    <details class="noteBlock"><summary>Review юнита 2</summary><div class="inside"><ul>
+      <li><b>Сценарий:</b> купить воду, хлеб и выбрать пакет нужного цвета/размера.</li>
+      <li><b>Смешать слова:</b> магазин, еда, цена, карта, наличные, большой/маленький, цвета.</li>
+      <li><b>Финал:</b> список покупок + бюджет + выбор предмета.</li>
+      <li><b>Награда:</b> бейдж «Я могу купить простую вещь».</li>
+    </ul></div></details>
+    <details class="noteBlock"><summary>Примечания</summary><div class="inside"><ul>
+      <li>Цвета и размер — не самый первый MVP, но очень полезная база после магазина.</li>
+      <li>Не вводить сложные формы типа «красная/красное/красные» на Level 0.</li>
+      <li>В тексте можно использовать нейтральные короткие фразы: «красный пакет», «чёрный телефон».</li>
+      <li>Идеально для задания «найди предмет на картинке».</li>
+    </ul></div></details>
+  </div>
+  </details>
+</div>
+</details>
+
+<details class="module" id="u3">
+<summary>🏙️ Юнит 3. Город и транспорт <span class="pill">2 урока + review</span></summary>
+<div class="inside">
+  <div class="tags"><span class="tag mvp">MVP</span><span class="tag">город</span><span class="tag">карта</span><span class="tag">транспорт</span></div>
+  <div class="grid2">
+    <div class="box accent"><b>Главная задача юнита</b><br>Дать человеку слова, чтобы найти место и понять базовый маршрут.</div>
+    <div class="box blue"><b>Игровая метафора</b><br>Персонаж выходит из магазина и должен дойти до аптеки, остановки, метро или дома.</div>
+  </div>
+
+  <details class="lesson" open>
+  <summary>🏙️ Урок 7. Места в городе <span class="tag mvp">MVP</span></summary>
+  <div class="inside">
+    <div class="grid2"><div class="box accent"><b>Роль урока</b><br>Перевести слова из отдельных картинок на простую карту города.</div><div class="box green"><b>Результат</b><br>Ученик узнаёт основные места и может понять «где аптека / где магазин / где выход».</div></div>
+    <details class="noteBlock" open><summary>Слова урока</summary><div class="inside"><div class="words">
+      <div class="word">🏙️ город</div><div class="word">🛣️ улица</div><div class="word">🏠 дом</div><div class="word">🛒 магазин</div><div class="word">💊 аптека</div><div class="word">🏥 больница</div><div class="word">🏦 банк</div><div class="word">☕ кафе</div><div class="word">🚏 остановка</div><div class="word">🚪 вход</div><div class="word">🚪 выход</div><div class="word">🚻 туалет</div><div class="word">📍 место</div><div class="word">🗺️ карта</div>
+    </div></div></details>
+    <details class="noteBlock"><summary>Фразы урока</summary><div class="inside">
+      <div class="phrase">Где аптека?</div>
+      <div class="phrase">Аптека там.</div>
+      <div class="phrase">Магазин здесь.</div>
+      <div class="phrase">Мне нужна больница.</div>
+      <div class="phrase">Где вход?</div>
+      <div class="phrase">Где выход?</div>
+    </div></details>
+    <details class="noteBlock"><summary>Структура экранов / слайдов</summary><div class="inside"><ol class="slideList">
+      <li><b>Intro.</b> Одна простая карта района.</li>
+      <li><b>Дом / улица / город.</b> Базовые места.</li>
+      <li><b>Магазин / аптека.</b> Частые места рядом.</li>
+      <li><b>Больница / банк / кафе.</b> Значимые места.</li>
+      <li><b>Остановка.</b> Связка с будущим транспортом.</li>
+      <li><b>Вход / выход / туалет.</b> Внутри здания.</li>
+      <li><b>Где...?</b> Вопрос как готовый шаблон.</li>
+      <li><b>Маршрут.</b> Найти место по голосовой подсказке.</li>
+      <li><b>Проверка.</b> Карта → клик по нужному месту.</li>
+    </ol></div></details>
+    <details class="noteBlock"><summary>Мини-текст + вопросы</summary><div class="inside">
+      <div class="box">Я в городе. Дом здесь. Магазин там. Аптека рядом. Мне нужна аптека. Где аптека? Аптека прямо и направо.</div>
+      <ul><li>Где человек?</li><li>Что ему нужно?</li><li>Куда идти?</li></ul>
+    </div></details>
+    <details class="noteBlock"><summary>Примечания</summary><div class="inside"><ul>
+      <li>Лучше использовать одну и ту же карту во всех экранах урока.</li>
+      <li>Места должны быть подписаны крупно и с иконками.</li>
+      <li>Слова из урока 2 обязательно возвращаются: прямо, направо, налево, здесь, там.</li>
+      <li>Не добавлять сложные объекты типа «администрация», «почтовое отделение» на Level 0.</li>
+    </ul></div></details>
+  </div>
+  </details>
+
+  <details class="lesson">
+  <summary>🚌 Урок 8. Транспорт <span class="tag mvp">MVP</span></summary>
+  <div class="inside">
+    <div class="grid2"><div class="box accent"><b>Роль урока</b><br>Закрыть базовый сценарий перемещения: выбрать транспорт, найти остановку, понять вход/выход.</div><div class="box green"><b>Результат</b><br>Ученик узнаёт основные виды транспорта и понимает «войти / выйти / билет / остановка».</div></div>
+    <details class="noteBlock" open><summary>Слова урока</summary><div class="inside"><div class="words">
+      <div class="word">🚌 автобус</div><div class="word">🚕 такси</div><div class="word">🚇 метро</div><div class="word">🎫 билет</div><div class="word">💳 карта</div><div class="word">🚏 остановка</div><div class="word">🧑‍✈️ водитель</div><div class="word">🚪 войти</div><div class="word">🚶 выйти</div><div class="word">➡️ ехать</div><div class="word">📍 здесь</div><div class="word">👉 туда</div><div class="word">🏁 конечная</div><div class="word">⏰ сейчас</div>
+    </div></div></details>
+    <details class="noteBlock"><summary>Фразы урока</summary><div class="inside">
+      <div class="phrase">Мне нужно туда.</div>
+      <div class="phrase">Где остановка?</div>
+      <div class="phrase">Мне нужен билет.</div>
+      <div class="phrase">Я выхожу здесь.</div>
+      <div class="phrase">Это автобус?</div>
+      <div class="phrase">Оплата картой?</div>
+    </div></details>
+    <details class="noteBlock"><summary>Структура экранов / слайдов</summary><div class="inside"><ol class="slideList">
+      <li><b>Intro.</b> Персонажу нужно доехать до места.</li>
+      <li><b>Автобус / такси / метро.</b> Различить транспорт.</li>
+      <li><b>Остановка.</b> Найти остановку на карте.</li>
+      <li><b>Билет / карта.</b> Выбор способа прохода/оплаты.</li>
+      <li><b>Войти / выйти.</b> Двери транспорта.</li>
+      <li><b>Ехать туда.</b> Направление на карте.</li>
+      <li><b>Я выхожу здесь.</b> Нажать кнопку в нужный момент.</li>
+      <li><b>Мини-диалог.</b> Водитель/пассажир.</li>
+      <li><b>Проверка.</b> Выбрать транспорт и выйти на нужной остановке.</li>
+    </ol></div></details>
+    <details class="noteBlock"><summary>Мини-текст + вопросы</summary><div class="inside">
+      <div class="box">Мне нужно в аптеку. Остановка здесь. Автобус там. Я вхожу в автобус. Я еду. Аптека рядом. Я выхожу здесь.</div>
+      <ul><li>Куда нужно человеку?</li><li>Где остановка?</li><li>Где он выходит?</li></ul>
+    </div></details>
+    <details class="noteBlock"><summary>Review юнита 3</summary><div class="inside"><ul>
+      <li><b>Сценарий:</b> найти аптеку и доехать до неё на автобусе.</li>
+      <li><b>Смешать слова:</b> места в городе, направления, остановка, автобус, билет, выйти.</li>
+      <li><b>Финал:</b> карта города + маршрут + правильная остановка.</li>
+      <li><b>Награда:</b> бейдж «Я могу найти место и доехать».</li>
+    </ul></div></details>
+    <details class="noteBlock"><summary>Примечания</summary><div class="inside"><ul>
+      <li>Не учить сразу сложные фразы вроде «Как доехать до...?» — можно позже.</li>
+      <li>Главное действие урока: выйти в правильном месте.</li>
+      <li>Слово «карта» уже есть в деньгах, здесь оно получает вторую функцию: транспортная карта.</li>
+      <li>Такси можно дать как самый простой вариант: «мне нужно туда» + карта.</li>
+    </ul></div></details>
+  </div>
+  </details>
+</div>
+</details>
+
+<section id="codex">
+<h2>⚙️ Технические примечания для Codex / Django</h2>
+<div class="card">
+  <details class="miniDetails" open><summary>Рекомендуемая модель данных</summary><div class="inside">
+    <div class="schema">Level
+- title
+- order
+- description
+
+Unit
+- level FK
+- title
+- order
+- emoji
+- short_goal
+- final_badge
+
+Lesson
+- unit FK
+- title
+- order
+- lesson_type: MVP / Base / Later
+- goal
+- result
+- notes
+
+Slide
+- lesson FK
+- order
+- slide_type: intro / words / phrase / story / game / quiz / victory
+- title
+- text
+- image optional
+- audio optional
+- no_scroll true
+
+DictionaryEntry
+- word
+- translation
+- emoji required
+- image optional
+- audio optional
+- lesson optional
+- unit optional
+
+Exercise
+- lesson FK
+- exercise_type: tap_word / choose_image / audio_choice / route / mini_text / quiz
+- payload JSON
+- order</div>
+  </div></details>
+  <details class="miniDetails"><summary>Правила контента</summary><div class="inside"><ul>
+    <li>Не менять старые уроки при добавлении новых: только append.</li>
+    <li>Каждый урок должен работать на телефоне без прокрутки внутри игрового экрана.</li>
+    <li>Каждое слово в словаре: emoji обязательно, картинка опционально.</li>
+    <li>Каждый урок: максимум 8–14 новых слов. Лучше больше повторений, чем больше новых слов.</li>
+    <li>Грамматика скрыта внутри готовых фраз. Не делать блок «правило» на Level 0.</li>
+    <li>Кнопка повтора аудио нужна в каждом словарном и фразовом экране.</li>
+  </ul></div></details>
+  <details class="miniDetails"><summary>Типы экранов</summary><div class="inside"><div class="grid3">
+    <div class="box"><b>intro</b><br>цель урока, ситуация, 1 экран</div>
+    <div class="box"><b>word_pack</b><br>3–5 слов, звук, emoji, картинка</div>
+    <div class="box"><b>phrase</b><br>готовая фраза + ситуация</div>
+    <div class="box"><b>tap_scene</b><br>клик по объекту на сцене</div>
+    <div class="box"><b>route</b><br>карта/лабиринт/стрелки</div>
+    <div class="box"><b>mini_text</b><br>5–7 коротких предложений</div>
+    <div class="box"><b>quiz</b><br>быстрая проверка 5–7 вопросов</div>
+    <div class="box"><b>victory</b><br>бейдж и что теперь умеешь</div>
+  </div></div></details>
+  <details class="miniDetails"><summary>Метрики, которые стоит собирать</summary><div class="inside"><div class="kpi">
+    <div><b>word_clicks</b><span class="muted">сколько раз открывали слово</span></div>
+    <div><b>audio_replays</b><span class="muted">какие слова плохо слышатся</span></div>
+    <div><b>mistakes_by_word</b><span class="muted">слова с ошибками</span></div>
+    <div><b>slide_time</b><span class="muted">где ученик застрял</span></div>
+    <div><b>quiz_score</b><span class="muted">результат урока</span></div>
+    <div><b>review_success</b><span class="muted">готов ли переходить дальше</span></div>
+  </div></div></details>
+  <details class="miniDetails"><summary>Главное правило Level 0</summary><div class="inside">
+    <div class="box accent"><b>Каждый экран должен отвечать на вопрос:</b><br>«Что ученик сможет понять или сделать в реальной жизни после этого?» Если ответ неясный — экран лишний.</div>
+  </div></details>
+</div>
+</section>
+
+<p class="footer">LexiLand Russian — Level 0 Reference. Версия: первые 8 тем, 3 юнита, 8 уроков, 3 review.</p>
+</div>
+<script>
+function setAll(open){
+  document.querySelectorAll('details').forEach(d => d.open = open);
+}
+</script>
 </body>
 </html>

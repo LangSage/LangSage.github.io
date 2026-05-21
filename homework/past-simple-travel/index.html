@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" translate="no" class="notranslate">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google" content="notranslate">
+  <title>Past Simple: Travel and Holidays</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <canvas id="shieldCanvas" aria-hidden="true"></canvas>
+  <header class="hero no-copy">
+    <div class="hero__content lesson-text">
+      <p class="eyebrow">Past Simple / Travel and Holidays</p>
+      <h1>The Holiday That Went Wrong</h1>
+      <p class="lead">Finished trips, hotel problems, transport mistakes, stories, questions, and useful travel vocabulary.</p>
+      <div class="hero__chips">
+        <span>Grammar</span>
+        <span>Practice</span>
+        <span>Stories</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="progress no-copy">
+      <strong>Lesson Map</strong>
+      <a href="#grammar">Grammar</a>
+      <a href="#practice">Practice</a>
+      <a href="#reading">Reading</a>
+      <a href="#cases">Cases</a>
+      <a href="#speaking">Speaking</a>
+      <a href="#final">Final</a>
+    </aside>
+
+    <section class="content lesson-text" id="lessonRoot">
+      <section class="panel" id="grammar">
+        <p class="section-label">Explanation</p>
+        <h2>Past Simple</h2>
+        <div class="rule-grid">
+          <article>
+            <h3>Positive</h3>
+            <p>Use Past Simple for finished actions in the past.</p>
+            <p><b>Regular:</b> visit -> visited, stay -> stayed, walk -> walked.</p>
+            <p><b>Irregular:</b> go -> went, see -> saw, eat -> ate, buy -> bought, take -> took, have -> had.</p>
+          </article>
+          <article>
+            <h3>Negative</h3>
+            <p>Use <b>didn't + verb</b>.</p>
+            <p>I didn't visit the museum. He didn't buy a ticket.</p>
+            <p class="ru">Важно: после didn't ставим первую форму глагола. Не <b>didn't went</b>, а <b>didn't go</b>.</p>
+          </article>
+          <article>
+            <h3>Questions</h3>
+            <p>Use <b>Did + person + verb?</b></p>
+            <p>Did you travel last summer? Did she buy souvenirs?</p>
+            <p class="ru">Did уже показывает прошлое время, поэтому главный глагол не меняется.</p>
+          </article>
+          <article>
+            <h3>Was / Were</h3>
+            <p>am / is -> was. are -> were.</p>
+            <p>The hotel was clean. The tickets were expensive.</p>
+            <p>Was the hotel good? Were the people friendly?</p>
+          </article>
+        </div>
+        <div class="signal">
+          <b>Signal words:</b> yesterday, last week, last month, last year, last summer, two days ago, in 2020, when I was a child.
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 1</span><b>Start Questions</b></div>
+        <p>Answer in full sentences.</p>
+        <ol>
+          <li>Where did you travel last time?</li>
+          <li>Who did you travel with?</li>
+          <li>Did anything go wrong?</li>
+          <li>What was your best or worst trip?</li>
+        </ol>
+        <textarea placeholder="Last summer I went to..."></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 2</span><b>Travel Vocabulary</b></div>
+        <p>Match words with meanings: ticket, luggage, hotel, passport, tourist, trip, beach, museum, guide, souvenir.</p>
+        <div class="match-grid">
+          <label>ticket <input data-answer="a document for transport" placeholder="meaning"></label>
+          <label>luggage <input data-answer="bags and suitcases" placeholder="meaning"></label>
+          <label>hotel <input data-answer="a place where you sleep during a trip" placeholder="meaning"></label>
+          <label>passport <input data-answer="an official document for travelling abroad" placeholder="meaning"></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 3</span><b>Speak Quickly</b></div>
+        <p>Make six sentences with travel words and adjectives.</p>
+        <p class="word-bank">hotel, train, beach, museum, passport, suitcase, ticket, guide, souvenir, airport, station, restaurant</p>
+        <p class="word-bank">beautiful, expensive, cheap, crowded, boring, interesting, comfortable, noisy, clean, terrible, amazing</p>
+        <textarea placeholder="The hotel was comfortable."></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 4</span><b>Present or Past</b></div>
+        <p>Write Past Simple sentences.</p>
+        <div class="qa-list">
+          <label>I usually travel by train. <input data-answer="Last summer I travelled by train."></label>
+          <label>He goes to the beach every year. <input data-answer="He went to the beach last year."></label>
+          <label>They don't buy souvenirs. <input data-answer="They didn't buy souvenirs."></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task id="practice">
+        <div class="task-head"><span>Task 5</span><b>Regular Verbs</b></div>
+        <p>Write the Past Simple form.</p>
+        <div class="mini-grid">
+          <label>visit <input data-answer="visited"></label>
+          <label>stay <input data-answer="stayed"></label>
+          <label>walk <input data-answer="walked"></label>
+          <label>travel <input data-answer="travelled"></label>
+          <label>watch <input data-answer="watched"></label>
+          <label>arrive <input data-answer="arrived"></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 6</span><b>Irregular Verbs</b></div>
+        <p>Write the past form.</p>
+        <div class="mini-grid">
+          <label>go <input data-answer="went"></label>
+          <label>see <input data-answer="saw"></label>
+          <label>eat <input data-answer="ate"></label>
+          <label>buy <input data-answer="bought"></label>
+          <label>take <input data-answer="took"></label>
+          <label>lose <input data-answer="lost"></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 7</span><b>Choose the Correct Form</b></div>
+        <div class="choice-list">
+          <label>I <select data-answer="went"><option></option><option>go</option><option>went</option></select> to Sochi last summer.</label>
+          <label>He <select data-answer="bought"><option></option><option>buy</option><option>bought</option></select> a souvenir.</label>
+          <label>I <select data-answer="didn't see"><option></option><option>didn't saw</option><option>didn't see</option></select> the beach.</label>
+          <label>Did you <select data-answer="travel"><option></option><option>travel</option><option>travelled</option></select> by train?</label>
+          <label>The tickets <select data-answer="were"><option></option><option>was</option><option>were</option></select> expensive.</label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 8</span><b>Make Negatives</b></div>
+        <p>Example: I visited the museum. -> I didn't visit the museum.</p>
+        <div class="qa-list">
+          <label>I travelled by plane. <input data-answer="I didn't travel by plane."></label>
+          <label>She saw the sea. <input data-answer="She didn't see the sea."></label>
+          <label>They went to the mountains. <input data-answer="They didn't go to the mountains."></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 9</span><b>Make Questions</b></div>
+        <div class="qa-list">
+          <label>You travelled last summer. <input data-answer="Did you travel last summer?"></label>
+          <label>She went to the beach. <input data-answer="Did she go to the beach?"></label>
+          <label>The train arrived on time. <input data-answer="Did the train arrive on time?"></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 10</span><b>Did / Was / Were</b></div>
+        <div class="mini-grid">
+          <label>___ you travel last summer? <input data-answer="Did"></label>
+          <label>___ the hotel clean? <input data-answer="Was"></label>
+          <label>___ the tickets expensive? <input data-answer="Were"></label>
+          <label>___ the people friendly? <input data-answer="Were"></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 11</span><b>Error Repair</b></div>
+        <p>Correct the mistakes.</p>
+        <div class="qa-list">
+          <label>Did you went to Kazan? <input data-answer="Did you go to Kazan?"></label>
+          <label>I didn't bought a ticket. <input data-answer="I didn't buy a ticket."></label>
+          <label>The hotel were clean. <input data-answer="The hotel was clean."></label>
+        </div>
+      </section>
+
+      <section class="reading panel" id="reading">
+        <p class="section-label">Reading</p>
+        <h2>Why Do People Travel?</h2>
+        <p>People travel for many reasons. Some people travel because they want to rest. They go to the sea, lie on the beach, swim, and forget about work or study. Other people travel because they want to learn something new. They visit museums, old streets, castles, churches, and famous places.</p>
+        <p>Some people travel to meet family or friends. Some travel for work. Some travel because they want adventure. They climb mountains, sleep in tents, walk in forests, or visit small villages far from big cities.</p>
+        <p>Travel is not always perfect. Tickets can be expensive. Hotels can be dirty. Trains can be late. Tourists can lose money, documents, or luggage. Sometimes the worst trip becomes the best story.</p>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 12</span><b>Text Questions</b></div>
+        <ol>
+          <li>Why do some people travel to the sea?</li>
+          <li>What places do people visit when they want to learn something new?</li>
+          <li>What travel problems are in the text?</li>
+          <li>Can a bad trip become a good story?</li>
+        </ol>
+        <textarea></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 13</span><b>Travel Types</b></div>
+        <p>Choose the best holiday: beach holiday, city tour, mountain hiking, trip to relatives, camping near a lake.</p>
+        <div class="mini-grid">
+          <label>Lena is tired. <input data-answer="beach holiday"></label>
+          <label>Max loves history. <input data-answer="city tour"></label>
+          <label>Timur wants adventure. <input data-answer="mountain hiking"></label>
+          <label>Anna wants to see grandmother. <input data-answer="trip to relatives"></label>
+        </div>
+      </section>
+
+      <section class="reading panel">
+        <p class="section-label">Story</p>
+        <h2>The Holiday That Went Wrong</h2>
+        <p>Last summer, Pavel and Igor decided to travel to Saint Petersburg for three days. They bought train tickets online and booked a cheap hostel near the city centre.</p>
+        <p>The trip started badly. Pavel woke up late and almost missed the train. He ran to the station with his suitcase in one hand and a sandwich in the other. Igor waited near the platform and shouted, "Hurry up!" Pavel jumped into the train two minutes before it left.</p>
+        <p>When they arrived, Igor couldn't find his wallet. He checked his bag, jacket, and pockets, but the wallet wasn't there. He lost his bank card and some cash.</p>
+        <p>The hostel photos online looked great, but the real hostel was different. The room was small, the window didn't open, and the bathroom was dirty.</p>
+        <p>In the evening, it started raining, but they didn't have umbrellas. They got wet and cold. Finally, they found a small cafe near a metro station. The food was simple, but hot and tasty.</p>
+        <p>The next day was better. They visited a museum, took photos near the river, watched the bridges at night, blocked the bank card, and bought a cheap umbrella. They called the trip a real adventure.</p>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 14</span><b>Story Questions</b></div>
+        <ol>
+          <li>Where did Pavel and Igor travel?</li>
+          <li>Why did Pavel almost miss the train?</li>
+          <li>What problem did Igor have?</li>
+          <li>What was wrong with the hostel?</li>
+          <li>Why was the trip a real adventure?</li>
+        </ol>
+        <textarea></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 15</span><b>True or False</b></div>
+        <div class="choice-list">
+          <label>Pavel and Igor travelled to Moscow. <select data-answer="False"><option></option><option>True</option><option>False</option></select></label>
+          <label>Pavel woke up late. <select data-answer="True"><option></option><option>True</option><option>False</option></select></label>
+          <label>Igor lost his passport. <select data-answer="False"><option></option><option>True</option><option>False</option></select></label>
+          <label>The second day was better. <select data-answer="True"><option></option><option>True</option><option>False</option></select></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 16</span><b>Past Verb Hunt</b></div>
+        <p>Find 10 Past Simple verbs in the story. Then write 5 of your own sentences.</p>
+        <textarea placeholder="decided, bought, booked..."></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 17</span><b>Transport Problems</b></div>
+        <p>Choose the best solution and explain.</p>
+        <ol>
+          <li>Your train left five minutes ago. Your hotel booking starts today.</li>
+          <li>Your suitcase didn't arrive at the airport.</li>
+          <li>Your bus arrived late, and the last metro already closed.</li>
+        </ol>
+        <textarea placeholder="I choose... because..."></textarea>
+      </section>
+
+      <section class="reading panel">
+        <p class="section-label">Hotel Reviews</p>
+        <h2>Three Hotels</h2>
+        <p><b>Review A.</b> The hotel was clean and quiet. The staff were friendly. Breakfast was simple but fresh. The hotel was near the metro.</p>
+        <p><b>Review B.</b> The hotel looked beautiful online, but in real life it was terrible. The room was cold. The shower didn't work. The neighbours were noisy.</p>
+        <p><b>Review C.</b> The hotel was expensive, but the location was perfect. We walked to the beach in three minutes. The room had a sea view.</p>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 18</span><b>Hotel Review Questions</b></div>
+        <div class="mini-grid">
+          <label>Which hotel was clean? <input data-answer="A"></label>
+          <label>Which hotel was terrible? <input data-answer="B"></label>
+          <label>Which hotel had a sea view? <input data-answer="C"></label>
+          <label>Which hotel would you avoid? <input></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 19</span><b>Write a Hotel Review</b></div>
+        <p>Write 5-6 sentences. Use: was, were, liked, didn't like, would stay.</p>
+        <textarea placeholder="The hotel was small but clean..."></textarea>
+      </section>
+
+      <section class="reading panel">
+        <p class="section-label">Explanation</p>
+        <h2>Tourist Mistakes</h2>
+        <p>Tourists often take too many things, forget chargers, lose documents, or don't check the weather. A good tourist checks tickets, passport, money, hotel address, weather, transport, and emergency phone numbers.</p>
+        <p class="ru">Сложная идея: Past Simple помогает рассказывать проблему как цепочку событий: first we arrived, then we lost the address, after that we called the hotel.</p>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 20</span><b>Mistake and Advice</b></div>
+        <div class="mini-grid">
+          <label>I forgot my charger. <input data-answer="Take a power bank."></label>
+          <label>I packed too many clothes. <input data-answer="Pack only what you need."></label>
+          <label>I didn't know it was cold. <input data-answer="Check the weather."></label>
+          <label>I lost the hotel address. <input data-answer="Save the address on your phone and on paper."></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 21</span><b>Last Trip Answers</b></div>
+        <p>Answer: where, when, who with, transport, hotel, sights, food, souvenirs, good part, bad part.</p>
+        <textarea></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 22</span><b>Logic Mistake Hunter</b></div>
+        <p>Find the logic mistakes and fix the plan.</p>
+        <p class="case">The train left at 8:00, but the students arrived at 8:30 and still caught it. They booked a hotel for three nights, but the trip was one day. They packed winter coats because the weather was +30 C. They visited a museum at 22:00, but it closed at 18:00.</p>
+        <textarea placeholder="This doesn't make sense because..."></textarea>
+      </section>
+
+      <section class="task-card" data-task id="cases">
+        <div class="task-head"><span>Task 23</span><b>Case: Lost Passport</b></div>
+        <p>Masha travelled to another country. In the evening, she couldn't find her passport. One friend said, "Don't tell anyone." Another student said, "You need help now."</p>
+        <ol>
+          <li>What bad advice did her friend give?</li>
+          <li>What should Masha do first?</li>
+          <li>Should she travel to another city without the passport?</li>
+        </ol>
+        <textarea></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 24</span><b>Case: Online Hotel</b></div>
+        <p>The photos online were beautiful. In real life, the hotel was forty minutes from the beach, the room smelled bad, and breakfast was not included.</p>
+        <ol>
+          <li>What was different in real life?</li>
+          <li>Should they ask for a refund?</li>
+          <li>How can tourists avoid this problem?</li>
+        </ol>
+        <textarea></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 25</span><b>Case: A Difficult Friend</b></div>
+        <p>Roma woke up late, complained about prices, didn't want to walk, and didn't want to visit the museum.</p>
+        <ol>
+          <li>What did Roma do wrong?</li>
+          <li>Should friends do everything together on a trip?</li>
+          <li>What rules should friends discuss before travelling?</li>
+        </ol>
+        <textarea></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 26</span><b>Hotel Reception Role Play</b></div>
+        <p>Use the dialogue. Change name, transport, and problem.</p>
+        <p class="dialogue">Tourist: Hello. I booked a room for two nights.<br>Receptionist: What is your name?<br>Tourist: My name is Anton Sokolov.<br>Receptionist: Did you travel far?<br>Tourist: Yes, I travelled by train for eight hours. The train was late.</p>
+        <textarea placeholder="Write your new dialogue."></textarea>
+      </section>
+
+      <section class="task-card" data-task id="speaking">
+        <div class="task-head"><span>Task 27</span><b>Travel Story Interview</b></div>
+        <p>Ask and answer 8 questions about a real or invented trip.</p>
+        <textarea placeholder="Where did you go? I went to..."></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 28</span><b>Class Survey</b></div>
+        <p>Ask five people: Did you travel last summer? Did you stay in a hotel? Did you buy souvenirs? Did anything go wrong?</p>
+        <textarea placeholder="Three students travelled last summer..."></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 29</span><b>One Minute Speaking</b></div>
+        <p>Choose one topic: my best trip, my worst trip, a hotel I liked, a travel problem, a funny moment. Use at least 6 Past Simple sentences.</p>
+        <textarea></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 30</span><b>My Last Trip</b></div>
+        <p>Write 8-10 sentences. Include place, time, people, transport, hotel, activities, food, problem, and opinion.</p>
+        <textarea></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 31</span><b>The Holiday That Went Wrong</b></div>
+        <p>Write a short story with one problem: lost luggage, bad hotel, missed train, terrible weather, lost phone, wrong ticket, angry friend, expensive cafe.</p>
+        <textarea placeholder="Last winter, Nikita and his brother went to Moscow..."></textarea>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 32</span><b>Final Speaking Challenge</b></div>
+        <p>Tell a travel story. Use 3 regular verbs, 3 irregular verbs, 1 negative sentence, and 1 question.</p>
+        <textarea></textarea>
+      </section>
+
+      <section class="task-card" data-task id="final">
+        <div class="task-head"><span>Task 33</span><b>Mini Test: Choose</b></div>
+        <div class="choice-list">
+          <label>I ___ to Moscow last year. <select data-answer="went"><option></option><option>go</option><option>went</option><option>goes</option></select></label>
+          <label>We ___ in a hotel. <select data-answer="stayed"><option></option><option>stayed</option><option>stay</option><option>staying</option></select></label>
+          <label>They ___ visit the museum. <select data-answer="didn't"><option></option><option>didn't</option><option>don't</option><option>doesn't</option></select></label>
+          <label>The hotel ___ clean. <select data-answer="was"><option></option><option>was</option><option>were</option><option>did</option></select></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 34</span><b>Mini Test: Complete</b></div>
+        <div class="mini-grid">
+          <label>I ___ my grandmother. <input data-answer="visited"></label>
+          <label>We ___ to the beach. <input data-answer="went"></label>
+          <label>She ___ a suitcase. <input data-answer="bought"></label>
+          <label>They ___ many photos. <input data-answer="took"></label>
+          <label>He ___ local food. <input data-answer="ate"></label>
+          <label>The room ___ comfortable. <input data-answer="was"></label>
+        </div>
+      </section>
+
+      <section class="task-card" data-task>
+        <div class="task-head"><span>Task 35</span><b>Mini Test: Questions and Story</b></div>
+        <p>Make questions, then write 5 sentences about a real or invented trip.</p>
+        <div class="qa-list">
+          <label>you / travel / last summer? <input data-answer="Did you travel last summer?"></label>
+          <label>he / stay / in a hotel? <input data-answer="Did he stay in a hotel?"></label>
+          <label>the tickets / be / expensive? <input data-answer="Were the tickets expensive?"></label>
+        </div>
+        <textarea placeholder="I went... I stayed... I didn't..."></textarea>
+      </section>
+    </section>
+  </main>
+
+  <div class="toolbar no-copy">
+    <input id="studentName" class="student-name" autocomplete="name" placeholder="Name">
+    <button id="legendBtn" type="button">Legend</button>
+    <button id="checkBtn">Check answers</button>
+    <button id="sendBtn" type="button">Send results</button>
+    <button id="clearBtn">Clear</button>
+    <span id="scoreText"></span>
+  </div>
+
+  <div id="legend" class="legend-pop no-copy" hidden>
+    <button id="legendClose" type="button" aria-label="Close">x</button>
+    <h2>Past Simple Help</h2>
+    <p><b>Positive:</b> I visited. / I went.</p>
+    <p><b>Negative:</b> I didn't visit. / I didn't go.</p>
+    <p><b>Question:</b> Did you visit? / Did you go?</p>
+    <p><b>Be:</b> was / were. The hotel was clean. The people were friendly.</p>
+    <p class="ru">После did / didn't глагол всегда в первой форме: Did you go? I didn't buy.</p>
+  </div>
+
+  <div id="tip" class="tip" hidden></div>
+</body>
+</html>

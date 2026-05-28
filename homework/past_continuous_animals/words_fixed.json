@@ -1325,6 +1325,11 @@
     "Emoji": "📺"
   },
   {
+    "Word": "bins",
+    "Translation": "???????? ????",
+    "Emoji": "???"
+  },
+  {
     "Word": "bird",
     "Translation": "птица",
     "Emoji": "🐦"
@@ -1970,6 +1975,11 @@
     "Emoji": "💳"
   },
   {
+    "Word": "cardboard",
+    "Translation": "??????",
+    "Emoji": "??"
+  },
+  {
     "Word": "cards",
     "Translation": "карточки",
     "Emoji": "🃏"
@@ -2485,6 +2495,11 @@
     "Emoji": "🔽"
   },
   {
+    "Word": "collar",
+    "Translation": "???????",
+    "Emoji": "????"
+  },
+  {
     "Word": "colleague",
     "Translation": "коллега",
     "Emoji": "🧑‍💼"
@@ -2988,6 +3003,11 @@
     "Word": "copy",
     "Translation": "копировать",
     "Emoji": "📋"
+  },
+  {
+    "Word": "copying",
+    "Translation": "?????????? / ???????????",
+    "Emoji": "??"
   },
   {
     "Word": "corner",
@@ -5375,6 +5395,11 @@
     "Emoji": "4️⃣"
   },
   {
+    "Word": "fox",
+    "Translation": "????",
+    "Emoji": "??"
+  },
+  {
     "Word": "fragile",
     "Translation": "хрупкий",
     "Emoji": "💔"
@@ -5460,6 +5485,11 @@
     "Emoji": "👫"
   },
   {
+    "Word": "frightened",
+    "Translation": "??????????",
+    "Emoji": "??"
+  },
+  {
     "Word": "frightful",
     "Translation": "пугающий",
     "Emoji": "👻"
@@ -5523,6 +5553,11 @@
     "Word": "funny",
     "Translation": "смешной",
     "Emoji": "😂"
+  },
+  {
+    "Word": "fur",
+    "Translation": "??????",
+    "Emoji": "??"
   },
   {
     "Word": "furious",
@@ -7400,6 +7435,11 @@
     "Emoji": "🍳"
   },
   {
+    "Word": "kitten",
+    "Translation": "???????",
+    "Emoji": "??"
+  },
+  {
     "Word": "knew",
     "Translation": "знал",
     "Emoji": "🧠"
@@ -7578,6 +7618,11 @@
     "Word": "learning",
     "Translation": "обучение / изучение",
     "Emoji": "📚🧠"
+  },
+  {
+    "Word": "leash",
+    "Translation": "???????",
+    "Emoji": "??"
   },
   {
     "Word": "least",
@@ -8955,6 +9000,11 @@
     "Emoji": "✍️"
   },
   {
+    "Word": "neighbours",
+    "Translation": "??????",
+    "Emoji": "???"
+  },
+  {
     "Word": "neither",
     "Translation": "ни тот, ни другой",
     "Emoji": "🚫"
@@ -9640,6 +9690,16 @@
     "Emoji": "🌳"
   },
   {
+    "Word": "parked",
+    "Translation": "??????????????",
+    "Emoji": "??"
+  },
+  {
+    "Word": "parrot",
+    "Translation": "???????",
+    "Emoji": "??"
+  },
+  {
     "Word": "part",
     "Translation": "деталь",
     "Emoji": "⚙️"
@@ -9708,6 +9768,11 @@
     "Word": "pause",
     "Translation": "поставить на паузу",
     "Emoji": "⏸️"
+  },
+  {
+    "Word": "paw",
+    "Translation": "????",
+    "Emoji": "??"
   },
   {
     "Word": "pay",
@@ -10460,6 +10525,11 @@
     "Emoji": "⏰"
   },
   {
+    "Word": "puppy",
+    "Translation": "?????",
+    "Emoji": "??"
+  },
+  {
     "Word": "purpose",
     "Translation": "цель",
     "Emoji": "🎯"
@@ -10573,6 +10643,11 @@
     "Word": "r",
     "Translation": "скоро",
     "Emoji": "🕒"
+  },
+  {
+    "Word": "rabbit",
+    "Translation": "??????",
+    "Emoji": "??"
   },
   {
     "Word": "radio",
@@ -11060,6 +11135,11 @@
     "Emoji": "⚠️"
   },
   {
+    "Word": "rescue",
+    "Translation": "??????? / ????????",
+    "Emoji": "??"
+  },
+  {
     "Word": "research",
     "Translation": "исследовать",
     "Emoji": "🔍"
@@ -11255,6 +11335,11 @@
     "Emoji": "🤷‍♂️"
   },
   {
+    "Word": "ringtone",
+    "Translation": "???????",
+    "Emoji": "??"
+  },
+  {
     "Word": "rise",
     "Translation": "подниматься",
     "Emoji": "📈"
@@ -11323,6 +11408,11 @@
     "Word": "rt",
     "Translation": "сейчас",
     "Emoji": "⏳"
+  },
+  {
+    "Word": "rubbish",
+    "Translation": "?????",
+    "Emoji": "???"
   },
   {
     "Word": "rude",
@@ -11625,6 +11715,11 @@
     "Emoji": "🔍"
   },
   {
+    "Word": "searching",
+    "Translation": "??????",
+    "Emoji": "??"
+  },
+  {
     "Word": "seashell",
     "Translation": "ракушка",
     "Emoji": "🐚"
@@ -11863,6 +11958,11 @@
     "Word": "shelf",
     "Translation": "стеллаж / полка",
     "Emoji": "🗄️"
+  },
+  {
+    "Word": "shelter",
+    "Translation": "?????",
+    "Emoji": "????"
   },
   {
     "Word": "shift",
@@ -12875,6 +12975,11 @@
     "Emoji": "🍓"
   },
   {
+    "Word": "stray",
+    "Translation": "????????? / ???????",
+    "Emoji": "??"
+  },
+  {
     "Word": "street",
     "Translation": "улица",
     "Emoji": "🛣️"
@@ -13540,6 +13645,11 @@
     "Emoji": "📚"
   },
   {
+    "Word": "therapy",
+    "Translation": "???????",
+    "Emoji": "??"
+  },
+  {
     "Word": "there",
     "Translation": "там",
     "Emoji": "📍"
@@ -13878,6 +13988,11 @@
     "Word": "touch",
     "Translation": "касаться",
     "Emoji": "🤏"
+  },
+  {
+    "Word": "touching",
+    "Translation": "?????????",
+    "Emoji": "?"
   },
   {
     "Word": "tourists",
@@ -14998,6 +15113,11 @@
     "Word": "width",
     "Translation": "редко",
     "Emoji": "🚶‍♂️"
+  },
+  {
+    "Word": "wild",
+    "Translation": "?????",
+    "Emoji": "??"
   },
   {
     "Word": "will",

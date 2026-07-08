@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Дом 6x6 из бруса: комикс-справочник для новичка</title>
+  <style>
+    :root {
+      --ink: #1f2933;
+      --muted: #5b6472;
+      --paper: #fff8e8;
+      --panel: #ffffff;
+      --wood: #b36b32;
+      --leaf: #2f7d62;
+      --sky: #d8eff0;
+      --warn: #c94a35;
+      --line: #2e241d;
+      --soft: #f4e5c8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(216, 239, 240, .72), transparent 360px),
+        radial-gradient(circle at 12% 8%, rgba(179, 107, 50, .18), transparent 210px),
+        var(--paper);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding: 18px 14px 42px;
+    }
+
+    .hero {
+      min-height: 94svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      padding-top: 8px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      color: #2b1c12;
+      font-size: clamp(2.15rem, 12vw, 4.6rem);
+      line-height: .93;
+      letter-spacing: 0;
+    }
+
+    .kicker {
+      width: fit-content;
+      margin: 0 0 14px;
+      padding: 7px 10px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: #f9cf5a;
+      color: #332111;
+      font-weight: 800;
+      box-shadow: 3px 3px 0 var(--line);
+    }
+
+    .lead {
+      margin: 14px 0 0;
+      color: #364152;
+      font-size: 1.07rem;
+      max-width: 34rem;
+    }
+
+    .cover {
+      overflow: hidden;
+      border: 3px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 7px 7px 0 var(--line);
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin: 22px 0 8px;
+    }
+
+    .toc a {
+      min-height: 46px;
+      padding: 10px;
+      border: 2px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--ink);
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 3px 3px 0 rgba(46, 36, 29, .85);
+    }
+
+    section {
+      padding: 28px 0 8px;
+      scroll-margin-top: 12px;
+    }
+
+    .chapter-title {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      margin: 0 0 13px;
+    }
+
+    .num {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 3px solid var(--line);
+      border-radius: 50%;
+      background: #f9cf5a;
+      color: #2b1c12;
+      font-weight: 950;
+      box-shadow: 3px 3px 0 var(--line);
+    }
+
+    h2 {
+      margin: 0;
+      color: #24170f;
+      font-size: clamp(1.55rem, 6vw, 2.35rem);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .panel {
+      overflow: hidden;
+      border: 3px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 6px 6px 0 var(--line);
+    }
+
+    .caption {
+      padding: 12px 13px 14px;
+      border-top: 3px solid var(--line);
+      background: #fff;
+      font-weight: 780;
+    }
+
+    .bubble {
+      margin: 16px 0 0;
+      padding: 15px;
+      border: 3px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 5px 5px 0 rgba(46, 36, 29, .82);
+    }
+
+    .bubble strong { color: #2a5e4d; }
+
+    .rule {
+      margin: 14px 0 0;
+      padding: 13px;
+      border-left: 8px solid var(--leaf);
+      background: #e8f4ec;
+      font-weight: 750;
+    }
+
+    .warn {
+      border-left-color: var(--warn);
+      background: #ffe7dd;
+    }
+
+    .cards {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .mini {
+      padding: 14px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf6;
+    }
+
+    .mini h3 {
+      margin: 0 0 5px;
+      font-size: 1.05rem;
+      letter-spacing: 0;
+    }
+
+    .mini p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .checklist {
+      padding: 0;
+      list-style: none;
+      margin: 14px 0 0;
+    }
+
+    .checklist li {
+      position: relative;
+      margin: 8px 0;
+      padding: 10px 10px 10px 38px;
+      border: 2px solid rgba(46, 36, 29, .62);
+      border-radius: 7px;
+      background: rgba(255,255,255,.72);
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 12px;
+      top: 9px;
+      color: var(--leaf);
+      font-weight: 950;
+    }
+
+    .strip {
+      margin: 26px -14px 0;
+      padding: 20px 14px;
+      background: #2f7d62;
+      color: #fff;
+      border-top: 3px solid var(--line);
+      border-bottom: 3px solid var(--line);
+    }
+
+    .strip h2 { color: #fff; }
+
+    .strip .mini {
+      background: rgba(255,255,255,.96);
+      color: var(--ink);
+    }
+
+    .footer {
+      margin-top: 26px;
+      padding: 16px;
+      border: 3px solid var(--line);
+      border-radius: 8px;
+      background: #f9cf5a;
+      box-shadow: 5px 5px 0 var(--line);
+      font-weight: 850;
+    }
+
+    @media (min-width: 680px) {
+      .page { padding-inline: 26px; }
+      .hero { min-height: 92vh; }
+      .toc { grid-template-columns: repeat(4, 1fr); }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .strip { margin-inline: -26px; padding-inline: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <p class="kicker">Комикс-справочник</p>
+        <h1>Дом 6x6 из бруса без паники</h1>
+        <p class="lead">Простая дорожная карта для человека, который еще не строил дом, но хочет понимать главное: где нельзя экономить, как читать узлы и почему “потом поправим” в стройке часто стоит дороже.</p>
+      </div>
+      <figure class="cover">
+        <img src="assets/intro.png" alt="Новичок смотрит на площадку будущего дома из бруса 6 на 6">
+        <figcaption class="caption">Главная мысль: дом начинается не с стен, а с сухого места, ровной базы и спокойной головы.</figcaption>
+      </figure>
+    </header>
+
+    <nav class="toc" aria-label="Главы">
+      <a href="#start">Старт</a>
+      <a href="#foundation">Фундамент</a>
+      <a href="#box">Коробка</a>
+      <a href="#warm">Тепло</a>
+      <a href="#roof">Крыша</a>
+      <a href="#openings">Окна</a>
+      <a href="#mistakes">Ошибки</a>
+      <a href="#check">План</a>
+    </nav>
+
+    <section id="start">
+      <div class="chapter-title"><span class="num">1</span><h2>Сначала не покупай брус. Сначала пойми участок</h2></div>
+      <div class="bubble">
+        Дом 6x6 кажется маленьким, но ошибки у него взрослые. Перед заказом материала надо понять три вещи: где вода, какой грунт и куда зимой уходит снег. Если низ дома будет мокнуть, самый красивый брус быстро станет проблемой.
+      </div>
+      <div class="cards">
+        <article class="mini"><h3>Вода</h3><p>После дождя посмотри, где стоят лужи. Дом лучше ставить там, где вода не собирается и есть куда сделать отвод.</p></article>
+        <article class="mini"><h3>Грунт</h3><p>Песок обычно спокойнее глины. Торф, насыпной мусор, сырая низина и сильный уклон требуют специалиста.</p></article>
+        <article class="mini"><h3>Геометрия</h3><p>Разметь квадрат 6x6 колышками и шнуром. Диагонали должны быть равны, иначе дом начнет жить ромбом.</p></article>
+        <article class="mini"><h3>Документы</h3><p>Проверь отступы от границ, красных линий, соседей и коммуникаций. Это скучно, пока не заставят переносить.</p></article>
+      </div>
+    </section>
+
+    <section id="foundation">
+      <div class="chapter-title"><span class="num">2</span><h2>Фундамент: блоки или сваи?</h2></div>
+      <figure class="panel">
+        <img src="assets/foundation-choice.png" alt="Сравнение свай и бетонных блоков под деревянным домом">
+        <figcaption class="caption">Фундамент выбирают не по красоте, а по грунту, воде, уклону и бюджету на исправление ошибок.</figcaption>
+      </figure>
+      <div class="cards">
+        <article class="mini"><h3>Блоки хороши, когда</h3><p>Площадка сухая, грунт плотный, перепад небольшой, а под каждым блоком есть уплотненная подушка и плита-основание.</p></article>
+        <article class="mini"><h3>Сваи хороши, когда</h3><p>Есть уклон, мокрый верхний слой, нужна продуваемая база, а несущий слой можно достать ниже проблемного грунта.</p></article>
+      </div>
+      <p class="rule warn">Важно: “поставим блок прямо на землю” не фундамент. Это лотерея, где дом играет твоими дверями, окнами и нервами.</p>
+    </section>
+
+    <section>
+      <div class="chapter-title"><span class="num">3</span><h2>Сваи: главное не железка, а уровень</h2></div>
+      <figure class="panel">
+        <img src="assets/screw-piles.png" alt="Узел винтовой сваи, оголовка и деревянной обвязки">
+        <figcaption class="caption">Свая должна стоять глубже сезонной каши грунта, а обвязка сверху должна быть одной ровной плоскостью.</figcaption>
+      </figure>
+      <ul class="checklist">
+        <li>Оголовки свай выставляют по одному уровню, иначе пол и стены начнут повторять ошибку.</li>
+        <li>Между металлом и деревом нужен гидроизоляционный слой или прокладка, чтобы влага не шла в брус.</li>
+        <li>Обвязку крепят к оголовкам, а углы усиливают. Дом не должен просто “стоять сверху”.</li>
+        <li>Под полом оставляют продуваемое пространство. Закрытый сырой низ превращает дерево в расходник.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="chapter-title"><span class="num">4</span><h2>Блоки: дешево только при аккуратности</h2></div>
+      <figure class="panel">
+        <img src="assets/block-piers.png" alt="Бетонные блоки на щебеночной подушке с гидроизоляцией под брусом">
+        <figcaption class="caption">У блока должна быть твердая “подошва”: снятая органика, щебень, трамбовка, плита и гидроизоляция.</figcaption>
+      </figure>
+      <div class="bubble">
+        Представь блок как ножку стола. Если одна ножка стоит на мягкой грязи, стол качается. С домом то же самое, только поправлять тяжелее.
+      </div>
+    </section>
+
+    <section id="box">
+      <div class="chapter-title"><span class="num">5</span><h2>Первый венец: самый важный ряд дерева</h2></div>
+      <figure class="panel">
+        <img src="assets/first-crown.png" alt="Первый венец брусового дома с гидроизоляцией и проверкой диагоналей">
+        <figcaption class="caption">Первый венец задает форму всему дому. Если он кривой, дальше ты строишь красивую кривизну.</figcaption>
+      </figure>
+      <ul class="checklist">
+        <li>Нижний брус пропитывают антисептиком особенно тщательно: он ближе всех к влаге.</li>
+        <li>Под брус кладут гидроизоляцию. Дерево не должно пить воду из бетона или металла.</li>
+        <li>Диагонали проверяют до крепления. Равные диагонали означают прямой прямоугольник.</li>
+        <li>Углы собирают плотно, но без иллюзии: дерево живое, оно будет садиться и менять размер.</li>
+      </ul>
+    </section>
+
+    <section id="warm">
+      <div class="chapter-title"><span class="num">6</span><h2>Между брусом кладут не “что-нибудь”, а ровную ленту</h2></div>
+      <figure class="panel">
+        <img src="assets/inter-crown-insulation.png" alt="Джутовая лента между венцами бруса">
+        <figcaption class="caption">Межвенцовый утеплитель кладут непрерывно, без комков и пропусков. Его задача: закрыть щель, а не создать бугор.</figcaption>
+      </figure>
+      <div class="cards">
+        <article class="mini"><h3>Хорошо</h3><p>Джут или льноватин ровной полосой по всей длине бруса, аккуратные выпуски, углы без дыр.</p></article>
+        <article class="mini"><h3>Плохо</h3><p>Пена между венцами, куски “по настроению”, мокрый утеплитель, грязь и щепа в шве.</p></article>
+      </div>
+      <p class="rule">Деревянный дом продувается не потому, что дерево плохое. Чаще всего виноваты щели, углы и спешка.</p>
+    </section>
+
+    <section>
+      <div class="chapter-title"><span class="num">7</span><h2>Пол: тепло должно быть сухим</h2></div>
+      <figure class="panel">
+        <img src="assets/floor-insulation.png" alt="Пирог утепленного пола с мембранами и вентиляцией снизу">
+        <figcaption class="caption">Утеплитель работает, пока он сухой и не продувается ветром. Мембраны ставят не для красоты, а чтобы управлять влагой.</figcaption>
+      </figure>
+      <ul class="checklist">
+        <li>Снизу нужна защита от ветра, но не пакет, где будет заперта вода.</li>
+        <li>Минеральная вата лежит плотно между лагами, без щелей по краям.</li>
+        <li>Со стороны комнаты ставят пароизоляцию с проклейкой нахлестов.</li>
+        <li>Под домом должны быть продухи или нормальная вентиляция подполья.</li>
+      </ul>
+    </section>
+
+    <section id="roof">
+      <div class="chapter-title"><span class="num">8</span><h2>Крыша спасает стены каждый день</h2></div>
+      <figure class="panel">
+        <img src="assets/roof-insulation.png" alt="Утепленная скатная крыша с вентиляционным зазором и свесом">
+        <figcaption class="caption">Хороший свес, вентиляционный зазор и правильные пленки продлевают жизнь дому сильнее, чем модная отделка.</figcaption>
+      </figure>
+      <div class="bubble">
+        У крыши есть простая работа: вода не должна попадать в стену, а пар из дома не должен застревать в утеплителе. Если утеплитель намок, он превращается из теплой куртки в мокрое полотенце.
+      </div>
+    </section>
+
+    <section id="openings">
+      <div class="chapter-title"><span class="num">9</span><h2>Окна и двери: дом будет садиться</h2></div>
+      <figure class="panel">
+        <img src="assets/window-opening.png" alt="Окно в брусовой стене с обсадой и зазором на усадку">
+        <figcaption class="caption">В проемах нужна обсада и зазор сверху. Окно не должно держать на себе стену.</figcaption>
+      </figure>
+      <p class="rule warn">Самая дорогая ошибка: жестко прикрутить окно к брусу без учета усадки. Потом раму давит, створки клинит, стеклопакет страдает.</p>
+      <div class="cards">
+        <article class="mini"><h3>Обсада</h3><p>Это коробка, которая держит форму проема, но позволяет стене садиться рядом с окном.</p></article>
+        <article class="mini"><h3>Зазор</h3><p>Сверху оставляют место под усадку и заполняют мягким утеплителем, а не жесткой распоркой.</p></article>
+      </div>
+    </section>
+
+    <section id="mistakes">
+      <div class="chapter-title"><span class="num">10</span><h2>Ошибки, которые выглядят мелочью</h2></div>
+      <figure class="panel">
+        <img src="assets/common-mistakes.png" alt="Распространенные ошибки деревянного дома: мокрый низ, нет гидроизоляции, перекос блока">
+        <figcaption class="caption">Мелочь в деревянном доме часто не кричит сразу. Она тихо копит влагу, перекос и холод.</figcaption>
+      </figure>
+      <ul class="checklist">
+        <li>Нельзя закрывать подполье наглухо, если там может скапливаться сырость.</li>
+        <li>Нельзя оставлять торцы бруса под дождем без защиты: торец пьет воду особенно быстро.</li>
+        <li>Нельзя путать пароизоляцию и ветрозащиту. У них разные стороны и разные задачи.</li>
+        <li>Нельзя начинать отделку до понятной усадки, если конструкция этого требует.</li>
+        <li>Нельзя верить фразе “и так сойдет”, если речь о воде, уровне, диагоналях и примыканиях.</li>
+      </ul>
+    </section>
+
+    <section id="check" class="strip">
+      <div class="chapter-title"><span class="num">✓</span><h2>Мини-план стройки</h2></div>
+      <div class="cards">
+        <article class="mini"><h3>1. Участок</h3><p>Вода, уклон, грунт, подъезд, отступы, место под материалы.</p></article>
+        <article class="mini"><h3>2. Проект</h3><p>План 6x6, высота, крыша, печь или отопление, окна, двери, электрика.</p></article>
+        <article class="mini"><h3>3. Основание</h3><p>Фундамент по грунту, уровень, гидроизоляция, продувание низа.</p></article>
+        <article class="mini"><h3>4. Коробка</h3><p>Первый венец, углы, нагели, межвенцовый утеплитель, диагонали.</p></article>
+        <article class="mini"><h3>5. Теплый контур</h3><p>Пол, крыша, окна, двери, пароизоляция, ветрозащита, вентиляция.</p></article>
+        <article class="mini"><h3>6. Проверка</h3><p>Не закрывай узел отделкой, пока не понял: куда пойдет вода и куда выйдет пар.</p></article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Этот справочник не заменяет проектировщика и местные нормы, но помогает разговаривать со строителями не как пассажир, а как человек, который видит главные узлы.
+    </footer>
+  </main>
+</body>
+</html>

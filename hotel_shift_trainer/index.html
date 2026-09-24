@@ -1,0 +1,1247 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotel Shift Trainer</title>
+  <style>
+    :root {
+      --ink: #172126;
+      --muted: #637178;
+      --paper: #fbfaf6;
+      --panel: #ffffff;
+      --line: #d8ded8;
+      --brand: #126c76;
+      --brand-dark: #0c4e56;
+      --accent: #d9482f;
+      --gold: #f3bc4c;
+      --green: #1f8a5b;
+      --red: #b33a30;
+      --blue: #2d6ca2;
+      --shadow: 0 18px 55px rgba(20, 34, 38, 0.14);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(18, 108, 118, 0.10), transparent 34%),
+        linear-gradient(315deg, rgba(217, 72, 47, 0.10), transparent 30%),
+        var(--paper);
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 22px 0 34px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--brand);
+      box-shadow: 0 12px 30px rgba(18, 108, 118, 0.25);
+    }
+
+    .mark svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 42px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .score-strip {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.72);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .pill span {
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .tab {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.78);
+      border-radius: 8px;
+      min-height: 56px;
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 800;
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+    }
+
+    .tab svg {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+    }
+
+    .tab:hover {
+      transform: translateY(-1px);
+      border-color: rgba(18, 108, 118, 0.42);
+    }
+
+    .tab.active {
+      color: #fff;
+      border-color: var(--brand);
+      background: var(--brand);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(310px, 0.85fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .stage, .side {
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .stage {
+      overflow: hidden;
+    }
+
+    .scene {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 18px;
+      padding: 22px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(18, 108, 118, 0.08), rgba(255, 255, 255, 0.66));
+    }
+
+    .scene-art {
+      min-height: 178px;
+      border-radius: 8px;
+      border: 1px solid rgba(18, 108, 118, 0.18);
+      background: #edf6f3;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .scene-art svg {
+      width: 100%;
+      height: 100%;
+      min-height: 178px;
+      display: block;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      border-radius: 8px;
+      padding: 5px 8px;
+      background: rgba(18, 108, 118, 0.10);
+      color: var(--brand-dark);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .task-title {
+      margin: 0;
+      font-size: clamp(25px, 3.3vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .task-ru {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .guest-box {
+      margin-top: 16px;
+      padding: 14px;
+      border: 1px solid rgba(18, 108, 118, 0.25);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .guest-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .guest-label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 900;
+    }
+
+    .spoken {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .spoken.hidden-text {
+      color: transparent;
+      text-shadow: 0 0 9px rgba(23, 33, 38, 0.36);
+      user-select: none;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .icon-button {
+      min-width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      display: inline-grid;
+      place-items: center;
+      transition: transform 140ms ease, border-color 140ms ease;
+    }
+
+    .icon-button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .icon-button:hover {
+      transform: translateY(-1px);
+      border-color: var(--brand);
+    }
+
+    .options {
+      padding: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      min-height: 132px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      padding: 14px;
+      text-align: left;
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(18, 108, 118, 0.48);
+      box-shadow: 0 14px 28px rgba(23, 33, 38, 0.10);
+    }
+
+    .card[disabled] {
+      cursor: default;
+      opacity: 0.72;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .card.correct {
+      opacity: 1;
+      border-color: rgba(31, 138, 91, 0.85);
+      background: rgba(31, 138, 91, 0.08);
+    }
+
+    .card.wrong {
+      opacity: 1;
+      border-color: rgba(179, 58, 48, 0.82);
+      background: rgba(179, 58, 48, 0.07);
+    }
+
+    .choice-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: rgba(45, 108, 162, 0.10);
+      color: var(--blue);
+    }
+
+    .choice-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .choice-main {
+      min-width: 0;
+    }
+
+    .choice-en {
+      display: block;
+      font-weight: 900;
+      line-height: 1.25;
+      font-size: 17px;
+      overflow-wrap: anywhere;
+    }
+
+    .choice-ru {
+      display: block;
+      color: var(--muted);
+      line-height: 1.35;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .feedback {
+      display: none;
+      margin: 0 18px 18px;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.good {
+      border-color: rgba(31, 138, 91, 0.45);
+      background: rgba(31, 138, 91, 0.08);
+    }
+
+    .feedback.bad {
+      border-color: rgba(179, 58, 48, 0.42);
+      background: rgba(179, 58, 48, 0.07);
+    }
+
+    .feedback h2 {
+      margin: 0 0 6px;
+      font-size: 19px;
+    }
+
+    .feedback p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 18px 18px;
+    }
+
+    .primary, .secondary {
+      min-height: 46px;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-weight: 900;
+    }
+
+    .primary {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .primary:hover {
+      background: var(--brand-dark);
+    }
+
+    .secondary {
+      background: #fff;
+      border-color: var(--line);
+    }
+
+    .primary svg, .secondary svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .side {
+      padding: 18px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .meter {
+      display: grid;
+      gap: 8px;
+    }
+
+    .meter-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-weight: 900;
+    }
+
+    .bar {
+      height: 12px;
+      border-radius: 99px;
+      overflow: hidden;
+      background: #e7ece8;
+    }
+
+    .bar > span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--brand), var(--green));
+      transition: width 220ms ease;
+    }
+
+    .coach {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .coach h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .coach p, .coach li {
+      color: var(--muted);
+      line-height: 1.42;
+      font-size: 15px;
+    }
+
+    .coach ul {
+      margin: 8px 0 0;
+      padding-left: 19px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .mini {
+      min-height: 72px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 8px;
+      font-weight: 900;
+      color: var(--brand-dark);
+    }
+
+    .exam-result {
+      display: none;
+      padding: 18px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .exam-result.show {
+      display: block;
+    }
+
+    .exam-result h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .exam-result p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 880px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .score-strip {
+        justify-content: flex-start;
+      }
+
+      .tabs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .scene {
+        grid-template-columns: 1fr;
+      }
+
+      .scene-art {
+        min-height: 150px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        width: min(100% - 20px, 1180px);
+        padding-top: 12px;
+      }
+
+      .tabs {
+        gap: 6px;
+      }
+
+      .tab {
+        min-height: 52px;
+        font-size: 14px;
+      }
+
+      .options {
+        grid-template-columns: 1fr;
+        padding: 12px;
+      }
+
+      .scene {
+        padding: 14px;
+      }
+
+      .card {
+        min-height: 116px;
+      }
+
+      .nav-row {
+        padding: 0 12px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 10h16"></path>
+            <path d="M7 10V7a5 5 0 0 1 10 0v3"></path>
+            <path d="M5 10v9h14v-9"></path>
+            <path d="M9 14h6"></path>
+          </svg>
+        </div>
+        <div>
+          <h1>Hotel Shift Trainer</h1>
+          <p class="subtitle">Тренажер ресепшена: слушай гостя, выбирай карточку, решай ситуацию без набора текста.</p>
+        </div>
+      </div>
+      <div class="score-strip">
+        <div class="pill"><span>Score</span> <strong id="scoreNow">0</strong></div>
+        <div class="pill"><span>Streak</span> <strong id="streakNow">0</strong></div>
+        <button class="secondary" id="resetBtn" type="button" title="Сбросить прогресс">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12a9 9 0 1 0 3-6.7"></path>
+            <path d="M3 4v6h6"></path>
+          </svg>
+          Reset
+        </button>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Режимы">
+      <button class="tab active" type="button" data-mode="flow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16"></path><path d="M4 12h10"></path><path d="M4 19h16"></path></svg>
+        Flow
+      </button>
+      <button class="tab" type="button" data-mode="listen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>
+        Listen
+      </button>
+      <button class="tab" type="button" data-mode="details">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"></path><path d="M8 8h8"></path><path d="M8 12h8"></path><path d="M8 16h4"></path></svg>
+        Details
+      </button>
+      <button class="tab" type="button" data-mode="problems">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 10 18H2L12 3z"></path><path d="M12 9v5"></path><path d="M12 17h.01"></path></svg>
+        Problems
+      </button>
+      <button class="tab" type="button" data-mode="exam">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3h8l4 4v14H4V3h4z"></path><path d="M14 3v5h5"></path><path d="m8 15 2 2 5-6"></path></svg>
+        Exam
+      </button>
+    </nav>
+
+    <section class="layout">
+      <article class="stage" aria-live="polite">
+        <div class="scene">
+          <div class="scene-art" id="sceneArt" aria-hidden="true"></div>
+          <div>
+            <div class="tag-row">
+              <span class="tag" id="modeTag">Flow</span>
+              <span class="tag" id="levelTag">A2-B1</span>
+              <span class="tag" id="stepTag">1 / 1</span>
+            </div>
+            <h2 class="task-title" id="taskTitle">Check-in opening</h2>
+            <p class="task-ru" id="taskRu">Выбери первую профессиональную реплику.</p>
+            <div class="guest-box">
+              <div class="guest-head">
+                <span class="guest-label">Guest says</span>
+                <div class="actions">
+                  <button class="icon-button" id="speakBtn" type="button" title="Прослушать">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg>
+                  </button>
+                  <button class="icon-button" id="revealBtn" type="button" title="Показать или скрыть текст гостя">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  </button>
+                </div>
+              </div>
+              <p class="spoken" id="spokenText">Good evening. I have a reservation under Petrova.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="options" id="options"></div>
+
+        <div class="feedback" id="feedback">
+          <h2 id="feedbackTitle">Good</h2>
+          <p id="feedbackText">Explanation</p>
+        </div>
+
+        <div class="nav-row">
+          <button class="secondary" id="shuffleBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"></path><path d="M4 20 21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg>
+            Shuffle
+          </button>
+          <button class="primary" id="nextBtn" type="button">
+            Next
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </button>
+        </div>
+
+        <div class="exam-result" id="examResult">
+          <h2 id="examTitle">Exam complete</h2>
+          <p id="examText">Result text</p>
+        </div>
+      </article>
+
+      <aside class="side">
+        <div class="meter">
+          <div class="meter-top">
+            <span>Readiness</span>
+            <span id="readyText">0%</span>
+          </div>
+          <div class="bar"><span id="readyBar"></span></div>
+        </div>
+
+        <div class="mini-grid">
+          <div class="mini"><span id="doneCount">0</span><br>done</div>
+          <div class="mini"><span id="rightCount">0</span><br>right</div>
+          <div class="mini"><span id="examCount">0</span><br>exam</div>
+        </div>
+
+        <div class="coach">
+          <h2>What this trains</h2>
+          <ul id="coachList">
+            <li>Вежливое начало check-in.</li>
+            <li>Уточнение имени, брони, паспорта и оплаты.</li>
+            <li>Выбор сервисной фразы вместо грубой.</li>
+          </ul>
+        </div>
+
+        <div class="coach">
+          <h2>Hotel formula</h2>
+          <p id="formulaText">Apologize + action + time: “I’m sorry about that. I’ll send someone up right away.”</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="trainer-data.js"></script>
+  <script>
+    const icons = {
+      reply: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path></svg>',
+      passport: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h10l2 2v18H6z"></path><path d="M9 13a3 3 0 1 0 6 0 3 3 0 0 0-6 0z"></path><path d="M9 7h6"></path></svg>',
+      money: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"></rect><circle cx="12" cy="12" r="3"></circle><path d="M6 9h.01M18 15h.01"></path></svg>',
+      key: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="14" r="4"></circle><path d="M10 11 21 2"></path><path d="M17 6h4v4"></path></svg>',
+      clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>',
+      room: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21V5a2 2 0 0 1 2-2h10v18"></path><path d="M16 8h4v13"></path><path d="M9 12h.01"></path></svg>',
+      warn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 10 18H2L12 3z"></path><path d="M12 9v5"></path><path d="M12 17h.01"></path></svg>'
+    };
+
+    const sceneSvgs = {
+      checkin: '<svg viewBox="0 0 220 180" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="180" fill="#e7f3f0"/><rect x="18" y="95" width="184" height="45" rx="7" fill="#126c76"/><rect x="40" y="35" width="58" height="70" rx="8" fill="#fff"/><path d="M54 58h31M54 74h31M54 90h21" stroke="#126c76" stroke-width="5" stroke-linecap="round"/><circle cx="150" cy="63" r="24" fill="#f3bc4c"/><path d="M113 135c8-28 64-28 72 0" fill="#d9482f"/><path d="M139 65c8 8 18 8 25 0" stroke="#172126" stroke-width="4" stroke-linecap="round"/></svg>',
+      checkout: '<svg viewBox="0 0 220 180" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="180" fill="#eef3e8"/><rect x="28" y="103" width="164" height="40" rx="7" fill="#2d6ca2"/><rect x="56" y="44" width="108" height="70" rx="8" fill="#fff"/><path d="M74 65h72M74 83h50M74 101h64" stroke="#2d6ca2" stroke-width="5" stroke-linecap="round"/><circle cx="66" cy="135" r="14" fill="#f3bc4c"/><circle cx="154" cy="135" r="14" fill="#f3bc4c"/></svg>',
+      problem: '<svg viewBox="0 0 220 180" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="180" fill="#f8ece9"/><path d="M110 25 188 150H32L110 25Z" fill="#d9482f"/><path d="M110 67v45" stroke="#fff" stroke-width="11" stroke-linecap="round"/><circle cx="110" cy="132" r="7" fill="#fff"/></svg>',
+      details: '<svg viewBox="0 0 220 180" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="180" fill="#edf1f7"/><rect x="34" y="36" width="152" height="106" rx="8" fill="#fff"/><path d="M60 65h100M60 90h72M60 115h94" stroke="#2d6ca2" stroke-width="7" stroke-linecap="round"/><rect x="46" y="50" width="22" height="22" rx="4" fill="#f3bc4c"/><rect x="46" y="76" width="22" height="22" rx="4" fill="#126c76"/><rect x="46" y="102" width="22" height="22" rx="4" fill="#d9482f"/></svg>',
+      listen: '<svg viewBox="0 0 220 180" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="180" fill="#ecf5f5"/><path d="M80 68 48 94H25v36h23l32 26V68Z" fill="#126c76"/><path d="M112 75c16 18 16 45 0 63M138 55c28 34 28 79 0 105" fill="none" stroke="#d9482f" stroke-width="9" stroke-linecap="round"/></svg>'
+    };
+
+    const fallbackTasks = [
+      {
+        id: 'flow-1', mode: 'flow', level: 'A2', scene: 'checkin', title: 'Check-in opening',
+        ru: 'Гость подошел к стойке. Выбери первую профессиональную реплику.',
+        spoken: 'Good evening. I have a reservation under Petrova.',
+        formula: 'Greet + offer help + confirm reservation.',
+        coach: ['Не начинай с цены или паспорта.', 'Сначала подтвердить бронь и имя.', 'Тон: friendly and professional.'],
+        options: [
+          ['Welcome. May I see your reservation number?', 'Нормально, но слишком резко для первой реплики.', false, 'Сначала лучше поприветствовать и подтвердить имя.'],
+          ['Good evening. Welcome to our hotel. May I have your name, please?', 'Идеальное начало.', true, 'Вежливо, понятно, подходит для check-in.'],
+          ['You must give me your passport now.', 'Слишком жестко.', false, 'Must звучит приказом. На ресепшене лучше could/may.'],
+          ['What is your room number?', 'Гость еще не заселен.', false, 'Room number появится после check-in.']
+        ]
+      },
+      {
+        id: 'flow-2', mode: 'flow', level: 'A2-B1', scene: 'checkin', title: 'Passport request',
+        ru: 'Бронь найдена. Теперь нужно попросить документ.',
+        spoken: 'Yes, that is me. What do you need from me?',
+        formula: 'Could I have + document + please?',
+        coach: ['Просьба через could звучит мягко.', 'Please ставим в конце или после could.', 'Не говорим “give me”.'],
+        options: [
+          ['Give me passport.', 'Понятно, но грубо и грамматически слабо.', false, 'Нужна вежливая просьба: Could I have...?'],
+          ['Could I have your passport, please?', 'Вежливая стандартная фраза.', true, 'Это безопасная формула для ресепшена.'],
+          ['Where is your passport?', 'Звучит как претензия.', false, 'Можно так спросить в проблеме, но не в обычном check-in.'],
+          ['Passport is necessary for you.', 'Неестественно.', false, 'Гость поймет, но фраза звучит не как сервисный английский.']
+        ]
+      },
+      {
+        id: 'flow-3', mode: 'flow', level: 'B1', scene: 'checkin', title: 'Breakfast confirmation',
+        ru: 'Нужно подтвердить, включен ли завтрак, и не запутать гостя.',
+        spoken: 'Is breakfast included in my booking?',
+        formula: 'Confirm + give time/place.',
+        coach: ['Ответ должен закрывать вопрос гостя.', 'Добавь время и место, если это полезно.', 'Не отвечай одним словом на экзамене.'],
+        options: [
+          ['Yes, breakfast is included. It is served from 7 to 10 in the restaurant.', 'Полный сервисный ответ.', true, 'Ты ответил и сразу дал полезную информацию.'],
+          ['Maybe yes.', 'Неуверенно.', false, 'На ресепшене нужна проверка или точный ответ.'],
+          ['Breakfast is over there.', 'Не отвечает: included or not?', false, 'Гость спрашивает про включение в бронь.'],
+          ['You can eat tomorrow.', 'Слишком общее и странное.', false, 'Нужна конкретика: included, time, place.']
+        ]
+      },
+      {
+        id: 'flow-4', mode: 'flow', level: 'B1', scene: 'checkout', title: 'Check-out bill',
+        ru: 'Гость выезжает и просит счет. Выбери правильный ход.',
+        spoken: 'I would like to check out, please. Could I have the bill?',
+        formula: 'Check room + prepare bill + ask about stay.',
+        coach: ['При check-out сначала room number/name.', 'Потом bill/receipt.', 'Можно добавить small talk about stay.'],
+        options: [
+          ['Certainly. May I have your room number, please?', 'Правильный первый шаг.', true, 'Без номера комнаты счет не подготовить.'],
+          ['No, you cannot check out now.', 'Неверно и грубо.', false, 'Нет причины отказывать.'],
+          ['The bill is not my problem.', 'Абсолютно не сервисно.', false, 'Такой ответ провалит ситуацию.'],
+          ['You need breakfast first.', 'Не относится к запросу.', false, 'Гость просит check-out and bill.']
+        ]
+      },
+      {
+        id: 'listen-1', mode: 'listen', level: 'A2-B1', scene: 'listen', title: 'Listen: reservation name',
+        ru: 'Прослушай гостя. Выбери лучшую следующую реплику. Текст можно скрыть кнопкой с глазом.',
+        spoken: 'Hi. I booked a double room for two nights under the name Schneider.',
+        formula: 'Confirm name + room type + nights.',
+        coach: ['Лови ключи: double room, two nights, Schneider.', 'Хороший ответ повторяет важные детали.', 'Это проверяет понимание на слух.'],
+        hidden: true,
+        options: [
+          ['Thank you. Let me check that: Schneider, a double room for two nights.', 'Точно подтверждает детали.', true, 'Ты показал, что понял имя, тип номера и срок.'],
+          ['Do you want to book a room?', 'Он уже booked.', false, 'Гость сказал, что бронь уже есть.'],
+          ['Your name is Breakfast?', 'Смешение информации.', false, 'Нужно услышать surname: Schneider.'],
+          ['Can you leave now?', 'Полностью не по ситуации.', false, 'Это check-in, не check-out.']
+        ]
+      },
+      {
+        id: 'listen-2', mode: 'listen', level: 'B1', scene: 'listen', title: 'Listen: complaint tone',
+        ru: 'Гость раздражен. Выбери фразу, которая снижает напряжение.',
+        spoken: 'Excuse me, there is no hot water in my room, and I have a meeting in one hour.',
+        formula: 'Apologize + urgent action + time.',
+        coach: ['Complaint = apologize first.', 'Покажи срочность: right away.', 'Не спорь и не обвиняй гостя.'],
+        hidden: true,
+        options: [
+          ['I am sorry about that. I will contact maintenance right away.', 'Сервисно и быстро.', true, 'Извинение плюс действие: правильная формула.'],
+          ['This is impossible.', 'Спор с гостем.', false, 'Даже если сомневаешься, сначала apologize and check.'],
+          ['You can shower tomorrow.', 'Игнорирует срочность.', false, 'У гостя meeting in one hour.'],
+          ['Why did you do that?', 'Обвиняет гостя.', false, 'Нельзя начинать с обвинения.']
+        ]
+      },
+      {
+        id: 'listen-3', mode: 'listen', level: 'A2', scene: 'listen', title: 'Listen: spelling',
+        ru: 'Гость диктует фамилию. Выбери карточку с правильным уточнением.',
+        spoken: 'The name is Brown. B-R-O-W-N.',
+        formula: 'Repeat spelling to confirm.',
+        coach: ['Имена и spelling часто ломают диалог.', 'Повтори по буквам, чтобы подтвердить.', 'Не делай вид, что понял, если не уверен.'],
+        hidden: true,
+        options: [
+          ['Let me confirm: Brown, B-R-O-W-N.', 'Правильное подтверждение spelling.', true, 'Это снижает риск ошибки в брони.'],
+          ['Let me confirm: Braun, B-R-A-U-N.', 'Другая фамилия.', false, 'Brown и Braun звучат похоже, но spelling другой.'],
+          ['Your room is brown.', 'Не то значение слова.', false, 'Brown здесь фамилия.'],
+          ['Can you spell hotel?', 'Не тот вопрос.', false, 'Нужно подтвердить фамилию гостя.']
+        ]
+      },
+      {
+        id: 'details-1', mode: 'details', level: 'A2-B1', scene: 'details', title: 'Room number trap',
+        ru: 'Прослушай номер комнаты и выбери правильную карточку.',
+        spoken: 'Your room number is three fourteen.',
+        formula: 'Three fourteen = 314, not 340.',
+        coach: ['Three fourteen = 314.', 'Three forty = 340.', 'На ресепшене это частая ошибка.'],
+        hidden: true,
+        options: [
+          ['Room 314', 'three fourteen', true, 'Correct: three fourteen = 314.'],
+          ['Room 340', 'three forty', false, '340 звучит как three forty.'],
+          ['Room 304', 'three oh four', false, '304 = three oh four.'],
+          ['Room 413', 'four thirteen', false, 'Порядок цифр другой.']
+        ]
+      },
+      {
+        id: 'details-2', mode: 'details', level: 'A2-B1', scene: 'details', title: 'Fifteen or fifty',
+        ru: 'Выбери правильную сумму депозита.',
+        spoken: 'We need a fifty euro deposit, please.',
+        formula: 'Fifty = 50, fifteen = 15.',
+        coach: ['Слушай ударение: FIFty vs fifTEEN.', 'В отеле суммы лучше повторять.', 'Можно подтвердить: fifty euros, correct?'],
+        hidden: true,
+        options: [
+          ['15 euros', 'fifteen', false, 'Это другое число.'],
+          ['50 euros', 'fifty', true, 'Correct: fifty euro deposit.'],
+          ['5 euros', 'five', false, 'Слишком мало, не то слово.'],
+          ['500 euros', 'five hundred', false, 'Не было hundred.']
+        ]
+      },
+      {
+        id: 'details-3', mode: 'details', level: 'B1', scene: 'details', title: 'Date choice',
+        ru: 'Гость меняет дату выезда. Выбери правильную дату.',
+        spoken: 'Could we check out on the seventeenth instead of the sixteenth?',
+        formula: 'Seventeenth = 17th, sixteenth = 16th.',
+        coach: ['-teenth endings are dangerous.', 'Instead of показывает замену.', 'New date is the seventeenth.'],
+        hidden: true,
+        options: [
+          ['16th', 'the old date', false, 'Это старая дата after “instead of”.'],
+          ['17th', 'the new check-out date', true, 'Correct: on the seventeenth.'],
+          ['7th', 'seventh', false, 'Seventh и seventeenth разные.'],
+          ['6th', 'sixth', false, 'Не sixth.']
+        ]
+      },
+      {
+        id: 'details-4', mode: 'details', level: 'B1', scene: 'details', title: 'Late check-out time',
+        ru: 'Выбери время, которое просит гость.',
+        spoken: 'Is it possible to have a late check-out at half past one?',
+        formula: 'Half past one = 1:30.',
+        coach: ['Half past = :30.', 'Late check-out needs availability/fee.', 'Сначала подтвердить время.'],
+        hidden: true,
+        options: [
+          ['1:30', 'half past one', true, 'Correct.'],
+          ['12:30', 'half past twelve', false, 'Не twelve.'],
+          ['1:15', 'quarter past one', false, 'Quarter past = :15.'],
+          ['2:30', 'half past two', false, 'Не two.']
+        ]
+      },
+      {
+        id: 'problem-1', mode: 'problems', level: 'B1', scene: 'problem', title: 'Dirty room',
+        ru: 'Гость говорит, что номер не убран. Выбери сервисное решение.',
+        spoken: 'My room has not been cleaned. There are towels on the floor.',
+        formula: 'Apologize + housekeeping/change room.',
+        coach: ['Не спорь с жалобой.', 'Предложи конкретное действие.', 'Right away хорошо работает в проблемах.'],
+        options: [
+          ['I am sorry about that. I will send housekeeping right away, or we can change your room.', 'Сильное решение.', true, 'Есть извинение и два варианта решения.'],
+          ['It is not dirty.', 'Споришь с гостем.', false, 'Так нельзя решать complaint.'],
+          ['You should clean it.', 'Обвинение гостя.', false, 'Hotel staff solves the room issue.'],
+          ['Come back next week.', 'Абсурдно.', false, 'Нужно решить сейчас.']
+        ]
+      },
+      {
+        id: 'problem-2', mode: 'problems', level: 'A2-B1', scene: 'problem', title: 'Key card does not work',
+        ru: 'Карта от номера не открывает дверь.',
+        spoken: 'My key card is not working. I cannot get into my room.',
+        formula: 'Apologize + verify room/name + recode key.',
+        coach: ['Сначала извинись.', 'Проверь безопасность: name/room.', 'Потом recode the key.'],
+        options: [
+          ['I am sorry. May I check your room number and name? I will recode the key for you.', 'Безопасно и профессионально.', true, 'Ты проверяешь гостя и решаешь проблему.'],
+          ['Try harder.', 'Грубо и бесполезно.', false, 'Нужно заменить или перекодировать карту.'],
+          ['It is your fault.', 'Обвинение.', false, 'Даже если карта рядом с телефоном, формулируем мягко.'],
+          ['I will call the police.', 'Не соответствует ситуации.', false, 'Это обычная техническая проблема.']
+        ]
+      },
+      {
+        id: 'problem-3', mode: 'problems', level: 'B1', scene: 'problem', title: 'Noisy neighbors',
+        ru: 'Гость жалуется на шум из соседнего номера.',
+        spoken: 'The people next door are very loud. I cannot sleep.',
+        formula: 'Apologize + contact guests/security + offer room if needed.',
+        coach: ['Noise complaint требует такта.', 'Не обещай невозможное.', 'Скажи, что проверишь и поможешь.'],
+        options: [
+          ['I am sorry. I will contact them and ask them to keep the noise down.', 'Правильное первое действие.', true, 'Вежливо и реалистично.'],
+          ['You can shout at them.', 'Перекладывает проблему.', false, 'Гость не должен решать конфликт.'],
+          ['Sleep in the lobby.', 'Плохой сервис.', false, 'Нужно устранить шум или предложить room change.'],
+          ['Loud people are normal.', 'Обесценивает жалобу.', false, 'Нужно признать проблему.']
+        ]
+      },
+      {
+        id: 'problem-4', mode: 'problems', level: 'B1-B2', scene: 'problem', title: 'Overbooking',
+        ru: 'Сложная ситуация: свободного номера по брони нет. Выбери наименее плохой сервисный ответ.',
+        spoken: 'What do you mean there is no room? I booked it two weeks ago.',
+        formula: 'Apologize + take responsibility + concrete alternative.',
+        coach: ['Overbooking нельзя закрыть одной фразой.', 'Нужно взять ответственность.', 'Дай альтернативу: upgrade, partner hotel, transport.'],
+        options: [
+          ['I am very sorry. We will arrange another room for you at a partner hotel and cover the transfer.', 'Лучший кризисный ответ.', true, 'Извинение, ответственность, конкретная помощь.'],
+          ['It happens. Goodbye.', 'Провал сервиса.', false, 'Нельзя бросать гостя без решения.'],
+          ['You booked too early.', 'Нелогично и обвиняет гостя.', false, 'Отель несет ответственность.'],
+          ['I cannot do anything.', 'Не решение.', false, 'Нужно предложить альтернативу.']
+        ]
+      },
+      {
+        id: 'problem-5', mode: 'problems', level: 'B1', scene: 'checkout', title: 'Wrong bill',
+        ru: 'Гость видит в счете мини-бар, которым не пользовался.',
+        spoken: 'There is a minibar charge on my bill, but I did not use the minibar.',
+        formula: 'Apologize + check charge + remove if incorrect.',
+        coach: ['Не обвиняй гостя.', 'Проверь charge.', 'Скажи, что исправишь счет.'],
+        options: [
+          ['I am sorry. Let me check that charge for you. If it is incorrect, I will remove it.', 'Сервисно и честно.', true, 'Ты не обещаешь вслепую, но берешь проблему в работу.'],
+          ['You must pay everything.', 'Слишком жестко.', false, 'Сначала проверка.'],
+          ['Minibar is always expensive.', 'Не отвечает на проблему.', false, 'Вопрос не о цене, а о wrong charge.'],
+          ['Maybe your friend drank it.', 'Обвинительно.', false, 'Неуместно для ресепшена.']
+        ]
+      },
+      {
+        id: 'exam-1', mode: 'exam', level: 'Mixed', scene: 'checkin', title: 'Exam: first move',
+        ru: 'Выбери лучшую следующую реплику.',
+        spoken: 'Hello. I think I have a booking for tonight.',
+        formula: 'Ask for name politely.',
+        coach: ['Exam mixes all skills.', 'One best service answer.', 'No typing.'],
+        options: [
+          ['May I have your name, please?', 'Правильно.', true, 'Нужно найти бронь по имени.'],
+          ['Do you want breakfast?', 'Слишком рано.', false, 'Сначала booking.'],
+          ['Leave your bags outside.', 'Не по ситуации.', false, 'Не помогает check-in.'],
+          ['Your bill is ready.', 'Это check-out.', false, 'Гость заселяется.']
+        ]
+      },
+      {
+        id: 'exam-2', mode: 'exam', level: 'Mixed', scene: 'details', title: 'Exam: detail',
+        ru: 'Прослушай и выбери правильную карточку.',
+        spoken: 'The total is one hundred and fifteen euros.',
+        formula: '115 euros.',
+        coach: ['Listen carefully to numbers.', 'Repeat totals to avoid mistakes.', 'Check digits before payment.'],
+        hidden: true,
+        options: [
+          ['115 euros', 'one hundred and fifteen', true, 'Correct.'],
+          ['150 euros', 'one hundred and fifty', false, 'Fifty is 50, fifteen is 15.'],
+          ['105 euros', 'one hundred and five', false, 'Не было five.'],
+          ['15 euros', 'fifteen only', false, 'Было one hundred and fifteen.']
+        ]
+      },
+      {
+        id: 'exam-3', mode: 'exam', level: 'Mixed', scene: 'problem', title: 'Exam: complaint',
+        ru: 'Выбери лучший ответ на жалобу.',
+        spoken: 'The air conditioning in my room is not working.',
+        formula: 'Apologize + send maintenance.',
+        coach: ['Problem tasks need action.', 'No defensive replies.', 'Make the guest feel handled.'],
+        options: [
+          ['I am sorry. I will send maintenance to your room as soon as possible.', 'Правильно.', true, 'Извинение и действие.'],
+          ['Open the window.', 'Может помочь, но не решает AC.', false, 'Нужна maintenance.'],
+          ['Air conditioning is difficult.', 'Не сервисно.', false, 'Гостю нужно решение.'],
+          ['You broke it.', 'Обвинение.', false, 'Нельзя так отвечать.']
+        ]
+      },
+      {
+        id: 'exam-4', mode: 'exam', level: 'Mixed', scene: 'checkout', title: 'Exam: late check-out',
+        ru: 'Гость просит поздний выезд. Выбери реалистичный ответ.',
+        spoken: 'Could I check out at 2 p.m. instead of 11 a.m.?',
+        formula: 'Check availability + mention possible fee.',
+        coach: ['Late check-out depends on availability.', 'Be helpful, not absolute too early.', 'Mention fee politely.'],
+        options: [
+          ['Let me check availability. Late check-out may be possible for an extra fee.', 'Правильно.', true, 'Реалистично и сервисно.'],
+          ['No, never.', 'Слишком резко.', false, 'Нужно проверить возможность.'],
+          ['Yes, always free.', 'Опасное обещание.', false, 'Может быть fee or no availability.'],
+          ['Check-in is at 3.', 'Не отвечает на check-out request.', false, 'Гость спрашивает про выезд.']
+        ]
+      }
+    ];
+
+    const tasks = window.TRAINER_TASKS && window.TRAINER_TASKS.length ? window.TRAINER_TASKS : fallbackTasks;
+    let currentAudio = null;
+
+    const state = {
+      mode: 'flow',
+      index: 0,
+      answered: false,
+      selected: null,
+      score: Number(localStorage.getItem('hst-score') || 0),
+      streak: Number(localStorage.getItem('hst-streak') || 0),
+      done: Number(localStorage.getItem('hst-done') || 0),
+      right: Number(localStorage.getItem('hst-right') || 0),
+      examDone: Number(localStorage.getItem('hst-exam') || 0),
+      examRound: 0,
+      examRight: 0,
+      hideSpoken: false
+    };
+
+    const byId = (id) => document.getElementById(id);
+    const modeTasks = () => tasks.filter((task) => task.mode === state.mode);
+    const currentTask = () => modeTasks()[state.index % modeTasks().length];
+
+    function saveProgress() {
+      localStorage.setItem('hst-score', state.score);
+      localStorage.setItem('hst-streak', state.streak);
+      localStorage.setItem('hst-done', state.done);
+      localStorage.setItem('hst-right', state.right);
+      localStorage.setItem('hst-exam', state.examDone);
+    }
+
+    function updateStats() {
+      byId('scoreNow').textContent = state.score;
+      byId('streakNow').textContent = state.streak;
+      byId('doneCount').textContent = state.done;
+      byId('rightCount').textContent = state.right;
+      byId('examCount').textContent = state.examDone;
+      const readiness = state.done ? Math.round((state.right / state.done) * 100) : 0;
+      byId('readyText').textContent = readiness + '%';
+      byId('readyBar').style.width = readiness + '%';
+    }
+
+    function optionIcon(optionText) {
+      const lower = optionText.toLowerCase();
+      if (lower.includes('passport') || lower.includes('name')) return icons.passport;
+      if (lower.includes('bill') || lower.includes('euro') || lower.includes('fee') || lower.includes('pay')) return icons.money;
+      if (lower.includes('key') || lower.includes('room')) return icons.key;
+      if (lower.includes('check') || lower.includes('time') || lower.includes('late')) return icons.clock;
+      if (lower.includes('sorry') || lower.includes('maintenance') || lower.includes('noise')) return icons.warn;
+      return icons.reply;
+    }
+
+    function speak(text, task = currentTask()) {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+      }
+      if (task && task.audio) {
+        currentAudio = new Audio(task.audio);
+        currentAudio.play().catch(() => speakWithBrowserVoice(text));
+        return;
+      }
+      speakWithBrowserVoice(text);
+    }
+
+    function speakWithBrowserVoice(text) {
+      if (!('speechSynthesis' in window)) return;
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-GB';
+      utterance.rate = 0.92;
+      speechSynthesis.speak(utterance);
+    }
+
+    function renderTask(autoSpeak = false) {
+      const task = currentTask();
+      state.answered = false;
+      state.selected = null;
+      state.hideSpoken = Boolean(task.hidden);
+      byId('sceneArt').innerHTML = sceneSvgs[task.scene] || sceneSvgs.checkin;
+      byId('modeTag').textContent = state.mode === 'exam' ? 'Exam' : task.mode[0].toUpperCase() + task.mode.slice(1);
+      byId('levelTag').textContent = task.level;
+      byId('stepTag').textContent = state.mode === 'exam' ? `${state.examRound + 1} / 10` : `${state.index + 1} / ${modeTasks().length}`;
+      byId('taskTitle').textContent = task.title;
+      byId('taskRu').textContent = task.ru;
+      byId('spokenText').textContent = task.spoken;
+      byId('spokenText').classList.toggle('hidden-text', state.hideSpoken);
+      byId('feedback').className = 'feedback';
+      byId('examResult').className = 'exam-result';
+      byId('formulaText').textContent = task.formula;
+      byId('coachList').innerHTML = task.coach.map((item) => `<li>${item}</li>`).join('');
+      byId('options').innerHTML = '';
+
+      const shuffled = [...task.options].sort(() => Math.random() - 0.5);
+      shuffled.forEach((option, idx) => {
+        const button = document.createElement('button');
+        button.className = 'card';
+        button.type = 'button';
+        button.dataset.correct = option[2] ? 'true' : 'false';
+        button.dataset.why = option[3];
+        button.dataset.ru = option[1];
+        button.innerHTML = `
+          <span class="choice-icon" aria-hidden="true">${optionIcon(option[0])}</span>
+          <span class="choice-main">
+            <span class="choice-en">${option[0]}</span>
+            <span class="choice-ru">${option[1]}</span>
+          </span>
+        `;
+        button.addEventListener('click', () => answer(button));
+        byId('options').appendChild(button);
+      });
+
+      updateStats();
+      if (autoSpeak || task.hidden) window.setTimeout(() => speak(task.spoken), 250);
+    }
+
+    function answer(button) {
+      if (state.answered) return;
+      state.answered = true;
+      state.selected = button;
+      const correct = button.dataset.correct === 'true';
+      const allCards = [...document.querySelectorAll('.card')];
+      allCards.forEach((card) => {
+        card.disabled = true;
+        if (card.dataset.correct === 'true') card.classList.add('correct');
+      });
+      button.classList.add(correct ? 'correct' : 'wrong');
+
+      state.done += 1;
+      if (state.mode === 'exam') state.examDone += 1;
+      if (correct) {
+        state.right += 1;
+        state.score += 10 + Math.min(state.streak, 5);
+        state.streak += 1;
+        if (state.mode === 'exam') state.examRight += 1;
+      } else {
+        state.streak = 0;
+      }
+      if (state.mode === 'exam') state.examRound += 1;
+      saveProgress();
+      updateStats();
+
+      const feedback = byId('feedback');
+      feedback.className = `feedback show ${correct ? 'good' : 'bad'}`;
+      byId('feedbackTitle').textContent = correct ? 'Good service move' : 'Not the best move';
+      byId('feedbackText').textContent = button.dataset.why;
+
+      if (state.mode === 'exam' && state.examRound >= 10) showExamResult();
+    }
+
+    function showExamResult() {
+      const percent = Math.round((state.examRight / 10) * 100);
+      byId('examResult').className = 'exam-result show';
+      byId('examTitle').textContent = `Exam result: ${state.examRight} / 10`;
+      byId('examText').textContent = percent >= 80
+        ? 'Готовность хорошая: студент держит ресепшен-диалог, детали и жалобы. Теперь можно повторять слабые карточки на скорость.'
+        : percent >= 60
+          ? 'База есть, но еще нужно добрать стабильность: особенно числа, даты и complaint formula.'
+          : 'Пока рано идти в экзаменационный режим. Лучше пройти Flow, Listen и Problems еще раз.';
+    }
+
+    function nextTask() {
+      if (state.mode === 'exam' && state.examRound >= 10) {
+        state.examRound = 0;
+        state.examRight = 0;
+        state.index = Math.floor(Math.random() * modeTasks().length);
+        renderTask(true);
+        return;
+      }
+      state.index = (state.index + 1) % modeTasks().length;
+      renderTask(state.mode === 'listen' || state.mode === 'details');
+    }
+
+    document.querySelectorAll('.tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach((item) => item.classList.remove('active'));
+        tab.classList.add('active');
+        state.mode = tab.dataset.mode;
+        state.index = 0;
+        state.examRound = 0;
+        state.examRight = 0;
+        renderTask(state.mode === 'listen' || state.mode === 'details');
+      });
+    });
+
+    byId('speakBtn').addEventListener('click', () => speak(currentTask().spoken));
+    byId('revealBtn').addEventListener('click', () => {
+      state.hideSpoken = !state.hideSpoken;
+      byId('spokenText').classList.toggle('hidden-text', state.hideSpoken);
+    });
+    byId('nextBtn').addEventListener('click', nextTask);
+    byId('shuffleBtn').addEventListener('click', () => {
+      state.index = Math.floor(Math.random() * modeTasks().length);
+      renderTask(true);
+    });
+    byId('resetBtn').addEventListener('click', () => {
+      state.score = 0;
+      state.streak = 0;
+      state.done = 0;
+      state.right = 0;
+      state.examDone = 0;
+      state.examRound = 0;
+      state.examRight = 0;
+      saveProgress();
+      renderTask(false);
+    });
+
+    renderTask(false);
+  </script>
+</body>
+</html>

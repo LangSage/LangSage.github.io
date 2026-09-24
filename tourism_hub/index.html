@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tourism English Hub</title>
+  <style>
+    :root {
+      --ink: #172126;
+      --muted: #5f6e74;
+      --paper: #f8f7f2;
+      --panel: #ffffff;
+      --line: #d9dfd8;
+      --brand: #126c76;
+      --brand-dark: #0b4e56;
+      --red: #d9482f;
+      --gold: #f1b84b;
+      --blue: #2d6ca2;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(120deg, rgba(18, 108, 118, .12), transparent 34%),
+        linear-gradient(300deg, rgba(217, 72, 47, .10), transparent 30%),
+        var(--paper);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 42px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 28px;
+      align-items: end;
+      padding: 18px 0 22px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--brand-dark);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 13px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 7vw, 78px);
+      line-height: .96;
+      letter-spacing: 0;
+      max-width: 850px;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      max-width: 780px;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.45;
+    }
+
+    .badge {
+      min-height: 170px;
+      border: 1px solid rgba(18, 108, 118, .22);
+      border-radius: 8px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 20px 55px rgba(23, 33, 38, .12);
+    }
+
+    .badge svg {
+      width: 100%;
+      height: 100%;
+      min-height: 170px;
+      display: block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .card {
+      min-height: 190px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .88);
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      box-shadow: 0 14px 34px rgba(23, 33, 38, .09);
+      transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(18, 108, 118, .45);
+      box-shadow: 0 18px 45px rgba(23, 33, 38, .13);
+    }
+
+    .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: rgba(18, 108, 118, .10);
+      color: var(--brand);
+    }
+
+    .icon svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 23px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .card p {
+      margin: 9px 0 0;
+      color: var(--muted);
+      line-height: 1.43;
+      font-size: 15px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 13px;
+    }
+
+    .tag {
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      padding: 5px 8px;
+      color: var(--brand-dark);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .route {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .82);
+      padding: 18px;
+    }
+
+    .route h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .step {
+      border-left: 4px solid var(--brand);
+      background: #fff;
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 96px;
+    }
+
+    .step strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .badge {
+        min-height: 140px;
+      }
+
+      .grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(100% - 20px, 1120px);
+        padding-top: 18px;
+      }
+
+      .card {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Tourism group</p>
+        <h1>English Practice Hub</h1>
+        <p class="lead">Все нужные тренажеры для заселения, выселения, вопросов, чисел и проблем в отеле на одной странице.</p>
+      </div>
+      <div class="badge" aria-hidden="true">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="190" fill="#eef6f4"/>
+          <rect x="34" y="98" width="252" height="48" rx="8" fill="#126c76"/>
+          <rect x="62" y="44" width="72" height="82" rx="8" fill="#fff"/>
+          <path d="M78 68h40M78 87h40M78 106h26" stroke="#126c76" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="226" cy="72" r="26" fill="#f1b84b"/>
+          <path d="M184 146c10-35 75-35 86 0" fill="#d9482f"/>
+          <path d="M210 74c9 8 22 8 31 0" stroke="#172126" stroke-width="5" stroke-linecap="round"/>
+          <path d="M48 156h224" stroke="#2d6ca2" stroke-width="9" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Training links">
+      <a class="card" href="https://langsage.github.io/english_trainer/">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h10"></path></svg>
+        </span>
+        <span>
+          <h2>Number Trainer</h2>
+          <p>Числа, цены, комнаты, даты и опасные пары вроде fifteen/fifty. Хорошо проходить перед аудированием.</p>
+          <span class="meta"><span class="tag">numbers</span><span class="tag">listening</span></span>
+        </span>
+      </a>
+
+      <a class="card" href="https://langsage.github.io/homework/offliners/question_words/">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.6 2.6 0 0 1 5 1.2c0 2-2.5 2-2.5 4"></path><path d="M12 17h.01"></path></svg>
+        </span>
+        <span>
+          <h2>Question Words</h2>
+          <p>What, where, when, why, how, which, whose. База для нормальных вопросов гостю на ресепшене.</p>
+          <span class="meta"><span class="tag">questions</span><span class="tag">A2-B1</span></span>
+        </span>
+      </a>
+
+      <a class="card" href="https://langsage.github.io/script/pages/">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3h8l4 4v14H4V3h4z"></path><path d="M14 3v5h5"></path><path d="M8 13h8"></path><path d="M8 17h6"></path></svg>
+        </span>
+        <span>
+          <h2>Hotel Scripts</h2>
+          <p>Готовые сценарии check-in/check-out. Читать вслух, слушать, повторять и забирать полезные фразы.</p>
+          <span class="meta"><span class="tag">scripts</span><span class="tag">speaking</span></span>
+        </span>
+      </a>
+
+      <a class="card" href="https://langsage.github.io/hotel_shift_trainer/">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h16"></path><path d="M7 10V7a5 5 0 0 1 10 0v3"></path><path d="M5 10v9h14v-9"></path><path d="M9 14h6"></path></svg>
+        </span>
+        <span>
+          <h2>Hotel Shift Trainer</h2>
+          <p>Ситуации ресепшена без набора текста: карточки, аудио, проблемы гостей и экзаменационный режим.</p>
+          <span class="meta"><span class="tag">reception</span><span class="tag">exam mode</span></span>
+        </span>
+      </a>
+    </section>
+
+    <section class="route">
+      <h2>Маршрут на занятие</h2>
+      <div class="steps">
+        <div class="step"><strong>1. Numbers</strong><span>5-7 минут: комнаты, цены, даты.</span></div>
+        <div class="step"><strong>2. Questions</strong><span>10 минут: выбрать правильное question word.</span></div>
+        <div class="step"><strong>3. Scripts</strong><span>Прочитать check-in/check-out вслух по ролям.</span></div>
+        <div class="step"><strong>4. Shift</strong><span>Закончить симулятором и Exam Mode.</span></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

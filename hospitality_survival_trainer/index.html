@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hospitality Survival Trainer</title>
+  <style>
+    :root {
+      --ink: #172126;
+      --muted: #5d6b72;
+      --paper: #f7f6f0;
+      --panel: #fff;
+      --line: #d8dfd9;
+      --brand: #126c76;
+      --brand-dark: #0b4e56;
+      --blue: #2d6ca2;
+      --green: #1f8a5b;
+      --red: #c74432;
+      --gold: #efb84a;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(130deg, rgba(18, 108, 118, .13), transparent 36%),
+        linear-gradient(310deg, rgba(199, 68, 50, .10), transparent 31%),
+        var(--paper);
+    }
+
+    button { font: inherit; color: inherit; }
+
+    .shell {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .back {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: var(--brand-dark);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .back svg, .button svg, .icon-btn svg, .tab svg { width: 19px; height: 19px; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 62px);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 12px 0 0;
+      color: var(--muted);
+      max-width: 780px;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .score {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .82);
+      padding: 8px 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .pill span { color: var(--muted); font-weight: 750; }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .tab {
+      min-height: 62px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .84);
+      padding: 9px 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-weight: 950;
+      text-align: center;
+    }
+
+    .tab.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .stage, .side {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .86);
+      box-shadow: 0 18px 48px rgba(23, 33, 38, .12);
+      overflow: hidden;
+    }
+
+    .scene {
+      display: grid;
+      grid-template-columns: 168px minmax(0, 1fr);
+      gap: 18px;
+      padding: 20px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(18, 108, 118, .08), rgba(255,255,255,.68));
+    }
+
+    .art {
+      min-height: 156px;
+      border: 1px solid rgba(18, 108, 118, .18);
+      border-radius: 8px;
+      background: #eef6f4;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .art svg { width: 100%; height: 100%; min-height: 156px; display: block; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+    .tag {
+      border-radius: 8px;
+      padding: 5px 8px;
+      background: rgba(18, 108, 118, .10);
+      color: var(--brand-dark);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .title {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 40px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .task {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.42;
+    }
+
+    .guest {
+      margin-top: 14px;
+      border: 1px solid rgba(18, 108, 118, .22);
+      border-radius: 8px;
+      background: #fff;
+      padding: 13px;
+    }
+
+    .guest-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      font-weight: 950;
+    }
+
+    .guest-text {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.35;
+      font-weight: 900;
+    }
+
+    .actions { display: flex; gap: 7px; }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .options {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+    }
+
+    .choice {
+      min-height: 128px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 14px;
+      cursor: pointer;
+      text-align: left;
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 11px;
+      align-items: start;
+      transition: transform 140ms ease, border-color 140ms ease;
+    }
+
+    .choice:hover {
+      transform: translateY(-2px);
+      border-color: rgba(18, 108, 118, .48);
+    }
+
+    .choice[disabled] {
+      cursor: default;
+      transform: none;
+      opacity: .72;
+    }
+
+    .choice.correct {
+      opacity: 1;
+      border-color: rgba(31, 138, 91, .88);
+      background: rgba(31, 138, 91, .08);
+    }
+
+    .choice.wrong {
+      opacity: 1;
+      border-color: rgba(199, 68, 50, .86);
+      background: rgba(199, 68, 50, .08);
+    }
+
+    .choice-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: var(--blue);
+      background: rgba(45, 108, 162, .10);
+      font-weight: 950;
+      font-size: 20px;
+    }
+
+    .en { display: block; font-size: 17px; font-weight: 950; line-height: 1.25; overflow-wrap: anywhere; }
+    .ru { display: block; color: var(--muted); margin-top: 6px; line-height: 1.35; font-size: 14px; }
+
+    .feedback {
+      display: none;
+      margin: 0 16px 16px;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.good { border-color: rgba(31, 138, 91, .45); background: rgba(31, 138, 91, .08); }
+    .feedback.bad { border-color: rgba(199, 68, 50, .42); background: rgba(199, 68, 50, .08); }
+    .feedback h2 { margin: 0 0 6px; font-size: 19px; }
+    .feedback p { margin: 0; color: var(--muted); line-height: 1.45; }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 16px 16px;
+    }
+
+    .button {
+      min-height: 46px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 10px 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 950;
+    }
+
+    .button.primary {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+
+    .side {
+      padding: 16px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .panel:first-child { border-top: 0; padding-top: 0; }
+    .panel h2 { margin: 0 0 8px; font-size: 18px; }
+    .panel p, .panel li { color: var(--muted); line-height: 1.42; font-size: 15px; }
+    .panel ul { margin: 8px 0 0; padding-left: 19px; }
+
+    .meter-top {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 950;
+      margin-bottom: 8px;
+    }
+
+    .bar {
+      height: 12px;
+      border-radius: 99px;
+      background: #e5ebe7;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand), var(--green));
+      transition: width 180ms ease;
+    }
+
+    .phrase {
+      display: grid;
+      gap: 7px;
+    }
+
+    .phrase div {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px;
+      font-weight: 850;
+    }
+
+    @media (max-width: 900px) {
+      .top, .layout, .scene { grid-template-columns: 1fr; }
+      .score { justify-content: flex-start; }
+      .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 20px, 1200px); padding-top: 14px; }
+      .options { grid-template-columns: 1fr; padding: 12px; }
+      .choice { min-height: 112px; }
+      .scene { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <div>
+        <a class="back" href="/tourism_hub/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg>
+          Hub
+        </a>
+        <h1>Hospitality Survival Trainer</h1>
+        <p class="lead">5 уровней для студентов с слабым английским: понять гостя, выбрать безопасную фразу и не потеряться в реальной отельной ситуации.</p>
+      </div>
+      <div class="score">
+        <div class="pill"><span>Score</span><strong id="score">0</strong></div>
+        <div class="pill"><span>Done</span><strong id="done">0</strong></div>
+        <button class="button" id="resetBtn" type="button">Reset</button>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Levels">
+      <button class="tab active" type="button" data-level="1">1. Survival</button>
+      <button class="tab" type="button" data-level="2">2. Polite</button>
+      <button class="tab" type="button" data-level="3">3. Services</button>
+      <button class="tab" type="button" data-level="4">4. Problems</button>
+      <button class="tab" type="button" data-level="5">5. Shift</button>
+    </nav>
+
+    <section class="layout">
+      <article class="stage" aria-live="polite">
+        <div class="scene">
+          <div class="art" id="art"></div>
+          <div>
+            <div class="tag-row">
+              <span class="tag" id="levelTag">Level 1</span>
+              <span class="tag" id="skillTag">Understand</span>
+              <span class="tag" id="countTag">1 / 10</span>
+            </div>
+            <h2 class="title" id="title">Task</h2>
+            <p class="task" id="task">Choose the best card.</p>
+            <div class="guest">
+              <div class="guest-head">
+                <span class="label">Guest / Situation</span>
+                <div class="actions">
+                  <button class="icon-btn" id="speakSlow" type="button" title="Slow audio">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4V5z"></path><path d="M15 9.5a4 4 0 0 1 0 5"></path></svg>
+                  </button>
+                  <button class="icon-btn" id="speakNormal" type="button" title="Normal audio">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>
+                  </button>
+                </div>
+              </div>
+              <p class="guest-text" id="guestText">Hello.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="options" id="options"></div>
+
+        <div class="feedback" id="feedback">
+          <h2 id="feedbackTitle">Good</h2>
+          <p id="feedbackText">Explanation</p>
+        </div>
+
+        <div class="nav">
+          <button class="button" id="shuffleBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"></path><path d="M4 20 21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg>
+            Random
+          </button>
+          <button class="button primary" id="nextBtn" type="button">
+            Next
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </button>
+        </div>
+      </article>
+
+      <aside class="side">
+        <div class="panel">
+          <div class="meter-top"><span>Level readiness</span><span id="readyText">0%</span></div>
+          <div class="bar"><span id="readyBar"></span></div>
+        </div>
+
+        <div class="panel">
+          <h2>Зачем этот уровень</h2>
+          <ul id="coach"></ul>
+        </div>
+
+        <div class="panel">
+          <h2>Фразы-спасатели</h2>
+          <div class="phrase" id="phraseBank"></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const icons = ['✓', '?', '!', '→'];
+    const art = {
+      front: '<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="160" fill="#e9f5f3"/><rect x="22" y="91" width="176" height="40" rx="7" fill="#126c76"/><rect x="45" y="32" width="56" height="68" rx="8" fill="#fff"/><path d="M58 53h30M58 70h30M58 87h21" stroke="#126c76" stroke-width="5" stroke-linecap="round"/><circle cx="153" cy="58" r="22" fill="#efb84a"/><path d="M119 131c8-29 62-29 70 0" fill="#c74432"/></svg>',
+      service: '<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="160" fill="#eef2f8"/><rect x="43" y="50" width="134" height="72" rx="10" fill="#fff"/><path d="M68 78h84M68 99h60" stroke="#2d6ca2" stroke-width="7" stroke-linecap="round"/><circle cx="62" cy="126" r="13" fill="#efb84a"/><circle cx="157" cy="126" r="13" fill="#efb84a"/></svg>',
+      problem: '<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="160" fill="#faece9"/><path d="M110 23 187 138H33L110 23Z" fill="#c74432"/><path d="M110 61v39" stroke="#fff" stroke-width="10" stroke-linecap="round"/><circle cx="110" cy="120" r="6" fill="#fff"/></svg>',
+      shift: '<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="160" fill="#edf6ef"/><rect x="28" y="103" width="164" height="34" rx="7" fill="#1f8a5b"/><circle cx="75" cy="62" r="21" fill="#efb84a"/><circle cx="146" cy="62" r="21" fill="#2d6ca2"/><path d="M43 135c7-31 57-31 64 0M114 135c7-31 57-31 64 0" fill="#fff"/></svg>'
+    };
+
+    const levels = {
+      1: {
+        name: 'Survival',
+        skill: 'Understand',
+        art: 'front',
+        coach: ['Студент учится понимать главную просьбу гостя.', 'Не нужно строить фразу самому: только выбрать смысл.', 'Подходит для самых слабых: одно действие на одну ситуацию.'],
+        phrases: ['One moment, please.', 'Let me check.', 'I can help you with that.'],
+        tasks: [
+          ['Check-in', 'I would like to check in, please.', 'Что хочет гость?', [['Заселиться', 'check in', true, 'Правильно: check in = заселиться. Example: “I would like to check in.”'], ['Выселиться', 'check out', false, 'Ошибка: check out = выезд из отеля.'], ['Заказать такси', 'book a taxi', false, 'Ошибка: taxi не звучало.'], ['Пожаловаться', 'complaint', false, 'Ошибка: жалобы нет.']]],
+          ['Check-out', 'I would like to check out.', 'Что хочет гость?', [['Выселиться', 'check out', true, 'Правильно: check out = выехать из отеля.'], ['Заселиться', 'check in', false, 'Ошибка: check in = заселиться.'], ['Завтрак', 'breakfast', false, 'Ошибка: breakfast не звучал.'], ['Парковка', 'parking', false, 'Ошибка: parking не звучал.']]],
+          ['Passport', 'Here is my passport.', 'Что дает гость?', [['Паспорт', 'passport', true, 'Правильно: passport = паспорт. На ресепшене это важный документ.'], ['Ключ', 'key card', false, 'Ошибка: key card = карта от номера.'], ['Чек', 'receipt', false, 'Ошибка: receipt = чек.'], ['Багаж', 'luggage', false, 'Ошибка: luggage = багаж.']]],
+          ['Breakfast', 'Is breakfast included?', 'О чем спрашивает гость?', [['Включен ли завтрак', 'included breakfast', true, 'Правильно: included = включен в стоимость/бронь.'], ['Где лифт', 'elevator', false, 'Ошибка: elevator не звучал.'], ['Нужна уборка', 'cleaning', false, 'Ошибка: cleaning не звучало.'], ['Нужен врач', 'doctor', false, 'Ошибка: doctor не звучал.']]],
+          ['Wi-Fi', 'What is the Wi-Fi password?', 'Что нужно гостю?', [['Пароль от Wi-Fi', 'Wi-Fi password', true, 'Правильно: password = пароль.'], ['Номер комнаты', 'room number', false, 'Ошибка: room number не звучал.'], ['Поздний выезд', 'late check-out', false, 'Ошибка: late check-out не звучал.'], ['Такси', 'taxi', false, 'Ошибка: taxi не звучал.']]],
+          ['Luggage', 'Can I leave my luggage here?', 'Что просит гость?', [['Оставить багаж', 'leave luggage', true, 'Правильно: leave my luggage = оставить багаж.'], ['Поменять номер', 'change room', false, 'Ошибка: room не звучал.'], ['Оплатить картой', 'pay by card', false, 'Ошибка: card не звучала.'], ['Прачечная', 'laundry', false, 'Ошибка: laundry не звучала.']]],
+          ['Taxi', 'Could you book a taxi to the airport?', 'Что нужно сделать?', [['Заказать такси', 'book a taxi', true, 'Правильно: book a taxi = заказать такси.'], ['Распечатать чек', 'print receipt', false, 'Ошибка: receipt не звучал.'], ['Дать полотенца', 'send towels', false, 'Ошибка: towels не звучали.'], ['Разбудить утром', 'wake-up call', false, 'Ошибка: wake-up call не звучал.']]],
+          ['Towels', 'Could you send extra towels to my room?', 'Что просит гость?', [['Дополнительные полотенца', 'extra towels', true, 'Правильно: extra towels = дополнительные полотенца.'], ['Дополнительные ключи', 'extra keys', false, 'Ошибка: keys не звучали.'], ['Дополнительный завтрак', 'extra breakfast', false, 'Ошибка: breakfast не звучал.'], ['Дополнительную ночь', 'extra night', false, 'Ошибка: night не звучала.']]],
+          ['Receipt', 'Could I have a receipt, please?', 'Что хочет гость?', [['Чек / квитанцию', 'receipt', true, 'Правильно: receipt = чек или квитанция.'], ['Карту от номера', 'key card', false, 'Ошибка: key card не звучала.'], ['Меню', 'menu', false, 'Ошибка: menu не звучало.'], ['Апгрейд', 'upgrade', false, 'Ошибка: upgrade не звучал.']]],
+          ['Late check-out', 'Can I check out later?', 'Что просит гость?', [['Поздний выезд', 'late check-out', true, 'Правильно: check out later = выехать позже.'], ['Ранний заезд', 'early check-in', false, 'Ошибка: early check-in = заселиться раньше.'], ['Номер тише', 'quiet room', false, 'Ошибка: quiet room не звучал.'], ['Поздний завтрак', 'late breakfast', false, 'Ошибка: breakfast не звучал.']]]
+        ]
+      },
+      2: {
+        name: 'Polite',
+        skill: 'Phrase',
+        art: 'front',
+        coach: ['Уровень учит заменять грубые фразы на сервисные.', 'Главная формула: could / may / let me / I’m sorry.', 'Студент видит, почему простая фраза звучит нормально или плохо.'],
+        phrases: ['Could I have your passport, please?', 'May I have your room number?', 'I’m sorry about that.'],
+        tasks: [
+          ['Ask name', 'Guest: I have a reservation.', 'Выбери вежливую фразу.', [['May I have your name, please?', 'лучший вариант', true, 'Правильно: “May I have...” звучит вежливо и помогает найти бронь.'], ['Name?', 'слишком коротко', false, 'Ошибка: понятно, но звучит грубо. Лучше полная фраза.'], ['Give name now.', 'приказ', false, 'Ошибка: give/now звучит жестко.'], ['You are name?', 'неправильно', false, 'Ошибка: так не говорят.']]],
+          ['Ask passport', 'Guest: What do you need from me?', 'Попроси паспорт.', [['Could I have your passport, please?', 'вежливо', true, 'Правильно: стандартная безопасная формула.'], ['Give passport.', 'грубо', false, 'Ошибка: звучит как приказ.'], ['Passport quickly.', 'резко', false, 'Ошибка: quickly давит на гостя.'], ['You passport me.', 'не английский', false, 'Ошибка: фраза не работает.']]],
+          ['Ask room number', 'Guest: I want to check out.', 'Спроси номер комнаты.', [['May I have your room number, please?', 'профессионально', true, 'Правильно: room number нужен для check-out.'], ['Room number!', 'резко', false, 'Ошибка: слишком командно.'], ['Where is your room?', 'не то', false, 'Ошибка: нужен номер, не местоположение.'], ['You room number is?', 'неестественно', false, 'Ошибка: лучше “May I have...?”']]],
+          ['Apologize', 'Guest: The room is dirty.', 'Начни ответ.', [['I’m sorry about that.', 'сервисно', true, 'Правильно: при жалобе сначала извинение.'], ['No, it is clean.', 'спор', false, 'Ошибка: не спорим первой фразой.'], ['That is your problem.', 'грубо', false, 'Ошибка: провал сервиса.'], ['Dirty is normal.', 'плохо', false, 'Ошибка: обесценивает жалобу.']]],
+          ['Ask to wait', 'Guest: Can you help me now?', 'Попроси подождать.', [['One moment, please. I’ll check that for you.', 'вежливо', true, 'Правильно: коротко, спокойно, с действием.'], ['Wait.', 'резко', false, 'Ошибка: слишком командно.'], ['Maybe later.', 'неясно', false, 'Ошибка: гость не понимает, что будет дальше.'], ['Stand there.', 'грубо', false, 'Ошибка: звучит неприятно.']]],
+          ['Cannot promise', 'Guest: Can I get a free upgrade?', 'Не обещай лишнего.', [['Let me check availability for you.', 'безопасно', true, 'Правильно: ты проверяешь, но не обещаешь.'], ['Yes, always free.', 'опасно', false, 'Ошибка: нельзя обещать без проверки.'], ['No, impossible forever.', 'резко', false, 'Ошибка: слишком жестко.'], ['Upgrade me?', 'непонятно', false, 'Ошибка: фраза не работает.']]],
+          ['Give directions', 'Guest: Where is the elevator?', 'Ответь понятно.', [['The elevator is on your left.', 'коротко и понятно', true, 'Правильно: простая навигация.'], ['Elevator there maybe.', 'неуверенно', false, 'Ошибка: maybe лишнее, звучит плохо.'], ['Find it yourself.', 'грубо', false, 'Ошибка: не сервисно.'], ['Elevator is breakfast.', 'бессмысленно', false, 'Ошибка: не отвечает.']]],
+          ['Say no politely', 'Guest: Can I smoke in the room?', 'Откажи вежливо.', [['I’m afraid all rooms are non-smoking.', 'вежливый отказ', true, 'Правильно: “I’m afraid...” смягчает отказ.'], ['No smoke. Go.', 'грубо', false, 'Ошибка: коротко и резко.'], ['Smoke anywhere.', 'нарушает правила', false, 'Ошибка: если запрещено, нельзя разрешать.'], ['I hate smoke.', 'личное мнение', false, 'Ошибка: personal opinion не нужно.']]],
+          ['Confirm', 'Guest: My name is Brown.', 'Подтверди имя.', [['Thank you, Mr. Brown. Let me check your booking.', 'профессионально', true, 'Правильно: подтверждение имени плюс действие.'], ['Brown what?', 'грубо', false, 'Ошибка: звучит резко.'], ['You are black?', 'неуместно', false, 'Ошибка: Brown здесь фамилия.'], ['Maybe Brown.', 'неуверенно', false, 'Ошибка: лучше повторить уверенно.']]],
+          ['End politely', 'Guest: Thank you.', 'Закрой ситуацию.', [['You’re welcome. Have a nice day.', 'вежливо', true, 'Правильно: простая финальная фраза.'], ['Yes.', 'сухо', false, 'Ошибка: не ошибка грамматики, но плохой сервисный тон.'], ['Finally.', 'грубо', false, 'Ошибка: звучит будто гость мешал.'], ['Go now.', 'грубо', false, 'Ошибка: так не заканчивают диалог.']]]
+        ]
+      },
+      3: {
+        name: 'Services',
+        skill: 'Hotel services',
+        art: 'service',
+        coach: ['Уровень связывает просьбу гостя с действием сотрудника.', 'Это реальные hotel services: taxi, towels, laundry, wake-up call.', 'Студент учится выбирать следующий шаг, не строя длинный ответ.'],
+        phrases: ['I’ll arrange it for you.', 'What time would you like it?', 'I’ll send it to your room.'],
+        tasks: [
+          ['Wake-up call', 'Could I get a wake-up call at six thirty?', 'Что нужно сделать?', [['Записать wake-up call на 6:30', 'wake-up call', true, 'Правильно: guest asks to be woken up at 6:30.'], ['Дать пароль Wi-Fi', 'Wi-Fi', false, 'Ошибка: Wi-Fi не звучал.'], ['Поменять номер', 'change room', false, 'Ошибка: room problem нет.'], ['Заказать ужин', 'dinner', false, 'Ошибка: dinner не звучал.']]],
+          ['Laundry', 'Do you offer same-day laundry service?', 'О чем спрашивает гость?', [['Прачечная в тот же день', 'same-day laundry', true, 'Правильно: laundry service = прачечная/стирка.'], ['Поздний выезд', 'late check-out', false, 'Ошибка: check-out не звучал.'], ['Парковка', 'parking', false, 'Ошибка: parking не звучал.'], ['Врач', 'doctor', false, 'Ошибка: doctor не звучал.']]],
+          ['Restaurant booking', 'Can you reserve a table for two at eight?', 'Что нужно уточнить/сделать?', [['Забронировать стол на двоих в 8', 'table for two', true, 'Правильно: reserve a table = забронировать стол.'], ['Забронировать две комнаты', 'two rooms', false, 'Ошибка: table, not room.'], ['Заказать такси на 8', 'taxi', false, 'Ошибка: taxi не звучало.'], ['Сделать check-out', 'check-out', false, 'Ошибка: речь о restaurant.']]],
+          ['Parking', 'Is parking available at the hotel?', 'Что хочет узнать гость?', [['Есть ли парковка', 'parking available', true, 'Правильно: available = доступна/есть.'], ['Есть ли бассейн', 'pool', false, 'Ошибка: pool не звучал.'], ['Есть ли завтрак', 'breakfast', false, 'Ошибка: breakfast не звучал.'], ['Есть ли лифт', 'elevator', false, 'Ошибка: elevator не звучал.']]],
+          ['Baby cot', 'Could we have a baby cot in the room?', 'Что нужно отправить?', [['Детскую кроватку', 'baby cot', true, 'Правильно: baby cot = детская кроватка.'], ['Полотенца', 'towels', false, 'Ошибка: towels не звучали.'], ['Фен', 'hair dryer', false, 'Ошибка: hair dryer не звучал.'], ['Сейф', 'safe', false, 'Ошибка: safe не звучал.']]],
+          ['Airport shuttle', 'What time does the airport shuttle leave?', 'Что нужно дать?', [['Расписание шаттла', 'shuttle schedule', true, 'Правильно: asks what time the shuttle leaves.'], ['Меню завтрака', 'breakfast menu', false, 'Ошибка: не про breakfast.'], ['Номер комнаты', 'room number', false, 'Ошибка: не про room.'], ['Ключ-карту', 'key card', false, 'Ошибка: key card не звучала.']]],
+          ['Iron', 'Could I borrow an iron?', 'Что просит гость?', [['Утюг', 'iron', true, 'Правильно: borrow an iron = взять утюг.'], ['Лед', 'ice', false, 'Ошибка: ice не звучал.'], ['Зонтик', 'umbrella', false, 'Ошибка: umbrella не звучал.'], ['Счет', 'bill', false, 'Ошибка: bill не звучал.']]],
+          ['Room service', 'Is room service available tonight?', 'О чем вопрос?', [['Доступен ли room service', 'room service', true, 'Правильно: available tonight = доступен сегодня вечером.'], ['Можно ли поменять номер', 'change room', false, 'Ошибка: change не звучал.'], ['Можно ли курить', 'smoking', false, 'Ошибка: smoking не звучал.'], ['Есть ли врач', 'doctor', false, 'Ошибка: doctor не звучал.']]],
+          ['Extra night', 'Can I stay one more night?', 'Что нужно проверить?', [['Наличие номера еще на ночь', 'one more night', true, 'Правильно: продление зависит от availability.'], ['Есть ли завтрак', 'breakfast', false, 'Ошибка: не про food.'], ['Номер телефона', 'phone number', false, 'Ошибка: phone не звучал.'], ['Пароль', 'password', false, 'Ошибка: password не звучал.']]],
+          ['Split bill', 'Can we split the bill between two cards?', 'Что просит гость?', [['Разделить оплату на две карты', 'split bill', true, 'Правильно: split the bill = разделить оплату.'], ['Разделить комнату на две', 'split room', false, 'Ошибка: bill, not room.'], ['Получить две карты от номера', 'two key cards', false, 'Ошибка: cards here = payment cards.'], ['Отменить счет', 'cancel bill', false, 'Ошибка: split, not cancel.']]]
+        ]
+      },
+      4: {
+        name: 'Problems',
+        skill: 'Solve',
+        art: 'problem',
+        coach: ['Главная формула: извиниться, назвать действие, дать срок.', 'Студент учится не спорить с гостем и не обвинять.', 'Это самые полезные ситуации для гостиницы.'],
+        phrases: ['I’m sorry about that.', 'I’ll send someone right away.', 'Let me check what happened.'],
+        tasks: [
+          ['Dirty room', 'My room has not been cleaned.', 'Лучший первый ответ?', [['I’m sorry. I’ll send housekeeping right away.', 'apology + action', true, 'Правильно: housekeeping решает dirty room.'], ['Clean it yourself.', 'грубо', false, 'Ошибка: это обязанность отеля.'], ['It is clean.', 'спор', false, 'Ошибка: сначала решаем complaint.'], ['Come next week.', 'не решение', false, 'Ошибка: нужно сейчас.']]],
+          ['No hot water', 'There is no hot water in my room.', 'Что делать?', [['I’m sorry. I’ll contact maintenance right away.', 'maintenance', true, 'Правильно: no hot water = maintenance issue.'], ['Use cold water.', 'плохой сервис', false, 'Ошибка: не решает проблему.'], ['Water is expensive.', 'не по теме', false, 'Ошибка: не отвечает.'], ['You broke it.', 'обвинение', false, 'Ошибка: нельзя обвинять.']]],
+          ['Key card', 'My key card is not working.', 'Лучший ответ?', [['I’m sorry. I’ll check your room number and recode it.', 'verify + recode', true, 'Правильно: безопасность плюс решение.'], ['Try harder.', 'грубо', false, 'Ошибка: карта может быть размагничена.'], ['Sleep outside.', 'нельзя', false, 'Ошибка: провал сервиса.'], ['Buy a key.', 'неверно', false, 'Ошибка: key card обычно заменяют/перекодируют.']]],
+          ['Noise', 'The people next door are very loud.', 'Что сказать?', [['I’m sorry. I’ll contact them and ask them to keep the noise down.', 'staff action', true, 'Правильно: staff решает noise complaint.'], ['Shout at them.', 'перекладывает', false, 'Ошибка: гость не должен решать конфликт.'], ['Noise is normal.', 'обесценивает', false, 'Ошибка: complaint надо принять.'], ['Sleep in the lobby.', 'плохой сервис', false, 'Ошибка: не решение.']]],
+          ['Wrong bill', 'There is a minibar charge, but I did not use it.', 'Что делать?', [['Let me check that charge for you.', 'check charge', true, 'Правильно: disputed charge надо проверить.'], ['Pay everything.', 'слишком жестко', false, 'Ошибка: сначала проверка.'], ['Minibar is fun.', 'не по теме', false, 'Ошибка: guest disputes charge.'], ['Maybe you forgot.', 'обвинение', false, 'Ошибка: звучит плохо.']]],
+          ['Lost passport', 'I think I lost my passport.', 'Лучший ответ?', [['I’m sorry. Let me check lost and found and call security.', 'serious help', true, 'Правильно: passport is serious; нужно lost and found/security.'], ['Forget it.', 'опасно', false, 'Ошибка: паспорт важен.'], ['Buy one here.', 'невозможно', false, 'Ошибка: hotel cannot issue passport.'], ['Funny problem.', 'неуместно', false, 'Ошибка: не шутим.']]],
+          ['Sick guest', 'I feel very sick. Is there a doctor nearby?', 'Что выбрать?', [['I can call a doctor or emergency services for you.', 'medical help', true, 'Правильно: health issue требует помощи.'], ['Sleep more.', 'опасно', false, 'Ошибка: может быть серьезно.'], ['Ask tomorrow.', 'опасно', false, 'Ошибка: помощь нужна сейчас.'], ['Doctors are closed.', 'без проверки', false, 'Ошибка: надо помогать искать помощь.']]],
+          ['Smoke smell', 'My non-smoking room smells of smoke.', 'Лучший ответ?', [['I’m sorry. Let me check another non-smoking room for you.', 'room solution', true, 'Правильно: room mismatch, нужен room solution.'], ['Open a window.', 'недостаточно', false, 'Ошибка: non-smoking room должен быть без запаха.'], ['Smoke is normal.', 'обесценивает', false, 'Ошибка: complaint valid.'], ['You smoked.', 'обвинение', false, 'Ошибка: сначала проверить.']]],
+          ['Taxi late', 'The taxi you booked is late.', 'Что делать?', [['I’ll call the taxi company now and update you.', 'call + update', true, 'Правильно: concrete action and update.'], ['Run.', 'не решение', false, 'Ошибка: unsafe/unprofessional.'], ['Taxis are late.', 'обесценивает', false, 'Ошибка: guest needs help.'], ['Not my problem.', 'провал сервиса', false, 'Ошибка: hotel booked it.']]],
+          ['Overbooking', 'What do you mean there is no room?', 'Выбери кризисный ответ.', [['I’m very sorry. We will arrange another room and cover the transfer.', 'responsibility', true, 'Правильно: overbooking требует apology + alternative.'], ['Goodbye.', 'бросает гостя', false, 'Ошибка: нельзя оставлять без решения.'], ['You booked too early.', 'обвинение', false, 'Ошибка: hotel responsible.'], ['Sleep in reception.', 'не решение', false, 'Ошибка: нужен номер.']]]
+        ]
+      },
+      5: {
+        name: 'Shift',
+        skill: 'Exam',
+        art: 'shift',
+        coach: ['Мини-смена смешивает все навыки.', 'Студент выбирает следующий лучший ход.', 'Подходит как контроль перед demo exam.'],
+        phrases: ['Let me check your booking.', 'I’ll arrange that for you.', 'Thank you for staying with us.'],
+        tasks: [
+          ['Arrival', 'Hello. I have a booking for tonight.', 'Следующий ход?', [['May I have your name, please?', 'find booking', true, 'Правильно: booking ищем по имени.'], ['Here is your bill.', 'не тот этап', false, 'Ошибка: это check-in, не check-out.'], ['Goodbye.', 'неуместно', false, 'Ошибка: гость приехал.'], ['Breakfast is closed.', 'не по теме', false, 'Ошибка: вопрос не про breakfast.']]],
+          ['No confirmation', 'I do not have my confirmation number.', 'Что делать?', [['No problem. May I check under your full name?', 'alternate search', true, 'Правильно: бронь можно искать по имени.'], ['Then no booking.', 'слишком рано', false, 'Ошибка: confirmation не единственный способ.'], ['Leave.', 'грубо', false, 'Ошибка: нет решения.'], ['Buy a number.', 'бессмысленно', false, 'Ошибка: confirmation number не покупают.']]],
+          ['Passport stage', 'Yes, that is my booking.', 'Следующая фраза?', [['Could I have your passport, please?', 'document check', true, 'Правильно: после booking нужен документ.'], ['Where is breakfast?', 'не тот шаг', false, 'Ошибка: сначала документы.'], ['Pay everything now.', 'резко', false, 'Ошибка: слишком рано/жестко.'], ['You are wrong.', 'неуместно', false, 'Ошибка: бронь найдена.']]],
+          ['Directions', 'How do I get to room 512?', 'Выбери ответ.', [['Take the elevator to the fifth floor. It is on the left.', 'clear directions', true, 'Правильно: floor + direction.'], ['Somewhere there.', 'расплывчато', false, 'Ошибка: не поможет.'], ['Room 512 is a price.', 'неверно', false, 'Ошибка: 512 = room number.'], ['Ask another guest.', 'плохой сервис', false, 'Ошибка: staff should help.']]],
+          ['During stay', 'Could you send two towels to room 419?', 'Что делать?', [['I’ll send two towels to room 419.', 'repeat details', true, 'Правильно: repeat item and room number.'], ['I’ll send two taxis.', 'не та вещь', false, 'Ошибка: towels, not taxis.'], ['Room 491?', 'не тот номер', false, 'Ошибка: 419.'], ['No towels ever.', 'плохой сервис', false, 'Ошибка: если возможно, отправляем.']]],
+          ['Complaint', 'The AC is not working.', 'Лучший ход?', [['I’m sorry. I’ll send maintenance as soon as possible.', 'problem formula', true, 'Правильно: apology + maintenance.'], ['AC is difficult.', 'не решение', false, 'Ошибка: guest needs action.'], ['You broke it.', 'обвинение', false, 'Ошибка: нельзя.'], ['Open door.', 'недостаточно', false, 'Ошибка: AC остается broken.']]],
+          ['Late check-out', 'Can I check out at 2 p.m.?', 'Безопасный ответ?', [['Let me check availability. It may be possible for an extra fee.', 'realistic', true, 'Правильно: depends on availability and fee.'], ['Always free.', 'опасное обещание', false, 'Ошибка: fee possible.'], ['Never ask.', 'грубо', false, 'Ошибка: check first.'], ['Check-in is tomorrow.', 'не отвечает', false, 'Ошибка: check-out request.']]],
+          ['Bill problem', 'I do not recognize this parking charge.', 'Что сказать?', [['Let me check that charge for you.', 'check record', true, 'Правильно: disputed charge = check.'], ['Recognize it now.', 'грубо', false, 'Ошибка: не сервисно.'], ['Parking is breakfast.', 'бессмысленно', false, 'Ошибка: не отвечает.'], ['Pay and go.', 'жестко', false, 'Ошибка: сначала check.']]],
+          ['Departure', 'That is all. We are leaving now.', 'Закрой диалог.', [['Thank you for staying with us. Have a safe trip.', 'farewell', true, 'Правильно: polite check-out ending.'], ['Finally.', 'грубо', false, 'Ошибка: звучит неприятно.'], ['Stay forever.', 'неверно', false, 'Ошибка: guest leaves.'], ['Pay again outside.', 'неверно', false, 'Ошибка: check-out done.']]],
+          ['Manager request', 'I want to speak to the manager.', 'Лучший ответ?', [['I understand. I will call the manager right away.', 'de-escalation', true, 'Правильно: acknowledge + action.'], ['Calm down.', 'может ухудшить', false, 'Ошибка: звучит агрессивно.'], ['No manager exists.', 'неверно', false, 'Ошибка: request ignored.'], ['Speak to yourself.', 'грубо', false, 'Ошибка: провал сервиса.']]]
+        ]
+      }
+    };
+
+    const state = {
+      level: '1',
+      index: 0,
+      answered: false,
+      score: Number(localStorage.getItem('hst-survival-score') || 0),
+      done: Number(localStorage.getItem('hst-survival-done') || 0),
+      rightByLevel: JSON.parse(localStorage.getItem('hst-survival-right') || '{}'),
+      doneByLevel: JSON.parse(localStorage.getItem('hst-survival-leveldone') || '{}')
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    function currentLevel() { return levels[state.level]; }
+    function currentTask() { return currentLevel().tasks[state.index % currentLevel().tasks.length]; }
+
+    function save() {
+      localStorage.setItem('hst-survival-score', state.score);
+      localStorage.setItem('hst-survival-done', state.done);
+      localStorage.setItem('hst-survival-right', JSON.stringify(state.rightByLevel));
+      localStorage.setItem('hst-survival-leveldone', JSON.stringify(state.doneByLevel));
+    }
+
+    function speak(text, slow = false) {
+      if (!('speechSynthesis' in window)) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-GB';
+      u.rate = slow ? 0.68 : 0.92;
+      u.pitch = slow ? 0.95 : 1.02;
+      speechSynthesis.speak(u);
+    }
+
+    function updateStats() {
+      $('score').textContent = state.score;
+      $('done').textContent = state.done;
+      const done = state.doneByLevel[state.level] || 0;
+      const right = state.rightByLevel[state.level] || 0;
+      const percent = done ? Math.round((right / done) * 100) : 0;
+      $('readyText').textContent = percent + '%';
+      $('readyBar').style.width = percent + '%';
+    }
+
+    function render() {
+      const level = currentLevel();
+      const task = currentTask();
+      state.answered = false;
+      $('art').innerHTML = art[level.art];
+      $('levelTag').textContent = `Level ${state.level}: ${level.name}`;
+      $('skillTag').textContent = level.skill;
+      $('countTag').textContent = `${state.index + 1} / ${level.tasks.length}`;
+      $('title').textContent = task[0];
+      $('guestText').textContent = task[1];
+      $('task').textContent = task[2];
+      $('coach').innerHTML = level.coach.map((x) => `<li>${x}</li>`).join('');
+      $('phraseBank').innerHTML = level.phrases.map((x) => `<div>${x}</div>`).join('');
+      $('feedback').className = 'feedback';
+      $('options').innerHTML = '';
+
+      [...task[3]].sort(() => Math.random() - .5).forEach((opt, i) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'choice';
+        button.dataset.correct = opt[2] ? 'true' : 'false';
+        button.dataset.why = opt[3];
+        button.innerHTML = `<span class="choice-icon">${icons[i]}</span><span><span class="en">${opt[0]}</span><span class="ru">${opt[1]}</span></span>`;
+        button.addEventListener('click', () => answer(button));
+        $('options').appendChild(button);
+      });
+      updateStats();
+    }
+
+    function answer(button) {
+      if (state.answered) return;
+      state.answered = true;
+      const correct = button.dataset.correct === 'true';
+      [...document.querySelectorAll('.choice')].forEach((card) => {
+        card.disabled = true;
+        if (card.dataset.correct === 'true') card.classList.add('correct');
+      });
+      button.classList.add(correct ? 'correct' : 'wrong');
+
+      state.done += 1;
+      state.doneByLevel[state.level] = (state.doneByLevel[state.level] || 0) + 1;
+      if (correct) {
+        state.score += 10;
+        state.rightByLevel[state.level] = (state.rightByLevel[state.level] || 0) + 1;
+      }
+      save();
+      updateStats();
+
+      $('feedback').className = `feedback show ${correct ? 'good' : 'bad'}`;
+      $('feedbackTitle').textContent = correct ? 'Good service choice' : 'Careful';
+      $('feedbackText').textContent = button.dataset.why;
+    }
+
+    document.querySelectorAll('.tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach((x) => x.classList.remove('active'));
+        tab.classList.add('active');
+        state.level = tab.dataset.level;
+        state.index = 0;
+        render();
+      });
+    });
+
+    $('speakSlow').addEventListener('click', () => speak(currentTask()[1], true));
+    $('speakNormal').addEventListener('click', () => speak(currentTask()[1], false));
+    $('nextBtn').addEventListener('click', () => {
+      state.index = (state.index + 1) % currentLevel().tasks.length;
+      render();
+    });
+    $('shuffleBtn').addEventListener('click', () => {
+      state.index = Math.floor(Math.random() * currentLevel().tasks.length);
+      render();
+    });
+    $('resetBtn').addEventListener('click', () => {
+      state.score = 0;
+      state.done = 0;
+      state.rightByLevel = {};
+      state.doneByLevel = {};
+      save();
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

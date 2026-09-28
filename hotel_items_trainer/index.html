@@ -187,11 +187,7 @@
     }
 
     .target-ru {
-      color: var(--muted);
-      display: block;
-      margin-top: 4px;
-      font-size: 14px;
-      font-weight: 800;
+      display: none;
     }
 
     .actions { display: flex; gap: 7px; }
@@ -245,7 +241,7 @@
     }
 
     .en { display: block; font-size: 17px; font-weight: 950; line-height: 1.2; overflow-wrap: anywhere; }
-    .ru { display: block; margin-top: 5px; color: var(--muted); font-size: 14px; line-height: 1.25; }
+    .ru { display: none; }
 
     .feedback {
       display: none;
@@ -335,10 +331,10 @@
             <span class="tag" id="modeTag">Staff</span>
             <span class="tag" id="stepTag">1 / 10</span>
           </div>
-          <h2 class="title" id="title">Who is this?</h2>
-          <p class="prompt" id="prompt">Выбери правильную карточку.</p>
+          <h2 class="title" id="title">Staff</h2>
+          <p class="prompt" id="prompt">Choose the correct card.</p>
           <div class="target">
-            <p class="target-text"><span id="targetText">receptionist</span><span class="target-ru" id="targetRu">администратор ресепшена</span></p>
+            <p class="target-text"><span id="targetText">Who checks guests in?</span><span class="target-ru" id="targetRu">Кто заселяет гостей?</span></p>
             <div class="actions">
               <button class="icon-btn" id="speakBtn" type="button" title="Listen">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg>
@@ -364,6 +360,7 @@
     </section>
   </main>
 
+  <script src="../assets/js/hospitality-glossary.js"></script>
   <script>
     const art = {
       staff: '<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="160" fill="#e9f5f3"/><circle cx="72" cy="57" r="22" fill="#efb84a"/><circle cx="145" cy="57" r="22" fill="#2d6ca2"/><path d="M38 137c7-34 61-34 68 0M111 137c7-34 61-34 68 0" fill="#fff"/><rect x="38" y="105" width="141" height="29" rx="6" fill="#126c76"/></svg>',
@@ -445,6 +442,12 @@
     };
 
     const $ = (id) => document.getElementById(id);
+    const escapeHtml = (value) => String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
 
     function items() { return data[state.mode]; }
     function current() { return items()[state.index % items().length]; }
@@ -473,9 +476,9 @@
       $('art').innerHTML = art[state.mode];
       $('modeTag').textContent = document.querySelector(`.tab[data-mode="${state.mode}"]`).textContent;
       $('stepTag').textContent = `${state.index + 1} / ${items().length}`;
-      $('title').textContent = item[0];
-      $('prompt').textContent = item[1];
-      $('targetText').textContent = item[2];
+      $('title').textContent = document.querySelector(`.tab[data-mode="${state.mode}"]`).textContent;
+      $('prompt').textContent = 'Choose the correct card.';
+      $('targetText').textContent = item[0];
       $('targetRu').textContent = item[3];
       $('score').textContent = state.score;
       $('done').textContent = state.done;
@@ -487,10 +490,11 @@
         button.type = 'button';
         button.className = 'choice';
         button.dataset.correct = option[0] === item[2] ? 'true' : 'false';
-        button.innerHTML = `<span class="emoji">${option[2]}</span><span><span class="en">${option[0]}</span><span class="ru">${option[1]}</span></span>`;
+        button.innerHTML = `<span class="emoji">${escapeHtml(option[2])}</span><span><span class="en" data-gloss="${escapeHtml(option[0])}" data-gloss-ru="${escapeHtml(option[1])}">${escapeHtml(option[0])}</span><span class="ru">${escapeHtml(option[1])}</span></span>`;
         button.addEventListener('click', () => answer(button));
         $('options').appendChild(button);
       });
+      window.LangSageGlossary?.decorate(document.querySelector('.trainer'));
     }
 
     function answer(button) {

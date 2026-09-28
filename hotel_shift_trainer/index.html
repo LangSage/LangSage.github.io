@@ -356,11 +356,7 @@
     }
 
     .choice-ru {
-      display: block;
-      color: var(--muted);
-      line-height: 1.35;
-      font-size: 14px;
-      margin-top: 6px;
+      display: none;
     }
 
     .feedback {
@@ -651,6 +647,7 @@
   </main>
 
   <script src="trainer-data.js"></script>
+  <script src="../assets/js/hospitality-glossary.js"></script>
   <script>
     const icons = {
       reply: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path></svg>',
@@ -960,6 +957,12 @@
     };
 
     const byId = (id) => document.getElementById(id);
+    const escapeHtml = (value) => String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
     const modeTasks = () => tasks.filter((task) => task.mode === state.mode);
     const currentTask = () => modeTasks()[state.index % modeTasks().length];
 
@@ -1021,6 +1024,7 @@
       byId('taskRu').textContent = task.ru;
       byId('spokenText').textContent = task.spoken;
       byId('spokenText').classList.toggle('hidden-text', state.hideSpoken);
+      window.LangSageGlossary?.decorate(byId('spokenText'));
       byId('feedback').className = 'feedback';
       byId('examResult').className = 'exam-result';
       byId('options').innerHTML = '';
@@ -1036,13 +1040,14 @@
         button.innerHTML = `
           <span class="choice-icon" aria-hidden="true">${optionIcon(option[0])}</span>
           <span class="choice-main">
-            <span class="choice-en">${option[0]}</span>
-            <span class="choice-ru">${option[1]}</span>
+            <span class="choice-en">${escapeHtml(option[0])}</span>
+            <span class="choice-ru">${escapeHtml(option[1])}</span>
           </span>
         `;
         button.addEventListener('click', () => answer(button));
         byId('options').appendChild(button);
       });
+      window.LangSageGlossary?.decorate(byId('options'));
 
       updateStats();
       if (autoSpeak || task.hidden) window.setTimeout(() => speak(task.spoken), 250);

@@ -273,7 +273,7 @@
     }
 
     .en { display: block; font-size: 17px; font-weight: 950; line-height: 1.25; overflow-wrap: anywhere; }
-    .ru { display: block; color: var(--muted); margin-top: 6px; line-height: 1.35; font-size: 14px; }
+    .ru { display: none; }
 
     .feedback {
       display: none;
@@ -429,6 +429,7 @@
     </section>
   </main>
 
+  <script src="../assets/js/hospitality-glossary.js"></script>
   <script>
     const icons = ['✓', '?', '!', '→'];
     const art = {
@@ -547,6 +548,12 @@
     };
 
     const $ = (id) => document.getElementById(id);
+    const escapeHtml = (value) => String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
 
     function currentLevel() { return levels[state.level]; }
     function currentTask() { return currentLevel().tasks[state.index % currentLevel().tasks.length]; }
@@ -584,6 +591,7 @@
       $('title').textContent = task[0];
       $('guestText').textContent = task[1];
       $('task').textContent = task[2];
+      window.LangSageGlossary?.decorate($('guestText'));
       $('feedback').className = 'feedback';
       $('options').innerHTML = '';
 
@@ -593,10 +601,11 @@
         button.className = 'choice';
         button.dataset.correct = opt[2] ? 'true' : 'false';
         button.dataset.why = opt[3];
-        button.innerHTML = `<span class="choice-icon">${icons[i]}</span><span><span class="en">${opt[0]}</span><span class="ru">${opt[1]}</span></span>`;
+        button.innerHTML = `<span class="choice-icon">${icons[i]}</span><span><span class="en">${escapeHtml(opt[0])}</span><span class="ru">${escapeHtml(opt[1])}</span></span>`;
         button.addEventListener('click', () => answer(button));
         $('options').appendChild(button);
       });
+      window.LangSageGlossary?.decorate($('options'));
       updateStats();
     }
 

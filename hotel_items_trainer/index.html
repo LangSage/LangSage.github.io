@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotel Staff & Items Trainer</title>
+  <style>
+    :root {
+      --ink: #172126;
+      --muted: #5f6e74;
+      --paper: #f8f7f2;
+      --line: #d8dfd9;
+      --brand: #126c76;
+      --brand-dark: #0b4e56;
+      --green: #1f8a5b;
+      --red: #c74432;
+      --blue: #2d6ca2;
+      --gold: #efb84a;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(130deg, rgba(18, 108, 118, .12), transparent 36%),
+        linear-gradient(310deg, rgba(199, 68, 50, .10), transparent 31%),
+        var(--paper);
+    }
+
+    button { font: inherit; color: inherit; }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 16px 0 24px;
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 10px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 8px;
+      color: var(--brand-dark);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .back svg, .icon-btn svg, .btn svg { width: 18px; height: 18px; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 56px);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    .score {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      justify-content: flex-end;
+    }
+
+    .pill, .btn {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .84);
+      padding: 7px 11px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .pill span { color: var(--muted); font-weight: 750; }
+    .btn { cursor: pointer; }
+    .btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .tab {
+      min-height: 50px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .86);
+      padding: 8px;
+      cursor: pointer;
+      font-weight: 950;
+    }
+
+    .tab.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+
+    .stage {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .86);
+      box-shadow: 0 18px 48px rgba(23, 33, 38, .12);
+      overflow: hidden;
+    }
+
+    .scene {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 14px;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(18, 108, 118, .08), rgba(255, 255, 255, .68));
+    }
+
+    .art {
+      min-height: 136px;
+      border-radius: 8px;
+      border: 1px solid rgba(18, 108, 118, .18);
+      background: #eef6f4;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .art svg { width: 100%; height: 100%; min-height: 136px; display: block; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 8px; }
+    .tag {
+      border-radius: 8px;
+      padding: 5px 8px;
+      background: rgba(18, 108, 118, .10);
+      color: var(--brand-dark);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .title {
+      margin: 0;
+      font-size: clamp(22px, 3.3vw, 36px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .prompt {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .target {
+      margin-top: 10px;
+      border: 1px solid rgba(18, 108, 118, .22);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .target-text {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.25;
+      font-weight: 950;
+    }
+
+    .target-ru {
+      color: var(--muted);
+      display: block;
+      margin-top: 4px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .actions { display: flex; gap: 7px; }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+
+    .options {
+      padding: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .choice {
+      min-height: 96px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      padding: 11px;
+      text-align: left;
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+    }
+
+    .choice:hover { border-color: rgba(18, 108, 118, .48); }
+    .choice[disabled] { cursor: default; opacity: .72; }
+    .choice.correct { opacity: 1; border-color: rgba(31, 138, 91, .88); background: rgba(31, 138, 91, .08); }
+    .choice.wrong { opacity: 1; border-color: rgba(199, 68, 50, .86); background: rgba(199, 68, 50, .08); }
+
+    .emoji {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: rgba(45, 108, 162, .10);
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+    }
+
+    .en { display: block; font-size: 17px; font-weight: 950; line-height: 1.2; overflow-wrap: anywhere; }
+    .ru { display: block; margin-top: 5px; color: var(--muted); font-size: 14px; line-height: 1.25; }
+
+    .feedback {
+      display: none;
+      margin: 0 12px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 11px;
+      font-weight: 900;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.good { border-color: rgba(31, 138, 91, .45); background: rgba(31, 138, 91, .08); color: var(--green); }
+    .feedback.bad { border-color: rgba(199, 68, 50, .42); background: rgba(199, 68, 50, .08); color: var(--red); }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      padding: 0 12px 12px;
+    }
+
+    @media (max-width: 900px) {
+      .top, .scene { grid-template-columns: 1fr; }
+      .score { justify-content: flex-start; }
+    }
+
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 10px, 1180px); padding-top: 8px; }
+      .top { gap: 8px; margin-bottom: 8px; }
+      .back { margin-bottom: 5px; font-size: 14px; }
+      h1 { font-size: 24px; }
+      .score { gap: 6px; }
+      .pill, .btn { min-height: 34px; padding: 6px 9px; font-size: 13px; }
+      .tabs { gap: 5px; margin: 8px 0; }
+      .tab { min-height: 42px; padding: 6px 4px; font-size: 12px; }
+      .scene { padding: 10px; gap: 8px; }
+      .art { display: none; }
+      .tag-row { gap: 5px; margin-bottom: 6px; }
+      .tag { font-size: 11px; padding: 4px 6px; }
+      .title { font-size: 21px; }
+      .prompt { margin-top: 5px; font-size: 14px; }
+      .target { margin-top: 8px; padding: 9px; }
+      .target-text { font-size: 17px; }
+      .target-ru { font-size: 11px; }
+      .icon-btn { width: 34px; height: 34px; }
+      .options { gap: 7px; padding: 8px; }
+      .choice { min-height: 82px; grid-template-columns: 30px minmax(0, 1fr); gap: 7px; padding: 8px; }
+      .emoji { width: 30px; height: 30px; font-size: 18px; }
+      .en { font-size: 13px; }
+      .ru { font-size: 11px; margin-top: 3px; }
+      .feedback { margin: 0 8px 8px; padding: 9px; font-size: 13px; }
+      .nav { padding: 0 8px 8px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <div>
+        <a class="back" href="/tourism_hub/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg>
+          Hub
+        </a>
+        <h1>Hotel Staff & Items</h1>
+      </div>
+      <div class="score">
+        <div class="pill"><span>Score</span><strong id="score">0</strong></div>
+        <div class="pill"><span>Done</span><strong id="done">0</strong></div>
+        <button class="btn" id="resetBtn" type="button">Reset</button>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Modes">
+      <button class="tab active" type="button" data-mode="staff">Staff</button>
+      <button class="tab" type="button" data-mode="desk">Front Desk</button>
+      <button class="tab" type="button" data-mode="room">Room</button>
+      <button class="tab" type="button" data-mode="bathroom">Bathroom</button>
+      <button class="tab" type="button" data-mode="actions">Actions</button>
+    </nav>
+
+    <section class="stage" aria-live="polite">
+      <div class="scene">
+        <div class="art" id="art"></div>
+        <div>
+          <div class="tag-row">
+            <span class="tag" id="modeTag">Staff</span>
+            <span class="tag" id="stepTag">1 / 10</span>
+          </div>
+          <h2 class="title" id="title">Who is this?</h2>
+          <p class="prompt" id="prompt">Выбери правильную карточку.</p>
+          <div class="target">
+            <p class="target-text"><span id="targetText">receptionist</span><span class="target-ru" id="targetRu">администратор ресепшена</span></p>
+            <div class="actions">
+              <button class="icon-btn" id="speakBtn" type="button" title="Listen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback">Correct</div>
+
+      <div class="nav">
+        <button class="btn" id="randomBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"></path><path d="M4 20 21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg>
+          Random
+        </button>
+        <button class="btn primary" id="nextBtn" type="button">
+          Next
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const art = {
+      staff: '<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="160" fill="#e9f5f3"/><circle cx="72" cy="57" r="22" fill="#efb84a"/><circle cx="145" cy="57" r="22" fill="#2d6ca2"/><path d="M38 137c7-34 61-34 68 0M111 137c7-34 61-34 68 0" fill="#fff"/><rect x="38" y="105" width="141" height="29" rx="6" fill="#126c76"/></svg>',
+      desk: '<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="160" fill="#eef6f4"/><rect x="25" y="90" width="170" height="42" rx="7" fill="#126c76"/><rect x="58" y="40" width="104" height="64" rx="8" fill="#fff"/><path d="M74 62h72M74 82h50" stroke="#126c76" stroke-width="7" stroke-linecap="round"/></svg>',
+      room: '<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="160" fill="#eef2f8"/><rect x="36" y="78" width="148" height="48" rx="8" fill="#2d6ca2"/><rect x="50" y="55" width="55" height="28" rx="6" fill="#fff"/><rect x="112" y="55" width="55" height="28" rx="6" fill="#fff"/><path d="M42 126h136" stroke="#172126" stroke-width="6" stroke-linecap="round"/></svg>',
+      bathroom: '<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="160" fill="#edf8fb"/><rect x="42" y="89" width="136" height="34" rx="15" fill="#fff"/><path d="M62 89V58h43v31" fill="none" stroke="#2d6ca2" stroke-width="8" stroke-linecap="round"/><path d="M62 123v17M158 123v17" stroke="#126c76" stroke-width="7" stroke-linecap="round"/></svg>',
+      actions: '<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="160" fill="#f8f1e7"/><path d="M50 112h120" stroke="#126c76" stroke-width="12" stroke-linecap="round"/><path d="M72 88h76" stroke="#c74432" stroke-width="10" stroke-linecap="round"/><circle cx="80" cy="57" r="18" fill="#efb84a"/><circle cx="139" cy="57" r="18" fill="#2d6ca2"/></svg>'
+    };
+
+    const data = {
+      staff: [
+        ['Who checks guests in?', 'Кто заселяет гостей?', 'receptionist', 'администратор ресепшена', [['receptionist', 'администратор', '🛎️'], ['chef', 'повар', '🍳'], ['driver', 'водитель', '🚕'], ['housekeeper', 'горничная', '🧹']]],
+        ['Who cleans rooms?', 'Кто убирает номера?', 'housekeeper', 'горничная', [['housekeeper', 'горничная', '🧹'], ['manager', 'менеджер', '👔'], ['waiter', 'официант', '🍽️'], ['security guard', 'охранник', '🛡️']]],
+        ['Who carries luggage?', 'Кто помогает с багажом?', 'bellhop', 'носильщик', [['bellhop', 'носильщик', '🧳'], ['chef', 'повар', '🍳'], ['maintenance worker', 'техник', '🔧'], ['receptionist', 'администратор', '🛎️']]],
+        ['Who fixes broken things?', 'Кто чинит поломки?', 'maintenance worker', 'техник', [['maintenance worker', 'техник', '🔧'], ['guest', 'гость', '🙂'], ['waiter', 'официант', '🍽️'], ['concierge', 'консьерж', '🎫']]],
+        ['Who helps with city information?', 'Кто помогает с городом?', 'concierge', 'консьерж', [['concierge', 'консьерж', '🎫'], ['housekeeper', 'горничная', '🧹'], ['security guard', 'охранник', '🛡️'], ['chef', 'повар', '🍳']]],
+        ['Who protects the hotel?', 'Кто отвечает за безопасность?', 'security guard', 'охранник', [['security guard', 'охранник', '🛡️'], ['waiter', 'официант', '🍽️'], ['driver', 'водитель', '🚕'], ['housekeeper', 'горничная', '🧹']]],
+        ['Who serves food?', 'Кто обслуживает в ресторане?', 'waiter', 'официант', [['waiter', 'официант', '🍽️'], ['manager', 'менеджер', '👔'], ['bellhop', 'носильщик', '🧳'], ['receptionist', 'администратор', '🛎️']]],
+        ['Who cooks food?', 'Кто готовит еду?', 'chef', 'повар', [['chef', 'повар', '🍳'], ['driver', 'водитель', '🚕'], ['concierge', 'консьерж', '🎫'], ['guest', 'гость', '🙂']]],
+        ['Who drives guests?', 'Кто везет гостей?', 'driver', 'водитель', [['driver', 'водитель', '🚕'], ['waiter', 'официант', '🍽️'], ['maintenance worker', 'техник', '🔧'], ['manager', 'менеджер', '👔']]],
+        ['Who is in charge?', 'Кто главный на смене?', 'manager', 'менеджер', [['manager', 'менеджер', '👔'], ['guest', 'гость', '🙂'], ['bellhop', 'носильщик', '🧳'], ['chef', 'повар', '🍳']]]
+      ],
+      desk: [
+        ['Show ID.', 'Документ гостя', 'passport', 'паспорт', [['passport', 'паспорт', '🛂'], ['receipt', 'чек', '🧾'], ['towel', 'полотенце', '🧺'], ['pillow', 'подушка', '🛏️']]],
+        ['Open the room door.', 'Карта от номера', 'key card', 'карта-ключ', [['key card', 'карта-ключ', '💳'], ['credit card', 'банковская карта', '💳'], ['invoice', 'счет', '🧾'], ['remote control', 'пульт', '🎛️']]],
+        ['Pay for the room.', 'Оплата', 'credit card', 'банковская карта', [['credit card', 'банковская карта', '💳'], ['passport', 'паспорт', '🛂'], ['luggage tag', 'бирка багажа', '🏷️'], ['blanket', 'одеяло', '🛏️']]],
+        ['Proof of payment.', 'Чек', 'receipt', 'чек', [['receipt', 'чек', '🧾'], ['reservation', 'бронь', '📋'], ['deposit', 'депозит', '💶'], ['soap', 'мыло', '🧼']]],
+        ['Booked room.', 'Бронь', 'reservation', 'бронь', [['reservation', 'бронь', '📋'], ['minibar', 'мини-бар', '🥤'], ['safe', 'сейф', '🔐'], ['hanger', 'вешалка', '🧥']]],
+        ['Security money.', 'Залог', 'deposit', 'депозит', [['deposit', 'депозит', '💶'], ['receipt', 'чек', '🧾'], ['menu', 'меню', '📖'], ['duvet', 'одеяло', '🛏️']]],
+        ['Company bill.', 'Счет для компании', 'invoice', 'инвойс', [['invoice', 'инвойс', '🧾'], ['key card', 'карта-ключ', '💳'], ['kettle', 'чайник', '☕'], ['shampoo', 'шампунь', '🧴']]],
+        ['Guest bags.', 'Багаж', 'luggage', 'багаж', [['luggage', 'багаж', '🧳'], ['laundry bag', 'мешок для стирки', '🧺'], ['hair dryer', 'фен', '💨'], ['blanket', 'одеяло', '🛏️']]],
+        ['Tag for bags.', 'Бирка багажа', 'luggage tag', 'бирка багажа', [['luggage tag', 'бирка багажа', '🏷️'], ['receipt', 'чек', '🧾'], ['room service menu', 'меню room service', '📖'], ['bath mat', 'коврик', '⬜']]],
+        ['Room number paper.', 'Конверт для карты', 'key card holder', 'конверт карты', [['key card holder', 'конверт карты', '💳'], ['passport', 'паспорт', '🛂'], ['do not disturb sign', 'табличка', '🚪'], ['iron', 'утюг', '👕']]]
+      ],
+      room: [
+        ['Sleep on it.', 'Кровать', 'bed', 'кровать', [['bed', 'кровать', '🛏️'], ['desk', 'стол', '🪑'], ['safe', 'сейф', '🔐'], ['kettle', 'чайник', '☕']]],
+        ['Put your head on it.', 'Подушка', 'pillow', 'подушка', [['pillow', 'подушка', '🛏️'], ['blanket', 'плед', '🛏️'], ['sheet', 'простыня', '🛏️'], ['hanger', 'вешалка', '🧥']]],
+        ['Cover yourself.', 'Одеяло', 'duvet', 'одеяло', [['duvet', 'одеяло', '🛏️'], ['curtains', 'шторы', '🪟'], ['lamp', 'лампа', '💡'], ['socket', 'розетка', '🔌']]],
+        ['White fabric on bed.', 'Простыня', 'sheet', 'простыня', [['sheet', 'простыня', '🛏️'], ['towel', 'полотенце', '🧺'], ['bathrobe', 'халат', '🥼'], ['carpet', 'ковер', '◼️']]],
+        ['Keep money inside.', 'Сейф', 'safe', 'сейф', [['safe', 'сейф', '🔐'], ['minibar', 'мини-бар', '🥤'], ['wardrobe', 'шкаф', '🚪'], ['mirror', 'зеркало', '🪞']]],
+        ['Small fridge.', 'Мини-бар', 'minibar', 'мини-бар', [['minibar', 'мини-бар', '🥤'], ['kettle', 'чайник', '☕'], ['air conditioner', 'кондиционер', '❄️'], ['telephone', 'телефон', '☎️']]],
+        ['Make tea.', 'Чайник', 'kettle', 'чайник', [['kettle', 'чайник', '☕'], ['hair dryer', 'фен', '💨'], ['remote control', 'пульт', '🎛️'], ['iron', 'утюг', '👕']]],
+        ['Turn TV on.', 'Пульт', 'remote control', 'пульт', [['remote control', 'пульт', '🎛️'], ['telephone', 'телефон', '☎️'], ['lamp', 'лампа', '💡'], ['socket', 'розетка', '🔌']]],
+        ['Charge phone.', 'Розетка', 'socket', 'розетка', [['socket', 'розетка', '🔌'], ['desk', 'стол', '🪑'], ['hanger', 'вешалка', '🧥'], ['curtains', 'шторы', '🪟']]],
+        ['Hang clothes.', 'Вешалка', 'hanger', 'вешалка', [['hanger', 'вешалка', '🧥'], ['wardrobe', 'шкаф', '🚪'], ['luggage rack', 'подставка для багажа', '🧳'], ['pillow', 'подушка', '🛏️']]]
+      ],
+      bathroom: [
+        ['Dry yourself.', 'Полотенце', 'towel', 'полотенце', [['towel', 'полотенце', '🧺'], ['soap', 'мыло', '🧼'], ['shampoo', 'шампунь', '🧴'], ['bath mat', 'коврик', '⬜']]],
+        ['Wash hands.', 'Мыло', 'soap', 'мыло', [['soap', 'мыло', '🧼'], ['toothbrush', 'зубная щетка', '🪥'], ['toothpaste', 'паста', '🪥'], ['shower cap', 'шапочка', '🧢']]],
+        ['Wash hair.', 'Шампунь', 'shampoo', 'шампунь', [['shampoo', 'шампунь', '🧴'], ['conditioner', 'кондиционер для волос', '🧴'], ['body wash', 'гель для душа', '🧴'], ['tissue box', 'салфетки', '⬜']]],
+        ['After shampoo.', 'Кондиционер для волос', 'conditioner', 'кондиционер', [['conditioner', 'кондиционер', '🧴'], ['air conditioner', 'кондиционер', '❄️'], ['soap', 'мыло', '🧼'], ['bathrobe', 'халат', '🥼']]],
+        ['Dry hair.', 'Фен', 'hair dryer', 'фен', [['hair dryer', 'фен', '💨'], ['iron', 'утюг', '👕'], ['kettle', 'чайник', '☕'], ['remote control', 'пульт', '🎛️']]],
+        ['Wear after shower.', 'Халат', 'bathrobe', 'халат', [['bathrobe', 'халат', '🥼'], ['blanket', 'плед', '🛏️'], ['sheet', 'простыня', '🛏️'], ['hanger', 'вешалка', '🧥']]],
+        ['Floor near bath.', 'Коврик', 'bath mat', 'коврик', [['bath mat', 'коврик', '⬜'], ['carpet', 'ковер', '◼️'], ['towel', 'полотенце', '🧺'], ['pillow', 'подушка', '🛏️']]],
+        ['Brush teeth.', 'Зубная щетка', 'toothbrush', 'зубная щетка', [['toothbrush', 'зубная щетка', '🪥'], ['toothpaste', 'паста', '🪥'], ['razor', 'бритва', '🪒'], ['soap', 'мыло', '🧼']]],
+        ['Use with toothbrush.', 'Зубная паста', 'toothpaste', 'зубная паста', [['toothpaste', 'зубная паста', '🪥'], ['body wash', 'гель для душа', '🧴'], ['shampoo', 'шампунь', '🧴'], ['tissue box', 'салфетки', '⬜']]],
+        ['Shave.', 'Бритва', 'razor', 'бритва', [['razor', 'бритва', '🪒'], ['shower cap', 'шапочка', '🧢'], ['hair dryer', 'фен', '💨'], ['bathrobe', 'халат', '🥼']]]
+      ],
+      actions: [
+        ['Give a clean room.', 'Повысить категорию номера', 'upgrade the room', 'сделать апгрейд', [['upgrade the room', 'сделать апгрейд', '⬆️'], ['change the towel', 'заменить полотенце', '🧺'], ['print the receipt', 'распечатать чек', '🧾'], ['call security', 'позвать охрану', '🛡️']]],
+        ['New room.', 'Поменять номер', 'change the room', 'поменять номер', [['change the room', 'поменять номер', '🔁'], ['store luggage', 'оставить багаж', '🧳'], ['book a taxi', 'заказать такси', '🚕'], ['serve breakfast', 'подать завтрак', '🍽️']]],
+        ['Keep bags.', 'Оставить багаж', 'store luggage', 'оставить багаж', [['store luggage', 'оставить багаж', '🧳'], ['copy the passport', 'скопировать паспорт', '🛂'], ['send towels', 'отправить полотенца', '🧺'], ['fix the AC', 'починить кондиционер', '❄️']]],
+        ['Make paper copy.', 'Скопировать паспорт', 'copy the passport', 'скопировать паспорт', [['copy the passport', 'скопировать паспорт', '🛂'], ['print the receipt', 'распечатать чек', '🧾'], ['recode the key card', 'перекодировать карту', '💳'], ['clean the room', 'убрать номер', '🧹']]],
+        ['Door card problem.', 'Перекодировать карту', 'recode the key card', 'перекодировать карту', [['recode the key card', 'перекодировать карту', '💳'], ['book a table', 'забронировать стол', '🍽️'], ['call a doctor', 'вызвать врача', '🩺'], ['send housekeeping', 'отправить уборку', '🧹']]],
+        ['Dirty room.', 'Отправить уборку', 'send housekeeping', 'отправить уборку', [['send housekeeping', 'отправить уборку', '🧹'], ['call maintenance', 'позвать техника', '🔧'], ['call security', 'позвать охрану', '🛡️'], ['book a taxi', 'заказать такси', '🚕']]],
+        ['Broken shower.', 'Позвать техника', 'call maintenance', 'позвать техника', [['call maintenance', 'позвать техника', '🔧'], ['serve breakfast', 'подать завтрак', '🍽️'], ['store luggage', 'оставить багаж', '🧳'], ['print the receipt', 'распечатать чек', '🧾']]],
+        ['Loud guests.', 'Позвать охрану', 'call security', 'позвать охрану', [['call security', 'позвать охрану', '🛡️'], ['change the sheet', 'заменить простыню', '🛏️'], ['copy the passport', 'скопировать паспорт', '🛂'], ['upgrade the room', 'сделать апгрейд', '⬆️']]],
+        ['Airport ride.', 'Заказать такси', 'book a taxi', 'заказать такси', [['book a taxi', 'заказать такси', '🚕'], ['book a table', 'забронировать стол', '🍽️'], ['send towels', 'отправить полотенца', '🧺'], ['fix the safe', 'починить сейф', '🔐']]],
+        ['Paper after payment.', 'Распечатать чек', 'print the receipt', 'распечатать чек', [['print the receipt', 'распечатать чек', '🧾'], ['serve breakfast', 'подать завтрак', '🍽️'], ['change the room', 'поменять номер', '🔁'], ['call a doctor', 'вызвать врача', '🩺']]]
+      ]
+    };
+
+    const state = {
+      mode: 'staff',
+      index: 0,
+      answered: false,
+      score: Number(localStorage.getItem('hotel-items-score') || 0),
+      done: Number(localStorage.getItem('hotel-items-done') || 0)
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    function items() { return data[state.mode]; }
+    function current() { return items()[state.index % items().length]; }
+
+    function save() {
+      localStorage.setItem('hotel-items-score', state.score);
+      localStorage.setItem('hotel-items-done', state.done);
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-GB';
+      u.rate = 0.86;
+      speechSynthesis.speak(u);
+    }
+
+    function shuffle(list) {
+      return [...list].sort(() => Math.random() - 0.5);
+    }
+
+    function render() {
+      const item = current();
+      state.answered = false;
+      $('art').innerHTML = art[state.mode];
+      $('modeTag').textContent = document.querySelector(`.tab[data-mode="${state.mode}"]`).textContent;
+      $('stepTag').textContent = `${state.index + 1} / ${items().length}`;
+      $('title').textContent = item[0];
+      $('prompt').textContent = item[1];
+      $('targetText').textContent = item[2];
+      $('targetRu').textContent = item[3];
+      $('score').textContent = state.score;
+      $('done').textContent = state.done;
+      $('feedback').className = 'feedback';
+      $('options').innerHTML = '';
+
+      shuffle(item[4]).forEach((option) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'choice';
+        button.dataset.correct = option[0] === item[2] ? 'true' : 'false';
+        button.innerHTML = `<span class="emoji">${option[2]}</span><span><span class="en">${option[0]}</span><span class="ru">${option[1]}</span></span>`;
+        button.addEventListener('click', () => answer(button));
+        $('options').appendChild(button);
+      });
+    }
+
+    function answer(button) {
+      if (state.answered) return;
+      state.answered = true;
+      const correct = button.dataset.correct === 'true';
+      [...document.querySelectorAll('.choice')].forEach((card) => {
+        card.disabled = true;
+        if (card.dataset.correct === 'true') card.classList.add('correct');
+      });
+      button.classList.add(correct ? 'correct' : 'wrong');
+      state.done += 1;
+      if (correct) state.score += 10;
+      save();
+      $('score').textContent = state.score;
+      $('done').textContent = state.done;
+      $('feedback').textContent = correct ? 'Correct' : `Correct: ${current()[2]}`;
+      $('feedback').className = `feedback show ${correct ? 'good' : 'bad'}`;
+    }
+
+    document.querySelectorAll('.tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach((x) => x.classList.remove('active'));
+        tab.classList.add('active');
+        state.mode = tab.dataset.mode;
+        state.index = 0;
+        render();
+      });
+    });
+
+    $('speakBtn').addEventListener('click', () => speak(current()[2]));
+    $('nextBtn').addEventListener('click', () => {
+      state.index = (state.index + 1) % items().length;
+      render();
+    });
+    $('randomBtn').addEventListener('click', () => {
+      state.index = Math.floor(Math.random() * items().length);
+      render();
+    });
+    $('resetBtn').addEventListener('click', () => {
+      state.score = 0;
+      state.done = 0;
+      save();
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

@@ -37,7 +37,7 @@
     .shell {
       width: min(1200px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 24px 0 40px;
+      padding: 16px 0 24px;
     }
 
     .top {
@@ -45,7 +45,7 @@
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 18px;
       align-items: end;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
 
     .back {
@@ -53,7 +53,7 @@
       width: fit-content;
       align-items: center;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       color: var(--brand-dark);
       font-weight: 900;
       text-decoration: none;
@@ -63,17 +63,9 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(30px, 5vw, 62px);
+      font-size: clamp(28px, 5vw, 56px);
       line-height: .98;
       letter-spacing: 0;
-    }
-
-    .lead {
-      margin: 12px 0 0;
-      color: var(--muted);
-      max-width: 780px;
-      font-size: 17px;
-      line-height: 1.45;
     }
 
     .score {
@@ -102,11 +94,11 @@
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 8px;
-      margin: 18px 0;
+      margin: 12px 0;
     }
 
     .tab {
-      min-height: 62px;
+      min-height: 50px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: rgba(255, 255, 255, .84);
@@ -126,14 +118,7 @@
       color: #fff;
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr);
-      gap: 16px;
-      align-items: start;
-    }
-
-    .stage, .side {
+    .stage {
       border: 1px solid var(--line);
       border-radius: 8px;
       background: rgba(255, 255, 255, .86);
@@ -143,15 +128,15 @@
 
     .scene {
       display: grid;
-      grid-template-columns: 168px minmax(0, 1fr);
-      gap: 18px;
-      padding: 20px;
+      grid-template-columns: 140px minmax(0, 1fr);
+      gap: 14px;
+      padding: 14px;
       border-bottom: 1px solid var(--line);
       background: linear-gradient(135deg, rgba(18, 108, 118, .08), rgba(255,255,255,.68));
     }
 
     .art {
-      min-height: 156px;
+      min-height: 130px;
       border: 1px solid rgba(18, 108, 118, .18);
       border-radius: 8px;
       background: #eef6f4;
@@ -160,7 +145,7 @@
       overflow: hidden;
     }
 
-    .art svg { width: 100%; height: 100%; min-height: 156px; display: block; }
+    .art svg { width: 100%; height: 100%; min-height: 130px; display: block; }
 
     .tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
     .tag {
@@ -174,20 +159,20 @@
 
     .title {
       margin: 0;
-      font-size: clamp(24px, 3vw, 40px);
+      font-size: clamp(22px, 3vw, 34px);
       line-height: 1.05;
       letter-spacing: 0;
     }
 
     .task {
-      margin: 10px 0 0;
+      margin: 8px 0 0;
       color: var(--muted);
       font-size: 17px;
       line-height: 1.42;
     }
 
     .guest {
-      margin-top: 14px;
+      margin-top: 10px;
       border: 1px solid rgba(18, 108, 118, .22);
       border-radius: 8px;
       background: #fff;
@@ -231,18 +216,18 @@
     }
 
     .options {
-      padding: 16px;
+      padding: 12px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 11px;
     }
 
     .choice {
-      min-height: 128px;
+      min-height: 104px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #fff;
-      padding: 14px;
+      padding: 12px;
       cursor: pointer;
       text-align: left;
       display: grid;
@@ -292,8 +277,8 @@
 
     .feedback {
       display: none;
-      margin: 0 16px 16px;
-      padding: 14px;
+      margin: 0 12px 12px;
+      padding: 12px;
       border-radius: 8px;
       border: 1px solid var(--line);
       background: #fff;
@@ -309,7 +294,7 @@
       display: flex;
       justify-content: space-between;
       gap: 10px;
-      padding: 0 16px 16px;
+      padding: 0 12px 12px;
     }
 
     .button {
@@ -332,68 +317,40 @@
       color: #fff;
     }
 
-    .side {
-      padding: 16px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .panel {
-      border-top: 1px solid var(--line);
-      padding-top: 14px;
-    }
-
-    .panel:first-child { border-top: 0; padding-top: 0; }
-    .panel h2 { margin: 0 0 8px; font-size: 18px; }
-    .panel p, .panel li { color: var(--muted); line-height: 1.42; font-size: 15px; }
-    .panel ul { margin: 8px 0 0; padding-left: 19px; }
-
-    .meter-top {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 950;
-      margin-bottom: 8px;
-    }
-
-    .bar {
-      height: 12px;
-      border-radius: 99px;
-      background: #e5ebe7;
-      overflow: hidden;
-    }
-
-    .bar span {
-      display: block;
-      width: 0;
-      height: 100%;
-      background: linear-gradient(90deg, var(--brand), var(--green));
-      transition: width 180ms ease;
-    }
-
-    .phrase {
-      display: grid;
-      gap: 7px;
-    }
-
-    .phrase div {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      padding: 10px;
-      font-weight: 850;
-    }
-
     @media (max-width: 900px) {
-      .top, .layout, .scene { grid-template-columns: 1fr; }
+      .top, .scene { grid-template-columns: 1fr; }
       .score { justify-content: flex-start; }
-      .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 620px) {
-      .shell { width: min(100% - 20px, 1200px); padding-top: 14px; }
-      .options { grid-template-columns: 1fr; padding: 12px; }
-      .choice { min-height: 112px; }
-      .scene { padding: 14px; }
+      .shell { width: min(100% - 10px, 1200px); padding-top: 8px; }
+      .back { margin-bottom: 5px; font-size: 14px; }
+      h1 { font-size: 25px; }
+      .top { gap: 8px; margin-bottom: 8px; }
+      .score { gap: 6px; }
+      .pill, .button { min-height: 34px; padding: 6px 9px; font-size: 13px; }
+      .tabs { gap: 5px; margin: 8px 0; }
+      .tab { min-height: 42px; padding: 6px 4px; font-size: 12px; }
+      .scene { padding: 10px; gap: 8px; }
+      .art { display: none; }
+      .tag-row { gap: 5px; margin-bottom: 6px; }
+      .tag { font-size: 11px; padding: 4px 6px; }
+      .title { font-size: 21px; }
+      .task { margin-top: 5px; font-size: 14px; }
+      .guest { margin-top: 8px; padding: 9px; }
+      .guest-head { margin-bottom: 5px; }
+      .label { font-size: 11px; }
+      .guest-text { font-size: 16px; }
+      .icon-btn { width: 34px; height: 34px; }
+      .options { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; padding: 8px; }
+      .choice { min-height: 86px; grid-template-columns: 30px minmax(0, 1fr); gap: 7px; padding: 8px; }
+      .choice-icon { width: 30px; height: 30px; font-size: 16px; }
+      .en { font-size: 13px; }
+      .ru { font-size: 11px; margin-top: 3px; }
+      .feedback { margin: 0 8px 8px; padding: 9px; }
+      .feedback h2 { font-size: 15px; }
+      .feedback p { font-size: 13px; }
+      .nav { padding: 0 8px 8px; }
     }
   </style>
 </head>
@@ -406,7 +363,6 @@
           Hub
         </a>
         <h1>Hospitality Survival Trainer</h1>
-        <p class="lead">5 уровней для студентов с слабым английским: понять гостя, выбрать безопасную фразу и не потеряться в реальной отельной ситуации.</p>
       </div>
       <div class="score">
         <div class="pill"><span>Score</span><strong id="score">0</strong></div>
@@ -423,7 +379,7 @@
       <button class="tab" type="button" data-level="5">5. Shift</button>
     </nav>
 
-    <section class="layout">
+    <section>
       <article class="stage" aria-live="polite">
         <div class="scene">
           <div class="art" id="art"></div>
@@ -470,23 +426,6 @@
           </button>
         </div>
       </article>
-
-      <aside class="side">
-        <div class="panel">
-          <div class="meter-top"><span>Level readiness</span><span id="readyText">0%</span></div>
-          <div class="bar"><span id="readyBar"></span></div>
-        </div>
-
-        <div class="panel">
-          <h2>Зачем этот уровень</h2>
-          <ul id="coach"></ul>
-        </div>
-
-        <div class="panel">
-          <h2>Фразы-спасатели</h2>
-          <div class="phrase" id="phraseBank"></div>
-        </div>
-      </aside>
     </section>
   </main>
 
@@ -632,11 +571,6 @@
     function updateStats() {
       $('score').textContent = state.score;
       $('done').textContent = state.done;
-      const done = state.doneByLevel[state.level] || 0;
-      const right = state.rightByLevel[state.level] || 0;
-      const percent = done ? Math.round((right / done) * 100) : 0;
-      $('readyText').textContent = percent + '%';
-      $('readyBar').style.width = percent + '%';
     }
 
     function render() {
@@ -650,8 +584,6 @@
       $('title').textContent = task[0];
       $('guestText').textContent = task[1];
       $('task').textContent = task[2];
-      $('coach').innerHTML = level.coach.map((x) => `<li>${x}</li>`).join('');
-      $('phraseBank').innerHTML = level.phrases.map((x) => `<div>${x}</div>`).join('');
       $('feedback').className = 'feedback';
       $('options').innerHTML = '';
 

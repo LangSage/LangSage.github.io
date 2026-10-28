@@ -397,7 +397,7 @@
     </section>
   </main>
 
-  <script src="../assets/js/reception-scene.js"></script>
+  <script src="../assets/js/reception-scene.js?v=2"></script>
   <script src="../assets/js/hospitality-glossary.js"></script>
   <script>
     const art = {
@@ -540,7 +540,7 @@
       document.querySelector('.scene').classList.toggle('desk-scene', Boolean(role));
       $('roleTag').hidden = !role;
       if (role) {
-        scene.set({ role, person: state.index % 4, mood: 'neutral' });
+        scene.set({ role, person: 0, mood: 'neutral' });
         $('roleTag').textContent = `You: ${role}`;
         $('art').innerHTML = '';
       } else {

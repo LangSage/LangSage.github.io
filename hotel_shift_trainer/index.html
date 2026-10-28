@@ -684,7 +684,7 @@
   </main>
 
   <script src="trainer-data.js"></script>
-  <script src="../assets/js/reception-scene.js"></script>
+  <script src="../assets/js/reception-scene.js?v=2"></script>
   <script src="../assets/js/hospitality-glossary.js"></script>
   <script>
     const icons = {
@@ -1106,7 +1106,7 @@
       state.answered = false;
       state.selected = null;
       state.hideSpoken = Boolean(task.hidden);
-      scene.set({ role: task.role, person: tasks.indexOf(task) % 4, mood: 'neutral' });
+      scene.set({ role: task.role, person: 0, mood: 'neutral' });
       byId('roleTag').textContent = `You: ${task.role}`;
       document.querySelector('.guest-label').textContent = task.role === 'guest' ? 'Receptionist says' : 'Guest says';
       byId('revealBtn').title = 'Show or hide the speaker’s text';

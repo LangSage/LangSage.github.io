@@ -4,65 +4,52 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#173e3a">
-  <title>At the front desk · Hotel English</title>
+  <title>Hotel Scripts · У стойки</title>
   <link rel="stylesheet" href="../assets/css/reception-scene.css">
-  <link rel="stylesheet" href="style.css">
-  <script src="../assets/js/reception-scene.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=2">
+  <script src="../assets/js/reception-scene.js?v=2" defer></script>
   <script src="../assets/js/hospitality-glossary.js" defer></script>
-  <script src="app.js" defer></script>
+  <script src="app.js?v=2" defer></script>
 </head>
 <body>
   <div class="shell">
     <header class="topbar">
-      <a class="back-link" href="../tourism_hub/index.html" aria-label="Назад к тренажёрам">← <span>Тренажёры</span></a>
-      <span class="wordmark">THE ATRIUM <span>HOTEL</span></span>
-      <button class="sound-button" id="sound-toggle" type="button" aria-pressed="false" aria-label="Включить автоматическую озвучку">Звук: выкл.</button>
+      <a class="back-link" href="../tourism_hub/" aria-label="Назад к тренажёрам">← <span>Тренажёры</span></a>
+      <a class="wordmark" href="https://langsage.github.io/script/pages/">HOTEL SCRIPTS</a>
+      <button class="sound-button" id="sound-toggle" type="button" aria-pressed="false">Звук: выкл.</button>
     </header>
-
     <main>
-      <div class="intro">
-        <div><p class="eyebrow">HOTEL ENGLISH · A2–B1</p><h1 lang="en">At the front desk</h1></div>
-        <div class="total-progress"><span id="total-label">0 / 30 реплик</span><progress id="total-progress" max="30" value="0" aria-label="Общий прогресс"></progress></div>
+      <div class="intro"><div><p class="eyebrow">HOTEL ENGLISH</p><h1>У стойки</h1></div><div class="total-progress"><span id="total-label"></span><progress id="total-progress" max="1" value="0" aria-label="Общий прогресс"></progress></div></div>
+      <p id="loading" role="status">Загрузка скриптов…</p>
+      <div id="lesson-controls" class="lesson-controls" hidden>
+        <select id="lesson-select" aria-label="Выберите скрипт"></select>
+        <div class="role-select" role="group" aria-label="Ваша роль"><button type="button" data-role-choice="receptionist" aria-pressed="true">Администратор</button><button type="button" data-role-choice="guest" aria-pressed="false">Гость · слушать</button></div>
       </div>
-
-      <nav class="scenario-tabs" aria-label="Ситуации на ресепшене">
-        <button type="button" data-scenario="0" aria-current="step"><span class="tab-number">01</span><span lang="en">Arrival</span><span class="tab-check" aria-hidden="true"></span></button>
-        <button type="button" data-scenario="1"><span class="tab-number">02</span><span lang="en">Documents</span><span class="tab-check" aria-hidden="true"></span></button>
-        <button type="button" data-scenario="2"><span class="tab-number">03</span><span lang="en">Payment</span><span class="tab-check" aria-hidden="true"></span></button>
-        <button type="button" data-scenario="3"><span class="tab-number">04</span><span lang="en">Help</span><span class="tab-check" aria-hidden="true"></span></button>
-        <button type="button" data-scenario="4"><span class="tab-number">05</span><span lang="en">Departure</span><span class="tab-check" aria-hidden="true"></span></button>
-      </nav>
-
-      <section id="exercise" class="exercise" aria-label="Диалог на ресепшене">
+      <section id="exercise" class="exercise" aria-label="Упражнение по скрипту" hidden>
         <div class="stage-panel">
-          <div class="stage-heading"><span class="hotel-tag">ATRIUM / RECEPTION</span><span class="scene-time" id="scene-time">DAY 01 · 18:30</span></div>
-          <div id="scene" class="scene-container" aria-hidden="true"><div class="scene-fallback"><span class="fallback-emblem">A</span><span class="fallback-desk"></span></div></div>
-          <div class="stage-caption"><div><span class="caption-label">ВАША РОЛЬ</span><strong id="role-label" lang="en">Guest</strong></div><span id="view-label">Вы смотрите глазами гостя</span></div>
+          <div class="stage-heading"><span class="hotel-tag">RECEPTION</span><span class="scene-time" id="scene-time">HOTEL SCRIPTS</span></div>
+          <div id="scene" class="scene-container" aria-hidden="true"></div>
+          <div class="stage-caption"><div><span class="caption-label">ВАША РОЛЬ</span><strong id="role-label">Администратор</strong></div><span id="view-label">Вид администратора</span></div>
         </div>
-
         <div class="dialogue-panel">
-          <div class="step-heading"><span id="scenario-label">Заезд · найдите свою бронь</span><span id="step-label">1 / 6</span></div>
-          <div class="step-dots" id="step-dots" aria-hidden="true"></div>
-          <div class="dialogue-heading"><span class="speaker" id="speaker-label" lang="en">Receptionist says</span><div class="audio-controls"><button id="listen" type="button" aria-label="Прослушать реплику">▶ <span>Слушать</span></button><button id="listen-slow" type="button" aria-label="Прослушать медленно">0.75×</button></div></div>
+          <div class="step-heading"><span id="scenario-label"></span><span id="step-label"></span></div>
+          <div class="dialogue-heading"><span class="speaker" id="speaker-label"></span><div class="audio-controls"><button id="listen" type="button" aria-label="Прослушать реплику">▶ <span>Слушать</span></button><button id="listen-slow" type="button" aria-label="Прослушать медленно">0.75×</button></div></div>
           <blockquote class="prompt" id="prompt" lang="en" tabindex="-1"></blockquote>
-          <div class="answer-heading"><span id="answer-instruction">Ваш ответ · Guest</span><span class="keyboard-tip">Клавиши 1–3</span></div>
+          <div class="answer-heading"><span id="answer-instruction">Выберите ответ по скрипту</span><span class="keyboard-tip">1–3</span></div>
           <div id="answers" class="answers" role="group" aria-labelledby="answer-instruction"></div>
-          <div id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true"><span class="feedback-icon" aria-hidden="true"></span><p id="feedback-text"></p></div>
-          <div class="next-row"><span id="role-hint">Далее вы смените роль</span><button id="next" class="primary" type="button" disabled>Далее <span aria-hidden="true">→</span></button></div>
+          <div id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true"><span id="feedback-icon" class="feedback-icon" aria-hidden="true"></span><p id="feedback-text"></p></div>
+          <div class="source-row"><a id="source-link" href="https://langsage.github.io/script/pages/" target="_blank" rel="noopener">Скрипт</a><button id="source-details" type="button" hidden>Текст и перевод</button></div>
+          <div class="next-row"><span id="role-hint">Ваша роль: Администратор</span><button id="next" class="primary" type="button" disabled>Далее →</button></div>
         </div>
       </section>
-
       <section id="results" class="results" aria-labelledby="result-title" hidden>
-        <div class="result-mark" aria-hidden="true">✓</div>
-        <p class="eyebrow" id="result-eyebrow">ПЯТЬ СИТУАЦИЙ · ОБЕ РОЛИ</p>
-        <h2 id="result-title" tabindex="-1">Отличная смена!</h2>
-        <p id="result-description">Вы прошли путь от заезда до прощания.</p>
-        <div class="result-stats"><div><strong id="stat-first">30</strong><span>с первого раза</span></div><div><strong id="stat-mistakes">0</strong><span>ошибочных выборов</span></div><div><strong>2</strong><span>роли в диалоге</span></div></div>
-        <div class="result-actions"><button id="review" class="primary" type="button">Повторить трудные реплики</button><button id="restart" class="secondary" type="button">Пройти заново</button></div>
-        <details id="mistake-details"><summary>Разбор ошибок <span id="mistake-count"></span></summary><ol id="mistake-list"></ol></details>
+        <div class="result-mark" aria-hidden="true">✓</div><h2 id="result-title" tabindex="-1">Скрипт пройден</h2><p id="result-description"></p>
+        <div class="result-stats"><div><strong id="stat-first">0</strong><span>с первого раза</span></div><div><strong id="stat-mistakes">0</strong><span>ошибочных выборов</span></div><div><strong id="stat-total">0</strong><span>заданий</span></div></div>
+        <div class="result-actions"><button id="review" class="primary" type="button">Повторить ошибки</button><button id="next-lesson" class="primary" type="button">Следующий скрипт</button><button id="restart" class="secondary" type="button">Заново</button></div>
       </section>
+      <dialog id="original-dialog" aria-labelledby="original-title"><div class="original-header"><h2 id="original-title">Текст скрипта</h2><button id="close-original" type="button" aria-label="Закрыть">×</button></div><p id="original-text" lang="en"></p><p id="original-translation"></p><p id="original-notes"></p><a id="original-source" target="_blank" rel="noopener">Открыть исходный скрипт ↗</a></dialog>
       <span id="audio-status" class="sr-only" role="status" aria-live="polite"></span>
-      <noscript><p class="noscript">Для диалогов включите JavaScript в браузере.</p></noscript>
+      <noscript><p class="noscript">Для упражнений включите JavaScript.</p></noscript>
     </main>
   </div>
 </body>

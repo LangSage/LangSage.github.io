@@ -466,7 +466,7 @@
     </section>
   </main>
 
-  <script src="../assets/js/reception-scene.js"></script>
+  <script src="../assets/js/reception-scene.js?v=2"></script>
   <script src="../assets/js/hospitality-glossary.js"></script>
   <script>
     const icons = ['✓', '?', '!', '→'];
@@ -655,7 +655,7 @@
       const level = currentLevel();
       const task = currentTask();
       state.answered = false;
-      scene.set({ role: level.role, person: state.index % 4, mood: 'neutral' });
+      scene.set({ role: level.role, person: 0, mood: 'neutral' });
       $('levelTag').textContent = `Level ${state.level}: ${level.name}`;
       $('skillTag').textContent = level.skill;
       $('countTag').textContent = `${state.index + 1} / ${level.tasks.length}`;

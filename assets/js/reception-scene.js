@@ -137,10 +137,16 @@
     }
     set({role = 'receptionist', person:variant = 0, mood = 'neutral'} = {}) {
       this.stop();
-      this.role = role === 'guest' ? 'guest' : 'receptionist';
-      this.el.dataset.role = this.role;
+      const nextRole = role === 'guest' ? 'guest' : 'receptionist';
+      const numericVariant = Number(variant);
+      const nextPerson = ((Number.isFinite(numericVariant) ? Math.trunc(numericVariant) : 0) % people.length + people.length) % people.length;
       this.el.dataset.mood = ['neutral','happy','concerned'].includes(mood) ? mood : 'neutral';
-      const p = people[((Number(variant) || 0) % people.length + people.length) % people.length];
+      // New questions may reset props and mood without replacing the person or camera.
+      if (this.role === nextRole && this.person === nextPerson) return;
+      this.role = nextRole;
+      this.person = nextPerson;
+      this.el.dataset.role = this.role;
+      const p = people[this.person];
       for (const key of ['skin','shade','hair','shirt']) this.el.style.setProperty('--rs-' + key,p[key]);
       this.el.style.setProperty('--rs-hand',this.role === 'guest' ? '#e4b38c' : '#c58b68');
       this.el.querySelector('.rs-role-text').textContent = 'You · ' + (this.role === 'guest' ? 'Guest' : 'Receptionist');
@@ -148,7 +154,7 @@
         ? 'Your view as the guest: the receptionist behind the counter.'
         : 'Your view as the receptionist: the guest in the lobby, with your computer on the desk.';
       this.el.classList.remove('rs-enter');
-      // Restart only the short scene entrance; no timers from a previous exercise survive.
+      // Only a different role or person gets an entrance; keep idle animation running.
       void this.el.offsetWidth;
       this.el.classList.add('rs-enter');
     }

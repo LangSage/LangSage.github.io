@@ -1,0 +1,49 @@
+.reception-viewport{--rs-skin:#c58b68;--rs-shade:#a9684d;--rs-hair:#302c30;--rs-shirt:#d5bba0;--rs-hand:#c58b68;position:relative;width:100%;height:auto;aspect-ratio:9/4;min-height:0;max-height:320px;overflow:hidden;isolation:isolate;border-radius:14px;background:#dcd6c8;contain:layout paint}
+.reception-viewport *{box-sizing:border-box}
+.rs-world{display:block!important;width:100%!important;height:100%!important;min-height:0!important;background:linear-gradient(#dcd6c8 0 72.5%,#e9dbc4 72.5% 84%,#786044 84%)}
+.rs-role{position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid #ffffff55;border-radius:30px;background:#183c38e8;color:#fff7e7;font:650 11px/1.2 system-ui,sans-serif;box-shadow:0 2px 8px #183c3810;backdrop-filter:blur(8px)}
+.rs-role-dot{width:6px;height:6px;border-radius:50%;background:#d3b677;box-shadow:0 0 0 3px #d3b6771a}
+.rs-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.rs-guest-view{display:none}.reception-viewport[data-role=guest] .rs-guest-view{display:inline}.reception-viewport[data-role=guest] .rs-staff-view{display:none}
+.reception-viewport[data-role=receptionist] .rs-countertop{d:path('M0 228h720v92H0Z')}
+.rs-breathe{animation:rs-breathe 6s ease-in-out infinite;transform-origin:56px 200px}.rs-eyes{animation:rs-blink 7s infinite;transform-origin:56px 66px}
+.rs-concern,.rs-wave,.rs-prop,.rs-luggage-tag{opacity:0}.rs-concern{transition:opacity .2s}.reception-viewport[data-mood=concerned] .rs-concern{opacity:1}.reception-viewport[data-mood=concerned] .rs-smile{opacity:0}
+.rs-light-wash{opacity:0;pointer-events:none}.rs-enter .rs-world{animation:rs-enter .4s ease-out}.rs-enter .rs-light-wash{animation:rs-light .45s ease-out}
+.rs-screen-highlight{opacity:.35}.rs-terminal-light{transition:fill .3s}.rs-printer-paper{transform:translateY(20px)}
+.reception-viewport[data-action=passport] .rs-passport,.reception-viewport[data-action=key] .rs-key,.reception-viewport[data-action=receipt] .rs-receipt{animation:rs-receive 2.8s ease-in-out both;transform-origin:360px 255px}
+.reception-viewport[data-role=guest][data-action=passport] .rs-passport{animation-name:rs-give}
+.reception-viewport[data-role=receptionist][data-action=key] .rs-key,.reception-viewport[data-role=receptionist][data-action=receipt] .rs-receipt{animation-name:rs-give}
+.reception-viewport[data-direction=give] .rs-passport,.reception-viewport[data-direction=give] .rs-key,.reception-viewport[data-direction=give] .rs-receipt{animation-name:rs-give!important}
+.reception-viewport[data-direction=receive] .rs-passport,.reception-viewport[data-direction=receive] .rs-key,.reception-viewport[data-direction=receive] .rs-receipt{animation-name:rs-receive!important}
+.reception-viewport[data-action=scan] .rs-scan{animation:rs-prop-appear 2.8s both}.reception-viewport[data-action=scan] .rs-scan-document{animation:rs-document 2.8s ease-in-out both}.reception-viewport[data-action=scan] .rs-scan-beam{animation:rs-scan 2.8s linear both}
+.reception-viewport[data-action=sign] .rs-sign{animation:rs-prop-appear 2.8s both}.reception-viewport[data-action=sign] .rs-signature{animation:rs-signature 2.8s both}.reception-viewport[data-action=sign] .rs-writing-hand{animation:rs-writing 2.8s ease-in-out both;transform-origin:355px 265px}
+.reception-viewport[data-action=payment] .rs-payment{animation:rs-prop-appear 2.8s both}.reception-viewport[data-action=payment] .rs-bank-card{animation:rs-tap 2.8s ease-in-out both}.reception-viewport[data-action=payment] .rs-pay-success{animation:rs-paid 2.8s both}
+.reception-viewport[data-action=receipt] .rs-printer-paper{animation:rs-print 1s ease-out both}
+.reception-viewport[data-action=booking] .rs-booking{animation:rs-prop-appear 2.8s both}.reception-viewport[data-action=booking] .rs-screen-highlight{animation:rs-screen 1s ease-in-out 2}.reception-viewport[data-action=booking] .rs-booking-check{animation:rs-paid 2.8s both}
+.reception-viewport[data-action=call] .rs-phone{animation:rs-phone 2.8s ease-in-out both;transform-origin:415px 190px}
+.reception-viewport[data-action=luggage] .rs-luggage-tag{animation:rs-tag 2.8s both}.reception-viewport[data-action=luggage] .rs-suitcase{animation:rs-bag 2.8s both}
+.reception-viewport[data-action=welcome] .rs-wave,.reception-viewport[data-action=farewell] .rs-wave{animation:rs-wave 2.8s ease-in-out both;transform-origin:464px 215px}
+.reception-viewport[data-action=farewell] .rs-guest{animation:rs-leave 2.8s ease-in-out both}
+@keyframes rs-enter{from{opacity:.45;transform:scale(1.025)}to{opacity:1;transform:scale(1)}}
+@keyframes rs-light{from{opacity:.3}to{opacity:0}}
+@keyframes rs-breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(1.7px)}}
+@keyframes rs-blink{0%,43%,46%,100%{transform:scaleY(1)}44%,45%{transform:scaleY(.1)}}
+@keyframes rs-receive{0%{opacity:0;transform:translate(0,-48px) scale(.55)}12%{opacity:1}55%,78%{opacity:1;transform:translate(0,12px) scale(1.03)}100%{opacity:0;transform:translate(0,110px) scale(1.15)}}
+@keyframes rs-give{0%{opacity:0;transform:translate(0,115px) scale(1.15)}15%{opacity:1}55%,78%{opacity:1;transform:translate(0,-36px) scale(.7)}100%{opacity:0;transform:translate(0,-48px) scale(.6)}}
+@keyframes rs-prop-appear{0%,100%{opacity:0}15%,85%{opacity:1}}
+@keyframes rs-document{0%{transform:translate(0,-25px) rotate(-8deg)}25%,75%{transform:translate(0,0) rotate(0)}100%{transform:translate(0,70px) rotate(5deg)}}
+@keyframes rs-scan{0%,25%,80%,100%{opacity:0;transform:translateY(0)}30%{opacity:1;transform:translateY(0)}55%{opacity:1;transform:translateY(30px)}75%{opacity:1;transform:translateY(0)}}
+@keyframes rs-signature{0%,25%{stroke-dashoffset:130}78%,100%{stroke-dashoffset:0}}
+@keyframes rs-writing{0%,20%{opacity:0;transform:translate(-18px,2px)}27%{opacity:1}40%{transform:translate(-8px,-4px)}50%{transform:translate(2px,2px)}60%{transform:translate(14px,-4px)}75%{opacity:1;transform:translate(28px,-2px)}100%{opacity:0;transform:translate(80px,60px)}}
+@keyframes rs-tap{0%{transform:translate(20px,90px)}35%,65%{transform:translate(0,15px)}100%{transform:translate(20px,90px)}}
+@keyframes rs-paid{0%,48%{opacity:0}55%,100%{opacity:1}}
+@keyframes rs-print{from{transform:translateY(20px)}to{transform:translateY(0)}}
+@keyframes rs-screen{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes rs-phone{0%{opacity:0;transform:translate(0,100px) rotate(20deg)}25%,75%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:0;transform:translate(0,100px) rotate(20deg)}}
+@keyframes rs-tag{0%{opacity:0;transform:translateY(-12px)}35%,100%{opacity:1;transform:translateY(0)}}
+@keyframes rs-bag{0%,65%{opacity:1}100%{opacity:0}}
+@keyframes rs-wave{0%,100%{opacity:0;transform:rotate(0)}20%{opacity:1;transform:rotate(-9deg)}35%{transform:rotate(9deg)}50%{transform:rotate(-9deg)}65%,80%{opacity:1;transform:rotate(6deg)}}
+@keyframes rs-leave{0%,70%{opacity:1}100%{opacity:0}}
+@media(max-width:600px){.reception-viewport{height:184px;border-radius:12px}.rs-world{width:100%!important}.rs-role{top:9px;left:9px;font-size:10px;padding:6px 9px}}
+@media(max-height:700px) and (max-width:600px){.reception-viewport{height:148px}.rs-role{top:6px;left:6px}}
+@media(prefers-reduced-motion:reduce){.reception-viewport *{animation:none!important;transition:none!important}.reception-viewport[data-action=passport] .rs-passport,.reception-viewport[data-action=key] .rs-key,.reception-viewport[data-action=receipt] .rs-receipt,.reception-viewport[data-action=scan] .rs-scan,.reception-viewport[data-action=sign] .rs-sign,.reception-viewport[data-action=payment] .rs-payment,.reception-viewport[data-action=booking] .rs-booking,.reception-viewport[data-action=call] .rs-phone,.reception-viewport[data-action=welcome] .rs-wave,.reception-viewport[data-action=farewell] .rs-wave,.reception-viewport[data-action=luggage] .rs-luggage-tag{opacity:1}.reception-viewport[data-action=sign] .rs-signature{stroke-dashoffset:0}.rs-printer-paper{transform:none}}

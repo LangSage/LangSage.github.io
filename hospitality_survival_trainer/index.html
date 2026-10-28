@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hospitality Survival Trainer</title>
+  <link rel="stylesheet" href="../assets/css/reception-scene.css">
   <style>
     :root {
       --ink: #172126;
@@ -128,7 +129,7 @@
 
     .scene {
       display: grid;
-      grid-template-columns: 140px minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr);
       gap: 14px;
       padding: 14px;
       border-bottom: 1px solid var(--line);
@@ -352,6 +353,41 @@
       .feedback p { font-size: 13px; }
       .nav { padding: 0 8px 8px; }
     }
+    #art { margin: 14px 14px 0; overflow: hidden; border-radius: 8px; }
+    #art .reception-viewport { height: clamp(280px, 40vw, 500px); }
+    .feedback { display: block; visibility: hidden; min-height: 100px; }
+    .feedback.show { visibility: visible; }
+    @media (max-width: 620px) {
+      #art { margin: 8px 8px 0; }
+      #art .reception-viewport { height: 200px; }
+      .shell { padding: 6px 0 10px; }
+      .back { margin-bottom: 3px; font-size: 12px; }
+      h1 { font-size: 21px; }
+      .top { gap: 5px; margin-bottom: 5px; }
+      .pill, .button { min-height: 30px; padding: 5px 8px; font-size: 12px; }
+      .tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; margin: 6px 0; }
+      .tab { min-height: 36px; font-size: 10px; padding: 5px 2px; }
+      .scene { padding: 8px; gap: 5px; }
+      .tag-row { margin-bottom: 5px; }
+      .tag { padding: 3px 5px; font-size: 10px; }
+      .title { font-size: 19px; }
+      .task { margin-top: 4px; font-size: 13px; line-height: 1.3; }
+      .guest { margin-top: 6px; padding: 7px; }
+      .guest-head { margin-bottom: 4px; }
+      .icon-btn { width: 28px; height: 28px; }
+      .guest-text { font-size: 15px; line-height: 1.3; }
+      .options { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 7px; }
+      .choice { min-height: 65px; grid-template-columns: minmax(0, 1fr); padding: 7px; gap: 0; }
+      .choice-icon { display: none; }
+      .en { font-size: 12px; line-height: 1.25; }
+      .feedback { min-height: 85px; padding: 7px; margin: 0 7px 7px; }
+      .feedback h2 { font-size: 14px; margin-bottom: 4px; }
+      .feedback p { font-size: 12px; line-height: 1.3; }
+      .nav { padding: 0 7px 7px; }
+    }
+    @media (max-width: 620px) and (max-height: 900px) {
+      #art .reception-viewport { height: 140px; min-height: 140px; }
+    }
   </style>
 </head>
 <body>
@@ -381,13 +417,14 @@
 
     <section>
       <article class="stage" aria-live="polite">
+        <div id="art" aria-hidden="true"></div>
         <div class="scene">
-          <div class="art" id="art"></div>
           <div>
             <div class="tag-row">
               <span class="tag" id="levelTag">Level 1</span>
               <span class="tag" id="skillTag">Understand</span>
               <span class="tag" id="countTag">1 / 10</span>
+              <span class="tag">You: receptionist</span>
             </div>
             <h2 class="title" id="title">Task</h2>
             <p class="task" id="task">Choose the best card.</p>
@@ -429,6 +466,7 @@
     </section>
   </main>
 
+  <script src="../assets/js/reception-scene.js"></script>
   <script src="../assets/js/hospitality-glossary.js"></script>
   <script>
     const icons = ['✓', '?', '!', '→'];
@@ -537,6 +575,38 @@
       }
     };
 
+    // Every level presents a guest request or asks for the staff's next move.
+    Object.values(levels).forEach(level => { level.role = 'receptionist'; });
+    const scene = new ReceptionScene(document.getElementById('art'));
+
+    function stopTaskMedia() {
+      if ('speechSynthesis' in window) speechSynthesis.cancel();
+      scene.stop();
+    }
+
+    function responseAction(response) {
+      const text = response.toLowerCase();
+      if (/\b(scan|copy)\b.*\b(passport|document|id)\b/.test(text)) return 'scan';
+      if (/\bsign\b/.test(text)) return 'sign';
+      if (/\b(call|contact|send|inform|report)\b/.test(text)) return 'call';
+      if (/^(key|key card)$|\brecode\b|\b(here is|here are|give|issue|replace|prepare|activate)\b[^.?!]*\bkey\b|\bkey\b[^.?!]*\b(for you|please)\b/.test(text)) return 'key';
+      if (/\bpassport\b/.test(text)) return 'passport';
+      if (/\b(receipt|invoice|print it)\b/.test(text)) return 'receipt';
+      if (/\b(pay|payment|credit card|split bill)\b/.test(text)) return 'payment';
+      if (/\bluggage\b/.test(text)) return 'luggage';
+      if (/\b(booking|book|reserve|availability|table for|full name|your name)\b/.test(text)) return 'booking';
+      if (/\b(safe trip|staying with us|goodbye|nice day|check out)\b/.test(text)) return 'farewell';
+      if (/\b(welcome|check in)\b/.test(text)) return 'welcome';
+      return null;
+    }
+
+    function responseDirection(response, action) {
+      if (!['passport', 'key', 'receipt'].includes(action)) return undefined;
+      if (/\b(may|could|can) i (have|see)\b|\b(give|show|hand) me\b/i.test(response)) return { direction: 'receive' };
+      if (/\b(here is|here are|give you|hand you|return|back)\b/i.test(response)) return { direction: 'give' };
+      return undefined;
+    }
+
     const state = {
       level: '1',
       index: 0,
@@ -581,17 +651,18 @@
     }
 
     function render() {
+      stopTaskMedia();
       const level = currentLevel();
       const task = currentTask();
       state.answered = false;
-      $('art').innerHTML = art[level.art];
+      scene.set({ role: level.role, person: state.index % 4, mood: 'neutral' });
       $('levelTag').textContent = `Level ${state.level}: ${level.name}`;
       $('skillTag').textContent = level.skill;
       $('countTag').textContent = `${state.index + 1} / ${level.tasks.length}`;
       $('title').textContent = task[0];
       $('guestText').textContent = task[1];
-      $('task').textContent = task[2];
       window.LangSageGlossary?.decorate($('guestText'));
+      $('task').textContent = task[2];
       $('feedback').className = 'feedback';
       $('options').innerHTML = '';
 
@@ -601,11 +672,10 @@
         button.className = 'choice';
         button.dataset.correct = opt[2] ? 'true' : 'false';
         button.dataset.why = opt[3];
-        button.innerHTML = `<span class="choice-icon">${icons[i]}</span><span><span class="en">${escapeHtml(opt[0])}</span><span class="ru">${escapeHtml(opt[1])}</span></span>`;
+        button.innerHTML = `<span class="choice-icon" aria-hidden="true">${i + 1}</span><span><span class="en">${escapeHtml(opt[0])}</span><span class="ru">${escapeHtml(opt[1])}</span></span>`;
         button.addEventListener('click', () => answer(button));
         $('options').appendChild(button);
       });
-      window.LangSageGlossary?.decorate($('options'));
       updateStats();
     }
 
@@ -613,6 +683,15 @@
       if (state.answered) return;
       state.answered = true;
       const correct = button.dataset.correct === 'true';
+      stopTaskMedia();
+      scene.react(correct);
+      if (correct) {
+        const option = currentTask()[3].find(option => option[2]);
+        // Beginner cards put the English response in the second field.
+        const response = /[\u0400-\u04ff]/.test(option[0]) ? option[1] : option[0];
+        const action = responseAction(response);
+        if (action) scene.play(action, responseDirection(response, action));
+      }
       [...document.querySelectorAll('.choice')].forEach((card) => {
         card.disabled = true;
         if (card.dataset.correct === 'true') card.classList.add('correct');
@@ -662,6 +741,7 @@
       render();
     });
 
+    window.addEventListener('pagehide', stopTaskMedia);
     render();
   </script>
 </body>

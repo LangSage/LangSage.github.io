@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hotel Shift Trainer</title>
+  <link rel="stylesheet" href="../assets/css/reception-scene.css">
   <style>
     :root {
       --ink: #172126;
@@ -162,7 +163,7 @@
 
     .scene {
       display: grid;
-      grid-template-columns: 150px minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr);
       gap: 14px;
       padding: 14px;
       border-bottom: 1px solid var(--line);
@@ -507,7 +508,7 @@
         gap: 8px;
       }
 
-      .scene-art { display: none; }
+      .scene-art { display: block; }
       .tag-row { gap: 5px; margin-bottom: 6px; }
       .tag { font-size: 11px; padding: 4px 6px; }
       .task-title { font-size: 21px; }
@@ -536,6 +537,41 @@
       .nav-row {
         padding: 0 8px 8px;
       }
+    }
+    #sceneArt { display: block; margin: 14px 14px 0; overflow: hidden; border-radius: 8px; }
+    #sceneArt .reception-viewport { height: clamp(280px, 40vw, 500px); }
+    .feedback { display: block; visibility: hidden; min-height: 100px; }
+    .feedback.show { visibility: visible; }
+    @media (max-width: 620px) {
+      #sceneArt { margin: 8px 8px 0; }
+      #sceneArt .reception-viewport { height: 200px; }
+      .shell { padding: 6px 0 10px; }
+      .topbar { gap: 5px; margin-bottom: 5px; }
+      h1 { font-size: 21px; }
+      .pill, .secondary, .primary { min-height: 30px; padding: 5px 8px; font-size: 12px; }
+      .tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; margin: 6px 0; }
+      .tab { min-height: 36px; gap: 3px; font-size: 10px; padding: 5px 2px; }
+      .tab svg { width: 14px; height: 14px; }
+      .scene { padding: 8px; gap: 5px; }
+      .tag-row { margin-bottom: 5px; }
+      .tag { padding: 3px 5px; font-size: 10px; }
+      .task-title { font-size: 19px; }
+      .task-ru { margin-top: 4px; font-size: 13px; line-height: 1.3; }
+      .guest-box { margin-top: 6px; padding: 7px; }
+      .guest-head { margin-bottom: 4px; }
+      .icon-button { width: 28px; height: 28px; min-width: 28px; }
+      .spoken { font-size: 15px; line-height: 1.3; min-height: 0; }
+      .options { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 7px; }
+      .card { min-height: 65px; grid-template-columns: minmax(0, 1fr); padding: 7px; gap: 0; }
+      .choice-icon { display: none; }
+      .choice-en { font-size: 12px; line-height: 1.25; }
+      .feedback { min-height: 85px; padding: 7px; margin: 0 7px 7px; }
+      .feedback h2 { font-size: 14px; margin-bottom: 4px; }
+      .feedback p { font-size: 12px; line-height: 1.3; }
+      .nav-row { padding: 0 7px 7px; }
+    }
+    @media (max-width: 620px) and (max-height: 900px) {
+      #sceneArt .reception-viewport { height: 140px; min-height: 140px; }
     }
   </style>
 </head>
@@ -593,13 +629,14 @@
 
     <section>
       <article class="stage" aria-live="polite">
+        <div id="sceneArt" aria-hidden="true"></div>
         <div class="scene">
-          <div class="scene-art" id="sceneArt" aria-hidden="true"></div>
           <div>
             <div class="tag-row">
               <span class="tag" id="modeTag">Flow</span>
               <span class="tag" id="levelTag">A2-B1</span>
               <span class="tag" id="stepTag">1 / 1</span>
+              <span class="tag" id="roleTag">You: receptionist</span>
             </div>
             <h2 class="task-title" id="taskTitle">Check-in opening</h2>
             <p class="task-ru" id="taskRu">Выбери первую профессиональную реплику.</p>
@@ -647,6 +684,7 @@
   </main>
 
   <script src="trainer-data.js"></script>
+  <script src="../assets/js/reception-scene.js"></script>
   <script src="../assets/js/hospitality-glossary.js"></script>
   <script>
     const icons = {
@@ -938,8 +976,54 @@
       }
     ];
 
-    const tasks = window.TRAINER_TASKS && window.TRAINER_TASKS.length ? window.TRAINER_TASKS : fallbackTasks;
+    // These prompts are staff instructions; the student listens as a guest.
+    // All other current prompts are guest speech addressed to the receptionist.
+    const guestTaskIds = new Set([
+      'details-01', 'details-02', 'details-05', 'details-07', 'details-08',
+      'details-10', 'details-11', 'details-12', 'details-13', 'details-14',
+      'details-15', 'details-16', 'details-17', 'details-18', 'details-19',
+      'exam-02', 'exam-07', 'exam-10', 'exam-14',
+      'details-1', 'details-2', 'exam-2'
+    ]);
+    const tasks = (window.TRAINER_TASKS && window.TRAINER_TASKS.length ? window.TRAINER_TASKS : fallbackTasks)
+      .map(task => ({ ...task, role: task.role || (guestTaskIds.has(task.id) ? 'guest' : 'receptionist') }));
+    const scene = new ReceptionScene(document.getElementById('sceneArt'));
     let currentAudio = null;
+    let speechTimer = null;
+    let audioVersion = 0;
+
+    function stopTaskMedia() {
+      audioVersion += 1;
+      window.clearTimeout(speechTimer);
+      speechTimer = null;
+      if (currentAudio) currentAudio.pause();
+      currentAudio = null;
+      if ('speechSynthesis' in window) speechSynthesis.cancel();
+      scene.stop();
+    }
+
+    function responseAction(response) {
+      const text = response.toLowerCase();
+      if (/\b(scan|copy)\b.*\b(passport|document|id)\b/.test(text)) return 'scan';
+      if (/\bsign\b/.test(text)) return 'sign';
+      if (/\b(call|contact|send|inform|report|ask security|check with housekeeping)\b/.test(text)) return 'call';
+      if (/\brecode\b|\b(here is|here are|give|issue|replace|prepare|activate)\b[^.?!]*\bkey\b|\bkey\b[^.?!]*\b(for you|please)\b/.test(text)) return 'key';
+      if (/\bpassport\b/.test(text)) return 'passport';
+      if (/\b(receipt|invoice|print it)\b/.test(text)) return 'receipt';
+      if (/\b(pay by|pay with|split the payment|credit card)\b/.test(text)) return 'payment';
+      if (/\bluggage\b/.test(text)) return 'luggage';
+      if (/\b(booking|reserve|availability|confirmation|full name|your name)\b/.test(text)) return 'booking';
+      if (/\b(safe trip|staying with us|goodbye|nice day)\b/.test(text)) return 'farewell';
+      if (/\bwelcome\b/.test(text)) return 'welcome';
+      return null;
+    }
+
+    function responseDirection(response, action) {
+      if (!['passport', 'key', 'receipt'].includes(action)) return undefined;
+      if (/\b(may|could|can) i (have|see)\b|\b(give|show|hand) me\b/i.test(response)) return { direction: 'receive' };
+      if (/\b(here is|here are|give you|hand you|return|back)\b/i.test(response)) return { direction: 'give' };
+      return undefined;
+    }
 
     const state = {
       mode: 'flow',
@@ -990,13 +1074,18 @@
     }
 
     function speak(text, task = currentTask()) {
+      window.clearTimeout(speechTimer);
+      const version = ++audioVersion;
+      if ('speechSynthesis' in window) speechSynthesis.cancel();
       if (currentAudio) {
         currentAudio.pause();
         currentAudio = null;
       }
       if (task && task.audio) {
         currentAudio = new Audio(task.audio);
-        currentAudio.play().catch(() => speakWithBrowserVoice(text));
+        currentAudio.play().catch(() => {
+          if (version === audioVersion) speakWithBrowserVoice(text);
+        });
         return;
       }
       speakWithBrowserVoice(text);
@@ -1012,19 +1101,21 @@
     }
 
     function renderTask(autoSpeak = false) {
+      stopTaskMedia();
       const task = currentTask();
       state.answered = false;
       state.selected = null;
       state.hideSpoken = Boolean(task.hidden);
-      byId('sceneArt').innerHTML = sceneSvgs[task.scene] || sceneSvgs.checkin;
+      scene.set({ role: task.role, person: tasks.indexOf(task) % 4, mood: 'neutral' });
+      byId('roleTag').textContent = `You: ${task.role}`;
+      document.querySelector('.guest-label').textContent = task.role === 'guest' ? 'Receptionist says' : 'Guest says';
+      byId('revealBtn').title = 'Show or hide the speaker’s text';
       byId('modeTag').textContent = state.mode === 'exam' ? 'Exam' : task.mode[0].toUpperCase() + task.mode.slice(1);
       byId('levelTag').textContent = task.level;
       byId('stepTag').textContent = state.mode === 'exam' ? `${state.examRound + 1} / 10` : `${state.index + 1} / ${modeTasks().length}`;
       byId('taskTitle').textContent = task.title;
       byId('taskRu').textContent = task.ru;
-      byId('spokenText').textContent = task.spoken;
-      byId('spokenText').classList.toggle('hidden-text', state.hideSpoken);
-      window.LangSageGlossary?.decorate(byId('spokenText'));
+      renderSpoken();
       byId('feedback').className = 'feedback';
       byId('examResult').className = 'exam-result';
       byId('options').innerHTML = '';
@@ -1047,10 +1138,35 @@
         button.addEventListener('click', () => answer(button));
         byId('options').appendChild(button);
       });
-      window.LangSageGlossary?.decorate(byId('options'));
 
       updateStats();
-      if (autoSpeak || task.hidden) window.setTimeout(() => speak(task.spoken), 250);
+      if (autoSpeak || task.hidden) speechTimer = window.setTimeout(() => speak(task.spoken, task), 250);
+    }
+
+    function renderSpoken() {
+      const task = currentTask();
+      const spoken = byId('spokenText');
+      // Some original listening titles contain the answer (for example Room 208).
+      byId('taskTitle').textContent = state.hideSpoken ? 'Listen and choose' : task.title;
+      spoken.style.minHeight = '';
+      spoken.textContent = state.hideSpoken
+        ? `Listen to the ${task.role === 'guest' ? 'receptionist' : 'guest'}.`
+        : task.spoken;
+      if (state.hideSpoken) {
+        // Reserve only this prompt's actual height, using an inaccessible measure.
+        const measure = spoken.cloneNode(false);
+        measure.removeAttribute('id');
+        measure.setAttribute('aria-hidden', 'true');
+        measure.inert = true;
+        measure.style.cssText = `position:absolute;visibility:hidden;pointer-events:none;width:${spoken.getBoundingClientRect().width}px;min-height:0`;
+        measure.textContent = task.spoken;
+        spoken.parentElement.appendChild(measure);
+        spoken.style.minHeight = `${measure.getBoundingClientRect().height}px`;
+        measure.remove();
+      } else {
+        window.LangSageGlossary?.decorate(spoken);
+      }
+      byId('revealBtn').setAttribute('aria-pressed', String(!state.hideSpoken));
     }
 
     function answer(button) {
@@ -1058,6 +1174,15 @@
       state.answered = true;
       state.selected = button;
       const correct = button.dataset.correct === 'true';
+      stopTaskMedia();
+      state.hideSpoken = false;
+      renderSpoken();
+      scene.react(correct);
+      if (correct) {
+        const response = currentTask().options.find(option => option[2])[0];
+        const action = responseAction(response);
+        if (action) scene.play(action, responseDirection(response, action));
+      }
       const allCards = [...document.querySelectorAll('.card')];
       allCards.forEach((card) => {
         card.disabled = true;
@@ -1125,7 +1250,7 @@
     byId('speakBtn').addEventListener('click', () => speak(currentTask().spoken));
     byId('revealBtn').addEventListener('click', () => {
       state.hideSpoken = !state.hideSpoken;
-      byId('spokenText').classList.toggle('hidden-text', state.hideSpoken);
+      renderSpoken();
     });
     byId('nextBtn').addEventListener('click', nextTask);
     byId('shuffleBtn').addEventListener('click', () => {
@@ -1144,6 +1269,7 @@
       renderTask(false);
     });
 
+    window.addEventListener('pagehide', stopTaskMedia);
     renderTask(false);
   </script>
 </body>

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tourism English Hub</title>
+  <link rel="stylesheet" href="../assets/css/reception-scene.css">
   <style>
     :root {
       --ink: #172126;
@@ -158,6 +159,12 @@
       .meta { gap: 4px; margin-top: 7px; }
       .tag { font-size: 10px; padding: 3px 5px; }
     }
+    .roleplay-card { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); }
+    #hubReception { min-width: 0; overflow: hidden; border-radius: 8px; }
+    #hubReception .reception-viewport { height: clamp(260px, 40vw, 480px); }
+    @media (max-width: 560px) {
+      #hubReception .reception-viewport { height: 200px; }
+    }
   </style>
 </head>
 <body>
@@ -170,6 +177,13 @@
     </section>
 
     <section class="grid" aria-label="Training links">
+      <a class="card roleplay-card" href="../hotel_reception_roleplay/">
+        <div id="hubReception" aria-hidden="true"></div>
+        <span>
+          <h2>Hotel Reception Roleplay</h2>
+          <span class="meta"><span class="tag">guest</span><span class="tag">receptionist</span></span>
+        </span>
+      </a>
       <a class="card" href="https://langsage.github.io/hospitality_survival_trainer/">
         <span class="icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v11"></path><path d="M8 19v-5h8v5"></path><path d="M9 10h.01"></path><path d="M15 10h.01"></path><path d="M3 19h18"></path></svg>
@@ -231,5 +245,12 @@
       </a>
     </section>
   </main>
+  <script src="../assets/js/reception-scene.js"></script>
+  <script>
+    const scene = new ReceptionScene(document.getElementById('hubReception'));
+    scene.set({ role: 'guest', person: 0, mood: 'neutral' });
+    scene.play('welcome');
+    window.addEventListener('pagehide', () => scene.stop());
+  </script>
 </body>
 </html>

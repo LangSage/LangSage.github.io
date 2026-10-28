@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hotel Staff & Items Trainer</title>
+  <link rel="stylesheet" href="../assets/css/reception-scene.css">
   <style>
     :root {
       --ink: #172126;
@@ -296,6 +297,40 @@
       .feedback { margin: 0 8px 8px; padding: 9px; font-size: 13px; }
       .nav { padding: 0 8px 8px; }
     }
+    #receptionScene { margin: 14px 14px 0; overflow: hidden; border-radius: 8px; }
+    #receptionScene[hidden], .scene.desk-scene #art { display: none; }
+    #receptionScene .reception-viewport { height: clamp(280px, 40vw, 500px); }
+    .scene.desk-scene { grid-template-columns: minmax(0, 1fr); }
+    .feedback { display: block; visibility: hidden; min-height: 65px; }
+    .feedback.show { visibility: visible; }
+    @media (max-width: 620px) {
+      #receptionScene { margin: 8px 8px 0; }
+      #receptionScene .reception-viewport { height: 200px; }
+      .shell { padding: 6px 0 10px; }
+      .back { margin-bottom: 3px; font-size: 12px; }
+      h1 { font-size: 21px; }
+      .top { gap: 5px; margin-bottom: 5px; }
+      .pill, .btn { min-height: 30px; padding: 5px 8px; font-size: 12px; }
+      .tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; margin: 6px 0; }
+      .tab { min-height: 36px; font-size: 10px; padding: 5px 2px; }
+      .scene { padding: 8px; gap: 5px; }
+      .tag-row { margin-bottom: 5px; }
+      .tag { padding: 3px 5px; font-size: 10px; }
+      .title { font-size: 19px; }
+      .prompt { margin-top: 4px; font-size: 13px; line-height: 1.3; }
+      .target { margin-top: 6px; padding: 7px; }
+      .target-text { font-size: 15px; line-height: 1.3; }
+      .icon-btn { width: 28px; height: 28px; }
+      .options { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 7px; }
+      .choice { min-height: 65px; grid-template-columns: 22px minmax(0, 1fr); padding: 7px; gap: 5px; }
+      .emoji { width: 22px; height: 22px; font-size: 16px; }
+      .en { font-size: 12px; line-height: 1.25; }
+      .feedback { min-height: 60px; padding: 7px; margin: 0 7px 7px; font-size: 12px; }
+      .nav { padding: 0 7px 7px; }
+    }
+    @media (max-width: 620px) and (max-height: 900px) {
+      #receptionScene .reception-viewport { height: 140px; min-height: 140px; }
+    }
   </style>
 </head>
 <body>
@@ -324,12 +359,14 @@
     </nav>
 
     <section class="stage" aria-live="polite">
+      <div id="receptionScene" aria-hidden="true" hidden></div>
       <div class="scene">
         <div class="art" id="art"></div>
         <div>
           <div class="tag-row">
             <span class="tag" id="modeTag">Staff</span>
             <span class="tag" id="stepTag">1 / 10</span>
+            <span class="tag" id="roleTag" hidden>You: receptionist</span>
           </div>
           <h2 class="title" id="title">Staff</h2>
           <p class="prompt" id="prompt">Choose the correct card.</p>
@@ -360,6 +397,7 @@
     </section>
   </main>
 
+  <script src="../assets/js/reception-scene.js"></script>
   <script src="../assets/js/hospitality-glossary.js"></script>
   <script>
     const art = {
@@ -420,7 +458,7 @@
         ['Shave.', 'Бритва', 'razor', 'бритва', [['razor', 'бритва', '🪒'], ['shower cap', 'шапочка', '🧢'], ['hair dryer', 'фен', '💨'], ['bathrobe', 'халат', '🥼']]]
       ],
       actions: [
-        ['Give a clean room.', 'Повысить категорию номера', 'upgrade the room', 'сделать апгрейд', [['upgrade the room', 'сделать апгрейд', '⬆️'], ['change the towel', 'заменить полотенце', '🧺'], ['print the receipt', 'распечатать чек', '🧾'], ['call security', 'позвать охрану', '🛡️']]],
+        ['Move the guest to a higher room category.', 'Повысить категорию номера', 'upgrade the room', 'сделать апгрейд', [['upgrade the room', 'сделать апгрейд', '⬆️'], ['change the towel', 'заменить полотенце', '🧺'], ['print the receipt', 'распечатать чек', '🧾'], ['call security', 'позвать охрану', '🛡️']]],
         ['New room.', 'Поменять номер', 'change the room', 'поменять номер', [['change the room', 'поменять номер', '🔁'], ['store luggage', 'оставить багаж', '🧳'], ['book a taxi', 'заказать такси', '🚕'], ['serve breakfast', 'подать завтрак', '🍽️']]],
         ['Keep bags.', 'Оставить багаж', 'store luggage', 'оставить багаж', [['store luggage', 'оставить багаж', '🧳'], ['copy the passport', 'скопировать паспорт', '🛂'], ['send towels', 'отправить полотенца', '🧺'], ['fix the AC', 'починить кондиционер', '❄️']]],
         ['Make paper copy.', 'Скопировать паспорт', 'copy the passport', 'скопировать паспорт', [['copy the passport', 'скопировать паспорт', '🛂'], ['print the receipt', 'распечатать чек', '🧾'], ['recode the key card', 'перекодировать карту', '💳'], ['clean the room', 'убрать номер', '🧹']]],
@@ -432,6 +470,29 @@
         ['Paper after payment.', 'Распечатать чек', 'print the receipt', 'распечатать чек', [['print the receipt', 'распечатать чек', '🧾'], ['serve breakfast', 'подать завтрак', '🍽️'], ['change the room', 'поменять номер', '🔁'], ['call a doctor', 'вызвать врача', '🩺']]]
       ]
     };
+
+    const scene = new ReceptionScene(document.getElementById('receptionScene'));
+    // Object-use questions are seen as a guest; service commands are staff work.
+    const deskRoles = { desk: 'guest', actions: 'receptionist' };
+
+    function stopTaskMedia() {
+      if ('speechSynthesis' in window) speechSynthesis.cancel();
+      scene.stop();
+    }
+
+    function responseAction(response) {
+      const text = response.toLowerCase();
+      if (/\b(scan|copy)\b.*\bpassport\b/.test(text)) return 'scan';
+      if (/\bsign\b/.test(text)) return 'sign';
+      if (/\b(call|send)\b/.test(text)) return 'call';
+      if (/\b(key|recode)\b/.test(text)) return 'key';
+      if (/\bpassport\b/.test(text)) return 'passport';
+      if (/\b(receipt|invoice)\b/.test(text)) return 'receipt';
+      if (/\b(credit card|deposit|payment)\b/.test(text)) return 'payment';
+      if (/\bluggage\b/.test(text)) return 'luggage';
+      if (/\b(reservation|book|upgrade|change the room)\b/.test(text)) return 'booking';
+      return null;
+    }
 
     const state = {
       mode: 'staff',
@@ -471,14 +532,26 @@
     }
 
     function render() {
+      stopTaskMedia();
       const item = current();
       state.answered = false;
-      $('art').innerHTML = art[state.mode];
+      const role = deskRoles[state.mode];
+      $('receptionScene').hidden = !role;
+      document.querySelector('.scene').classList.toggle('desk-scene', Boolean(role));
+      $('roleTag').hidden = !role;
+      if (role) {
+        scene.set({ role, person: state.index % 4, mood: 'neutral' });
+        $('roleTag').textContent = `You: ${role}`;
+        $('art').innerHTML = '';
+      } else {
+        $('art').innerHTML = art[state.mode];
+      }
       $('modeTag').textContent = document.querySelector(`.tab[data-mode="${state.mode}"]`).textContent;
       $('stepTag').textContent = `${state.index + 1} / ${items().length}`;
       $('title').textContent = document.querySelector(`.tab[data-mode="${state.mode}"]`).textContent;
       $('prompt').textContent = 'Choose the correct card.';
       $('targetText').textContent = item[0];
+      window.LangSageGlossary?.decorate($('targetText'));
       $('targetRu').textContent = item[3];
       $('score').textContent = state.score;
       $('done').textContent = state.done;
@@ -490,17 +563,24 @@
         button.type = 'button';
         button.className = 'choice';
         button.dataset.correct = option[0] === item[2] ? 'true' : 'false';
-        button.innerHTML = `<span class="emoji">${escapeHtml(option[2])}</span><span><span class="en" data-gloss="${escapeHtml(option[0])}" data-gloss-ru="${escapeHtml(option[1])}">${escapeHtml(option[0])}</span><span class="ru">${escapeHtml(option[1])}</span></span>`;
+        button.innerHTML = `<span class="emoji">${escapeHtml(option[2])}</span><span><span class="en">${escapeHtml(option[0])}</span><span class="ru">${escapeHtml(option[1])}</span></span>`;
         button.addEventListener('click', () => answer(button));
         $('options').appendChild(button);
       });
-      window.LangSageGlossary?.decorate(document.querySelector('.trainer'));
     }
 
     function answer(button) {
       if (state.answered) return;
       state.answered = true;
       const correct = button.dataset.correct === 'true';
+      stopTaskMedia();
+      if (deskRoles[state.mode]) {
+        scene.react(correct);
+        if (correct) {
+          const action = responseAction(current()[2]);
+          if (action) scene.play(action);
+        }
+      }
       [...document.querySelectorAll('.choice')].forEach((card) => {
         card.disabled = true;
         if (card.dataset.correct === 'true') card.classList.add('correct');
@@ -525,7 +605,7 @@
       });
     });
 
-    $('speakBtn').addEventListener('click', () => speak(current()[2]));
+    $('speakBtn').addEventListener('click', () => speak(current()[0]));
     $('nextBtn').addEventListener('click', () => {
       state.index = (state.index + 1) % items().length;
       render();
@@ -541,6 +621,7 @@
       render();
     });
 
+    window.addEventListener('pagehide', stopTaskMedia);
     render();
   </script>
 </body>

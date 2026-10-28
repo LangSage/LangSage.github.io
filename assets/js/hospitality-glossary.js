@@ -14,6 +14,8 @@
     "blanket": "плед",
     "book a taxi": "заказать такси",
     "booking": "бронь",
+    "by card": "картой",
+    "cash": "наличные",
     "breakfast": "завтрак",
     "breakfast included": "завтрак включен",
     "brown": "Браун, фамилия",
@@ -44,6 +46,7 @@
     "fifteen": "пятнадцать",
     "fifty": "пятьдесят",
     "floor": "этаж",
+    "for our records": "для учётных данных отеля",
     "front desk": "ресепшен",
     "guest": "гость",
     "hair dryer": "фен",
@@ -51,6 +54,8 @@
     "housekeeper": "горничная",
     "housekeeping": "служба уборки",
     "invoice": "счет для компании",
+    "in total": "в общей сложности",
+    "included": "включён в стоимость",
     "iron": "утюг",
     "key card": "карта-ключ",
     "key card holder": "конверт для карты",
@@ -71,12 +76,16 @@
     "overbooking": "сверхбронирование",
     "parking": "парковка",
     "passport": "паспорт",
+    "payment approved": "платёж одобрен",
+    "per night": "за ночь",
     "pillow": "подушка",
     "print receipt": "распечатать чек",
     "print the receipt": "распечатать чек",
     "quiet room": "тихий номер",
     "razor": "бритва",
     "receipt": "чек, квитанция",
+    "refundable deposit": "возвратный залог",
+    "registration form": "регистрационная форма",
     "receptionist": "администратор ресепшена",
     "recode the key card": "перекодировать карту-ключ",
     "remote control": "пульт",
@@ -86,14 +95,20 @@
     "room service": "обслуживание в номере",
     "safe": "сейф",
     "same-day laundry": "прачечная в тот же день",
+    "scan": "сканировать",
     "security guard": "охранник",
     "send housekeeping": "отправить уборку",
     "sheet": "простыня",
     "shampoo": "шампунь",
     "shower cap": "шапочка для душа",
+    "sign here": "подпишите здесь",
+    "signed the form": "подписал(а) форму",
     "socket": "розетка",
     "split bill": "разделить счет",
     "store luggage": "оставить багаж на хранение",
+    "store my luggage": "оставить мой багаж на хранение",
+    "tap my card": "приложить мою банковскую карту",
+    "technician": "техник",
     "tissue box": "салфетки",
     "toothbrush": "зубная щетка",
     "toothpaste": "зубная паста",
@@ -101,12 +116,14 @@
     "transfer": "трансфер",
     "upgrade": "апгрейд",
     "upgrade the room": "повысить категорию номера",
+    "within ten minutes": "в течение десяти минут",
     "waiter": "официант",
     "wake-up call": "звонок-будильник",
     "wi-fi password": "пароль от Wi-Fi"
   };
 
   let activeTerm = null;
+  let pinnedTerm = null;
   let popover = null;
 
   function normalize(value) {
@@ -155,9 +172,11 @@
   }
 
   function hide() {
+    if (activeTerm) activeTerm.removeAttribute('aria-describedby');
     if (popover) popover.remove();
     popover = null;
     activeTerm = null;
+    pinnedTerm = null;
   }
 
   function isLetter(value) {
@@ -186,7 +205,7 @@
         if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
         const parent = node.parentElement;
         if (!parent || parent.closest(".ls-glossary-term, [data-gloss]")) return NodeFilter.FILTER_REJECT;
-        if (parent.closest("script, style, textarea, input")) return NodeFilter.FILTER_REJECT;
+        if (parent.closest("script, style, textarea, input, svg, [hidden], [inert], .hidden-text")) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }
     });
@@ -215,6 +234,7 @@
   }
 
   function show(element) {
+    if (element.closest('[hidden], [inert], .hidden-text')) return;
     const text = translationFor(element);
     if (!text) return;
     ensureStyles();
@@ -222,6 +242,9 @@
     activeTerm = element;
     popover = document.createElement("div");
     popover.className = "ls-glossary-popover";
+    popover.id = 'langsage-glossary-tooltip';
+    popover.setAttribute('role', 'tooltip');
+    element.setAttribute('aria-describedby', popover.id);
     popover.textContent = text;
     document.body.appendChild(popover);
 
@@ -244,15 +267,24 @@
       element.dataset.glossaryReady = "true";
       element.classList.add("ls-glossary-term");
       if (!element.hasAttribute("tabindex")) element.tabIndex = 0;
-      element.addEventListener("mouseenter", () => show(element));
-      element.addEventListener("mouseleave", hide);
-      element.addEventListener("focus", () => show(element));
-      element.addEventListener("blur", hide);
+      element.addEventListener("mouseenter", () => { if (!pinnedTerm) show(element); });
+      element.addEventListener("mouseleave", () => { if (!pinnedTerm) hide(); });
+      element.addEventListener("focus", () => {
+        if (element.matches(':focus-visible')) show(element);
+      });
+      element.addEventListener("blur", () => { if (!pinnedTerm) hide(); });
       element.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if (activeTerm === element) hide();
-        else show(element);
+        if (pinnedTerm === element) hide();
+        else { show(element); pinnedTerm = element; }
+      });
+      element.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        event.stopPropagation();
+        if (pinnedTerm === element) hide();
+        else { show(element); pinnedTerm = element; }
       });
     });
   }
@@ -265,6 +297,7 @@
   document.addEventListener("click", (event) => {
     if (!event.target.closest("[data-gloss]")) hide();
   });
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') hide(); });
   window.addEventListener("scroll", hide, { passive: true });
   window.addEventListener("resize", hide);
 

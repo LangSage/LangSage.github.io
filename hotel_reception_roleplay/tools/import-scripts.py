@@ -7,6 +7,7 @@ Only scripts-data.json and audio/source-*.mp3 are written.
 """
 
 import argparse
+from practice_text import apply_practice_text, practice_text
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 import hashlib
@@ -317,6 +318,13 @@ def validate(data):
             for key, value in source_step.items():
                 if key != "audio" and step[key] != value:
                     raise ValueError(f"Source text or order changed: {step['id']} / {key}")
+            if step['kind'] == 'phrase':
+                expected_text = practice_text(step['text'])
+                if step.get('practiceText', step['text']) != expected_text:
+                    raise ValueError(f"Practice alternative changed: {step['id']}")
+                if step.get('audioStatus') == 'single-alternative':
+                    if step.get('speechText') != expected_text or step.get('speechTextSha256') != sha256(expected_text.encode('utf-8')):
+                        raise ValueError(f"Speech does not match the selected alternative: {step['id']}")
             if step["kind"] == "action":
                 if step["audio"] is not None:
                     raise ValueError("Action-only row has speech audio")
@@ -390,6 +398,7 @@ def main():
         "dictionaryProvenance": provenance, "sources": saved_sources,
         "fetchedAt": datetime.now(timezone.utc).isoformat(),
     }
+    apply_practice_text(data)
     (ROOT / "audio").mkdir(exist_ok=True)
     phrases = [s for lesson in lessons for s in lesson["steps"] if s["kind"] == "phrase"]
     print(f"Fetched canonical snapshots; downloading {len(phrases)} existing original MP3s...", flush=True)

@@ -1,4 +1,4 @@
-/* Verbatim, ordered script excerpts. The learner controls the camera role. */
+/* Ordered source-script excerpts, with one selected spoken alternative. */
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -22,7 +22,7 @@
   const wrongChoices=()=>review?reviewWrong:state().wrong.get(currentIndex())||new Set();
   const fresh=()=>({position:0,solved:new Set(),wrong:new Map()});
 
-  // Break at existing whitespace only. No sentence is rewritten or invented.
+  // Break only at existing whitespace in the selected source variant.
   function chunks(text) {
     const words=[...text.matchAll(/\S+/g)], result=[];
     for(let start=0;start<words.length;){
@@ -36,7 +36,7 @@
     return result;
   }
   function makeTasks(lesson){
-    return lesson.steps.filter(step=>/[A-Za-zА-Яа-яЁё]/.test(step.text)).flatMap(step=>chunks(normalize(step.text)).map((text,index,array)=>({
+    return lesson.steps.filter(step=>/[A-Za-zА-Яа-яЁё]/.test(step.text)).flatMap(step=>chunks(normalize(step.practiceText||step.text)).map((text,index,array)=>({
       id:`${step.id}:${index}`,step,text,part:index+1,parts:array.length
     })));
   }
@@ -85,10 +85,10 @@
     const fallback=()=>{
       if(version!==audioVersion||failed)return;failed=true;if(audio){audio.pause();audio=null;}
       if(!('speechSynthesis'in window)){$('audio-status').textContent='Аудио недоступно.';return;}
-      const utterance=new SpeechSynthesisUtterance(task.step.text);utterance.lang='en-GB';utterance.rate=slow?.75:.95;
+      const utterance=new SpeechSynthesisUtterance(task.step.practiceText||task.step.text);utterance.lang='en-GB';utterance.rate=slow?.75:.95;
       utterance.onstart=()=>{if(version===audioVersion)$('audio-status').textContent='Озвучка скрипта.';};speechSynthesis.speak(utterance);
     };
-    if(!task.step.audio){fallback();return;}
+    if(!task.step.audio||(task.step.practiceText&&task.step.speechText!==task.step.practiceText)){fallback();return;}
     const recording=new Audio(task.step.audio);audio=recording;recording.playbackRate=slow?.78:1;
     recording.onplaying=()=>{if(version===audioVersion)$('audio-status').textContent=slow?'Медленная озвучка скрипта.':'Озвучка скрипта.';};
     recording.onerror=fallback;recording.onended=()=>{if(version===audioVersion)audio=null;};recording.play().catch(fallback);
@@ -97,7 +97,7 @@
     $('feedback').className=`feedback${kind?' '+kind:''}`;$('feedback-icon').textContent=kind==='success'?'✓':kind==='error'?'↻':'';$('feedback-text').textContent=text;
   }
   function explain(task){
-    const context=brief(task.step.instruction),translation=brief(task.step.translation);
+    const context=brief(task.step.instruction),translation=brief(task.step.practiceTranslation||task.step.translation);
     if(context)return`Верно. ${context}${/[.!?]$/.test(context)?'':'.'}`;
     return translation.length<=180?`Верно. ${translation}`:'Верно: эта реплика продолжает исходный скрипт в нужном порядке.';
   }
@@ -153,7 +153,7 @@
       scene.react(true);const action=actionFor(task);if(action)scene.play(action,directionFor(task,action));if(sound&&task.step.kind!=='action')listen();
     }else{
       const wrong=wrongChoices();wrong.add(choice.id);if(!review)state().wrong.set(currentIndex(),wrong);
-      const context=brief(task.step.instruction||task.step.translation),other=brief(choice.step.instruction);
+      const context=brief(task.step.instruction||task.step.practiceTranslation||task.step.translation),other=brief(choice.step.instruction);
       const reason=other?'Это другой шаг: '+other.replace(/[.!?]+$/,'')+'.':'Эта реплика относится к другому шагу скрипта.';
       setFeedback('error',`${reason}${context?' Сейчас: '+context.replace(/[.!?]+$/,'')+'.':''} Попробуйте ещё раз.`);scene.react(false);
     }syncChoices();updateProgress();if(right)$('next').focus({preventScroll:true});
@@ -172,7 +172,7 @@
   function selectLesson(index){active=index;review=null;render(true);}
   $('next').addEventListener('click',next);$('listen').addEventListener('click',()=>listen());$('listen-slow').addEventListener('click',()=>listen(true));
   $('source-details').addEventListener('click',()=>{
-    const task=current();$('original-text').textContent=task.step.originalText||task.step.text;$('original-translation').textContent=task.step.translation||'';
+    const task=current();$('original-text').textContent=task.step.practiceText||task.step.originalText||task.step.text;$('original-translation').textContent=task.step.practiceTranslation||task.step.translation||'';
     $('original-notes').textContent=[task.step.instruction,task.step.notes].filter(Boolean).join(' ');$('original-source').href=lessons[active].sourceUrl;$('original-dialog').showModal();
   });
   $('close-original').addEventListener('click',()=>$('original-dialog').close());
@@ -194,7 +194,7 @@
   document.addEventListener('visibilitychange',()=>{if(document.hidden){stopAudio();scene.stop();}});window.addEventListener('pagehide',()=>{stopAudio();scene.stop();});
   async function load(){
     try{
-      const response=await fetch('scripts-data.json?v=2');if(!response.ok)throw Error('Script data unavailable');
+      const response=await fetch('scripts-data.json?v=3');if(!response.ok)throw Error('Script data unavailable');
       const data=await response.json();
       lessons=data.lessons.map(lesson=>({...lesson,tasks:makeTasks(lesson)})).filter(l=>l.tasks.length);if(!lessons.length)throw Error('No source scripts');
       for(const r of ['guest','receptionist'])progress[r]=lessons.map(fresh);

@@ -94,7 +94,7 @@
 
     .tabs {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 8px;
       margin: 12px 0;
     }
@@ -143,6 +143,14 @@
     }
 
     .art svg { width: 100%; height: 100%; min-height: 136px; display: block; }
+    .art img { display:block; width:100%; height:100%; max-height:200px; object-fit:cover; }
+    .result { padding:clamp(16px, 4vw, 36px); }
+    .result-score { font-size:clamp(32px, 7vw, 52px); font-weight:900; margin:.4rem 0; color:var(--brand-dark); }
+    .result label { display:block; font-weight:700; margin:1rem 0 .25rem; }
+    .result input { width:min(100%, 24rem); padding:.65rem; border:1px solid var(--line); border-radius:6px; font:inherit; }
+    .result-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:1rem; }
+    #quiz[hidden], #result[hidden], #art[hidden] { display:none; }
+    .btn:disabled { opacity:.55; cursor:default; }
 
     .tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 8px; }
     .tag {
@@ -311,7 +319,7 @@
       h1 { font-size: 21px; }
       .top { gap: 5px; margin-bottom: 5px; }
       .pill, .btn { min-height: 30px; padding: 5px 8px; font-size: 12px; }
-      .tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; margin: 6px 0; }
+      .tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin: 6px 0; }
       .tab { min-height: 36px; font-size: 10px; padding: 5px 2px; }
       .scene { padding: 8px; gap: 5px; }
       .tag-row { margin-bottom: 5px; }
@@ -322,11 +330,14 @@
       .target-text { font-size: 15px; line-height: 1.3; }
       .icon-btn { width: 28px; height: 28px; }
       .options { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 7px; }
+      .options.replies { grid-template-columns: minmax(0, 1fr); }
       .choice { min-height: 65px; grid-template-columns: 22px minmax(0, 1fr); padding: 7px; gap: 5px; }
       .emoji { width: 22px; height: 22px; font-size: 16px; }
       .en { font-size: 12px; line-height: 1.25; }
       .feedback { min-height: 60px; padding: 7px; margin: 0 7px 7px; font-size: 12px; }
       .nav { padding: 0 7px 7px; }
+      .art.with-photo { display:block; min-height:0; }
+      .art.with-photo img { height:clamp(65px, 20vw, 105px); object-position:center 43%; }
     }
     @media (max-width: 620px) and (max-height: 900px) {
       #receptionScene .reception-viewport { height: 140px; min-height: 140px; }
@@ -346,7 +357,7 @@
       <div class="score">
         <div class="pill"><span>Score</span><strong id="score">0</strong></div>
         <div class="pill"><span>Done</span><strong id="done">0</strong></div>
-        <button class="btn" id="resetBtn" type="button">Reset</button>
+        <button class="btn" id="resetBtn" type="button">Restart set</button>
       </div>
     </header>
 
@@ -356,9 +367,10 @@
       <button class="tab" type="button" data-mode="room">Room</button>
       <button class="tab" type="button" data-mode="bathroom">Bathroom</button>
       <button class="tab" type="button" data-mode="actions">Actions</button>
+      <button class="tab" type="button" data-mode="requests">Guest Requests</button>
     </nav>
 
-    <section class="stage" aria-live="polite">
+    <section class="stage" id="quiz">
       <div id="receptionScene" aria-hidden="true" hidden></div>
       <div class="scene">
         <div class="art" id="art"></div>
@@ -368,7 +380,7 @@
             <span class="tag" id="stepTag">1 / 10</span>
             <span class="tag" id="roleTag" hidden>You: receptionist</span>
           </div>
-          <h2 class="title" id="title">Staff</h2>
+          <h2 class="title" id="title" tabindex="-1">Staff</h2>
           <p class="prompt" id="prompt">Choose the correct card.</p>
           <div class="target">
             <p class="target-text"><span id="targetText">Who checks guests in?</span><span class="target-ru" id="targetRu">Кто заселяет гостей?</span></p>
@@ -382,18 +394,26 @@
       </div>
 
       <div class="options" id="options"></div>
-      <div class="feedback" id="feedback">Correct</div>
+      <div class="feedback" id="feedback" role="status"></div>
 
       <div class="nav">
-        <button class="btn" id="randomBtn" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"></path><path d="M4 20 21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg>
-          Random
-        </button>
-        <button class="btn primary" id="nextBtn" type="button">
-          Next
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-        </button>
+        <button class="btn primary" id="nextBtn" type="button" disabled>Next</button>
       </div>
+    </section>
+    <section class="stage result" id="result" aria-labelledby="resultTitle" hidden>
+      <h2 class="title" id="resultTitle" tabindex="-1"></h2>
+      <p class="result-score" id="finalScore"></p>
+      <p id="resultDetails"></p>
+      <p id="overallResult" hidden></p>
+      <p id="completedAt"></p>
+      <label for="studentName">Name for your result (optional)</label>
+      <input id="studentName" maxlength="80" autocomplete="name">
+      <p>Show this screen to your teacher, take a screenshot or copy the result.</p>
+      <div class="result-actions">
+        <button class="btn primary" type="button" id="copyResult">Copy result</button>
+        <button class="btn" type="button" id="nextSet">Next set</button>
+      </div>
+      <p id="copyStatus" role="status"></p>
     </section>
   </main>
 
@@ -471,9 +491,98 @@
       ]
     };
 
-    const scene = new ReceptionScene(document.getElementById('receptionScene'));
-    // Object-use questions are seen as a guest; service commands are staff work.
+    const guestCases = [
+      {
+        request: 'Room 406: “Could we have two clean towels, please?”',
+        roles: ['housekeeper', 'maintenance technician', 'bell attendant'],
+        replies: ['I’ll ask housekeeping to bring two towels to Room 406.', 'I’ll ask housekeeping to bring two pillows to Room 406.', 'I’ll ask someone to bring one towel to Room 604.'],
+        reason: 'The guest needs two towels in Room 406.'
+      },
+      {
+        request: 'Room 318: “The reading lamp won’t turn on.”',
+        roles: ['maintenance technician', 'concierge', 'restaurant supervisor'],
+        replies: ['I’ll ask our technician to check the lamp. When is a good time?', 'I’ll send you a new room key.', 'The lamp is fixed. You can use it now.'],
+        reason: 'Arrange a check and confirm when the technician can enter.'
+      },
+      {
+        request: 'Lobby: “Can someone bring our bags up to Room 212?”',
+        roles: ['bell attendant', 'security officer', 'housekeeper'],
+        replies: ['I’ll ask our bell attendant to help. How many bags do you have?', 'I’ll ask you to collect the bags from the restaurant.', 'I’ll send the bags to Room 221.'],
+        reason: 'Confirm the number of bags before handing over the request.'
+      },
+      {
+        request: 'Front desk: “It’s raining. Is there somewhere nearby to visit indoors?”',
+        roles: ['concierge', 'restaurant supervisor', 'maintenance technician'],
+        replies: ['Our concierge can suggest an indoor place. How much time do you have?', 'You can take a walk by the lake.', 'I’ll book a three-hour tour for you right away.'],
+        reason: 'Check how much time they have before suggesting a place.'
+      },
+      {
+        request: 'Room 520: “Someone keeps trying our door handle.”',
+        roles: ['security officer', 'bell attendant', 'concierge'],
+        replies: ['Please stay in your room. I’ll contact security now.', 'Please open the door and ask who it is.', 'Wait until morning and tell the next shift.'],
+        reason: 'Contact security promptly and keep the guest away from the possible threat.'
+      },
+      {
+        request: 'Restaurant: “Can our group of six get a high chair at 19:30?”',
+        roles: ['restaurant supervisor', 'housekeeper', 'maintenance technician'],
+        replies: ['I’ll check with the restaurant about a high chair for your table at 19:30.', 'Your table for three is confirmed for 18:30.', 'We can guarantee a high chair, even though I haven’t checked.'],
+        reason: 'Pass on the correct time and confirm availability before promising.'
+      }
+    ];
+
+    const jobIcons = {
+      housekeeper: '🧹', 'maintenance technician': '🔧', 'bell attendant': '🧳',
+      concierge: '🗺️', 'restaurant supervisor': '🍽️', 'security officer': '🛡️'
+    };
+    data.requests = guestCases.flatMap(({ request, roles, replies, reason }) => [
+      [request, '', roles[0], '', roles.map(role => [role, '', jobIcons[role]])],
+      [request, '', replies[0], '', replies.map(reply => [reply, '', '💬']), reason]
+    ]);
+
+    const $ = id => document.getElementById(id);
+    const tabs = [...document.querySelectorAll('.tab')];
+    const modes = tabs.map(tab => tab.dataset.mode);
+    const scene = new ReceptionScene($('receptionScene'));
     const deskRoles = { desk: 'guest', actions: 'receptionist' };
+    const photos = {
+      staff: ['hotel-crew.webp', 'Eight people working in a hotel'],
+      requests: ['hotel-lobby.webp', 'Guests and staff in a busy hotel lobby']
+    };
+    const storageKey = 'hotel-items-attempts-v2';
+    const state = { mode: 'staff', index: 0, answered: false, attempts: {}, name: '' };
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      for (const mode of modes) {
+        const attempt = saved.attempts?.[mode];
+        if (Array.isArray(attempt?.answers) && attempt.answers.length <= data[mode].length &&
+            attempt.answers.every(answer => typeof answer === 'boolean')) {
+          state.attempts[mode] = attempt;
+        }
+      }
+      if (modes.includes(saved.mode)) state.mode = saved.mode;
+      if (typeof saved.name === 'string') state.name = saved.name.slice(0, 80);
+    } catch { /* Practice still works when storage is unavailable. */ }
+
+    function items() { return data[state.mode]; }
+    function current() { return items()[state.index]; }
+    function attempt() { return state.attempts[state.mode] ??= { answers: [] }; }
+    function tabLabel(mode = state.mode) {
+      return tabs.find(tab => tab.dataset.mode === mode).textContent;
+    }
+
+    function save() {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({
+          mode: state.mode, attempts: state.attempts, name: state.name
+        }));
+      } catch { /* Keep the current attempt in memory. */ }
+    }
+
+    function updateCounters() {
+      const { answers } = attempt();
+      $('score').textContent = answers.filter(Boolean).length + ' / ' + items().length;
+      $('done').textContent = answers.length + ' / ' + items().length;
+    }
 
     function stopTaskMedia() {
       if ('speechSynthesis' in window) speechSynthesis.cancel();
@@ -494,79 +603,126 @@
       return null;
     }
 
-    const state = {
-      mode: 'staff',
-      index: 0,
-      answered: false,
-      score: Number(localStorage.getItem('hotel-items-score') || 0),
-      done: Number(localStorage.getItem('hotel-items-done') || 0)
-    };
-
-    const $ = (id) => document.getElementById(id);
-    const escapeHtml = (value) => String(value)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-
-    function items() { return data[state.mode]; }
-    function current() { return items()[state.index % items().length]; }
-
-    function save() {
-      localStorage.setItem('hotel-items-score', state.score);
-      localStorage.setItem('hotel-items-done', state.done);
-    }
-
-    function speak(text) {
-      if (!('speechSynthesis' in window)) return;
-      speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'en-GB';
-      u.rate = 0.86;
-      speechSynthesis.speak(u);
-    }
-
     function shuffle(list) {
-      return [...list].sort(() => Math.random() - 0.5);
+      const shuffled = [...list];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
     }
 
-    function render() {
-      stopTaskMedia();
-      const item = current();
-      state.answered = false;
+    function showResult(focus) {
+      const { answers, finishedAt } = attempt();
+      const correct = answers.filter(Boolean).length;
+      $('quiz').hidden = true;
+      $('result').hidden = false;
+      $('resultTitle').textContent = tabLabel() + ' · Result';
+      $('finalScore').textContent = correct + ' / ' + items().length + ' correct';
+      if (state.mode === 'requests') {
+        const roles = answers.filter((ok, i) => ok && i % 2 === 0).length;
+        const replies = correct - roles;
+        $('resultDetails').textContent = 'Staff choices: ' + roles + ' / ' + guestCases.length +
+          ' · Guest replies: ' + replies + ' / ' + guestCases.length;
+      } else {
+        $('resultDetails').textContent = Math.round(correct / items().length * 100) + '%';
+      }
+      const date = new Date(finishedAt);
+      $('completedAt').textContent = Number.isFinite(date.getTime()) ? date.toLocaleString() : '';
+      $('studentName').value = state.name;
+      $('copyStatus').textContent = '';
+      const next = modes.find(mode => state.attempts[mode]?.answers.length !== data[mode].length);
+      $('nextSet').hidden = !next;
+      $('overallResult').hidden = Boolean(next);
+      if (!next) {
+        const allAnswers = modes.flatMap(mode => state.attempts[mode].answers);
+        $('overallResult').textContent = 'All six sets: ' + allAnswers.filter(Boolean).length +
+          ' / ' + allAnswers.length + ' correct';
+      }
+      if (next) {
+        $('nextSet').textContent = 'Next: ' + tabLabel(next);
+        $('nextSet').onclick = () => selectMode(next, true);
+      }
+      if (focus) $('resultTitle').focus();
+    }
+
+    function renderScene() {
       const role = deskRoles[state.mode];
+      const photo = photos[state.mode];
+      const artBox = $('art');
       $('receptionScene').hidden = !role;
       document.querySelector('.scene').classList.toggle('desk-scene', Boolean(role));
       $('roleTag').hidden = !role;
+      artBox.hidden = Boolean(role);
+      artBox.classList.toggle('with-photo', Boolean(photo));
       if (role) {
         scene.set({ role, person: 0, mood: 'neutral' });
-        $('roleTag').textContent = `You: ${role}`;
-        $('art').innerHTML = '';
+        $('roleTag').textContent = 'You: ' + role;
+        artBox.replaceChildren();
+      } else if (photo) {
+        if (artBox.dataset.photo !== photo[0]) {
+          const image = new Image();
+          image.src = photo[0];
+          image.alt = photo[1];
+          image.decoding = 'async';
+          artBox.replaceChildren(image);
+        }
       } else {
-        $('art').innerHTML = art[state.mode];
+        artBox.innerHTML = art[state.mode];
       }
-      $('modeTag').textContent = document.querySelector(`.tab[data-mode="${state.mode}"]`).textContent;
-      $('stepTag').textContent = `${state.index + 1} / ${items().length}`;
-      $('title').textContent = document.querySelector(`.tab[data-mode="${state.mode}"]`).textContent;
-      $('prompt').textContent = 'Choose the correct card.';
+      artBox.dataset.photo = photo?.[0] || '';
+    }
+
+    function render(focus = false) {
+      stopTaskMedia();
+      state.index = attempt().answers.length;
+      updateCounters();
+      if (state.index === items().length) {
+        showResult(focus);
+        return;
+      }
+      $('result').hidden = true;
+      $('quiz').hidden = false;
+      const item = current();
+      const isRequest = state.mode === 'requests';
+      const isReply = isRequest && state.index % 2 === 1;
+      state.answered = false;
+      renderScene();
+      $('modeTag').textContent = tabLabel();
+      $('stepTag').textContent = isRequest
+        ? 'Case ' + (Math.floor(state.index / 2) + 1) + ' / ' + guestCases.length + ' · Step ' + (state.index % 2 + 1) + ' / 2'
+        : (state.index + 1) + ' / ' + items().length;
+      $('title').textContent = isRequest ? (isReply ? 'What would you say?' : 'Who should help?') : tabLabel();
+      $('prompt').textContent = isRequest
+        ? (isReply ? 'Choose the clearest reply to the guest.' : 'Choose the colleague who can handle this request.')
+        : 'Choose the correct card.';
       $('targetText').textContent = item[0];
       window.LangSageGlossary?.decorate($('targetText'));
-      $('targetRu').textContent = item[3];
-      $('score').textContent = state.score;
-      $('done').textContent = state.done;
+      $('targetRu').textContent = item[1];
       $('feedback').className = 'feedback';
-      $('options').innerHTML = '';
+      $('feedback').textContent = '';
+      $('nextBtn').disabled = true;
+      $('nextBtn').textContent = 'Next';
+      $('options').classList.toggle('replies', isReply);
+      $('options').replaceChildren();
 
-      shuffle(item[4]).forEach((option) => {
+      for (const [word, , icon] of shuffle(item[4])) {
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'choice';
-        button.dataset.correct = option[0] === item[2] ? 'true' : 'false';
-        button.innerHTML = `<span class="emoji">${escapeHtml(option[2])}</span><span><span class="en">${escapeHtml(option[0])}</span><span class="ru">${escapeHtml(option[1])}</span></span>`;
+        button.dataset.correct = String(word === item[2]);
+        const emoji = document.createElement('span');
+        emoji.className = 'emoji';
+        emoji.setAttribute('aria-hidden', 'true');
+        emoji.textContent = icon;
+        const label = document.createElement('span');
+        label.className = 'en';
+        label.textContent = word;
+        button.append(emoji, label);
         button.addEventListener('click', () => answer(button));
         $('options').appendChild(button);
-      });
+      }
+      if (focus) $('title').focus();
     }
 
     function answer(button) {
@@ -576,53 +732,79 @@
       stopTaskMedia();
       if (deskRoles[state.mode]) {
         scene.react(correct);
-        if (correct) {
-          const action = responseAction(current()[2]);
-          if (action) scene.play(action);
-        }
+        const action = correct && responseAction(current()[2]);
+        if (action) scene.play(action);
       }
-      [...document.querySelectorAll('.choice')].forEach((card) => {
+      for (const card of document.querySelectorAll('.choice')) {
         card.disabled = true;
         if (card.dataset.correct === 'true') card.classList.add('correct');
-      });
-      button.classList.add(correct ? 'correct' : 'wrong');
-      state.done += 1;
-      if (correct) state.score += 10;
+      }
+      if (!correct) button.classList.add('wrong');
+      const progress = attempt();
+      progress.answers.push(correct);
+      const complete = progress.answers.length === items().length;
+      if (complete) progress.finishedAt = new Date().toISOString();
       save();
-      $('score').textContent = state.score;
-      $('done').textContent = state.done;
-      $('feedback').textContent = correct ? 'Correct' : `Correct: ${current()[2]}`;
-      $('feedback').className = `feedback show ${correct ? 'good' : 'bad'}`;
+      updateCounters();
+      const feedback = correct ? 'Correct.' : 'Correct answer: ' + current()[2];
+      $('feedback').textContent = [feedback, current()[5]].filter(Boolean).join(' ');
+      $('feedback').className = 'feedback show ' + (correct ? 'good' : 'bad');
+      $('nextBtn').disabled = false;
+      $('nextBtn').textContent = complete ? 'See result' : 'Next';
+      $('nextBtn').focus({ preventScroll: true });
     }
 
-    document.querySelectorAll('.tab').forEach((tab) => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach((x) => x.classList.remove('active'));
-        tab.classList.add('active');
-        state.mode = tab.dataset.mode;
-        state.index = 0;
-        render();
-      });
-    });
+    function selectMode(mode, focus = false) {
+      state.mode = mode;
+      for (const tab of tabs) {
+        const active = tab.dataset.mode === mode;
+        tab.classList.toggle('active', active);
+        tab.setAttribute('aria-pressed', String(active));
+      }
+      save();
+      render(focus);
+    }
 
-    $('speakBtn').addEventListener('click', () => speak(current()[0]));
-    $('nextBtn').addEventListener('click', () => {
-      state.index = (state.index + 1) % items().length;
-      render();
+    for (const tab of tabs) {
+      tab.addEventListener('click', () => selectMode(tab.dataset.mode));
+    }
+    $('speakBtn').addEventListener('click', () => {
+      if (!('speechSynthesis' in window) || !current()) return;
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(current()[0]);
+      utterance.lang = 'en-GB';
+      utterance.rate = 0.86;
+      speechSynthesis.speak(utterance);
     });
-    $('randomBtn').addEventListener('click', () => {
-      state.index = Math.floor(Math.random() * items().length);
-      render();
+    $('nextBtn').addEventListener('click', () => {
+      if (state.answered) render(true);
     });
     $('resetBtn').addEventListener('click', () => {
-      state.score = 0;
-      state.done = 0;
+      if (attempt().answers.length && !window.confirm('Restart this set and clear its current result?')) return;
+      state.attempts[state.mode] = { answers: [] };
       save();
-      render();
+      render(true);
+    });
+    $('studentName').addEventListener('input', event => {
+      state.name = event.target.value;
+      save();
+    });
+    $('copyResult').addEventListener('click', async () => {
+      const lines = [
+        'Hotel Staff & Items · ' + tabLabel(), state.name.trim(),
+        $('finalScore').textContent, $('resultDetails').textContent,
+        $('overallResult').hidden ? '' : $('overallResult').textContent, $('completedAt').textContent
+      ].filter(Boolean);
+      try {
+        await navigator.clipboard.writeText(lines.join('\n'));
+        $('copyStatus').textContent = 'Result copied.';
+      } catch {
+        $('copyStatus').textContent = 'Take a screenshot or show this result to your teacher.';
+      }
     });
 
     window.addEventListener('pagehide', stopTaskMedia);
-    render();
+    selectMode(state.mode);
   </script>
 </body>
 </html>
